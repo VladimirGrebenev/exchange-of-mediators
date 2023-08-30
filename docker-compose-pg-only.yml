@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:15.4-alpine
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  postgres_data:
