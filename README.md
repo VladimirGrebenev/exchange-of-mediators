@@ -1,6 +1,25 @@
 # website-of-mediators
 From developers to mediators with love :)
 
+### Стэк:
+- python 3.11
+- django 4.2.*
+
+
+# Setup 
+- Создайте .env файл и внесите в него переменные окружения (если требуется).
+```bash
+nano .env
+```
+- Накатите миграции
+```bash
+python3 manage.py migrate
+```
+- Запустите проект
+```bash
+python3 manage.py runserver
+```
+
 ### Правила работы с git'om
 Все коммиты, сообщения к ним и комментарии в коде СТРОГО на английском языке.
 Есть 2 ветки:

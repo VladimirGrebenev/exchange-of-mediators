@@ -4,12 +4,11 @@ from dotenv import load_dotenv
 
 # Dirs
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / '../.env')
+load_dotenv(BASE_DIR.parent / '.env')
 
 SECRET_KEY = 'django-insecure-761_!a*22u-1r4c5l&xupo&@kpz)j5bs1xaq5mk#^xvg6_ta44'
 
 DEBUG = os.getenv('DJANGO_DEBUG', True)
-
 ALLOWED_HOSTS = []
 
 if DEBUG:
@@ -45,7 +44,7 @@ ROOT_URLCONF = 'mediators_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [os.path.join(BASE_DIR, "/templates")],
+        "DIRS": [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,7 +110,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_DIR = os.path.join(BASE_DIR, '../static')
+
+STATIC_DIR = BASE_DIR / 'static'
+# STATIC_ROOT = os.path.join(BASE_DIR, '')
 
 STATICFILES_DIRS = [
     STATIC_DIR,
