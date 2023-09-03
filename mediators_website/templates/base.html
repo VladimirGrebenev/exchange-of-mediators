@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="ru">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="медиатор, конфликт, внесудебное урегулирование конфликтов">
+<meta name="description"
+      content="медиаторы - внесудебное урегулирование конфликтов">
+<meta name="CreativeLayers" content="ATFN">
+<!-- css file -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/ace-responsive-menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+<link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-select.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+<link rel="stylesheet" href="{% static 'css/slider.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/ud-custom-spacing.css' %}">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<!-- Title -->
+<title>
+  {% block title %}
+  Решала - портал медиаторов для внесудебного урегулирования конфликтов
+  {% endblock title %}
+</title>
+<!-- Favicon -->
+<link href="{% static 'images/favicon.ico" sizes="128x128" rel="shortcut icon" type="image/x-icon' %}" />
+<link href="{% static 'images/favicon.ico" sizes="128x128" rel="shortcut icon' %}" />
+<!-- Apple Touch Icon -->
+<link href="{% static 'images/apple-touch-icon-60x60.png" sizes="60x60" rel="apple-touch-icon' %}">
+<link href="{% static 'images/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon' %}">
+<link href="{% static 'images/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon' %}">
+<link href="{% static 'images/apple-touch-icon-180x180.png" sizes="180x180" rel="apple-touch-icon' %}">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+<div class="wrapper ovh">
+  <div class="preloader"></div>
+
+  <!-- Main Header Nav -->
+  {% include 'includes/main-header-nav.html' %}
+
+  <!-- Search Modal -->
+  {% include 'includes/search-modal.html' %}
+
+
+  <!-- Mobile Nav  -->
+  {% include 'includes/mobile-nav.html' %}
+
+  <div class="body_content">
+    {% block content %}
+    <!-- Content here  -->
+    {% endblock content %}
+  </div>
+</div>
+<!-- Wrapper End -->
+<script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+<script src="{% static 'js/jquery-migrate-3.0.0.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.mmenu.all.js' %}"></script>
+<script src="{% static 'js/ace-responsive-menu.js' %}"></script>
+<script src="{% static 'js/jquery-scrolltofixed-min.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/owl.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.js' %}"></script>
+<script src="{% static 'js/isotop.js' %}"></script>
+<!-- Custom script for all pages -->
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
