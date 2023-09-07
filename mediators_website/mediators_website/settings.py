@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 # Dirs
@@ -24,6 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # other
+    "django_bootstrap5",
 
     # mediators
     'user',
@@ -105,6 +110,10 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+LOGIN_URL = reverse_lazy('index')
+LOGOUT_URL = reverse_lazy('index')
+SUCCESS_LOGIN_URL = reverse_lazy('dashboard')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
