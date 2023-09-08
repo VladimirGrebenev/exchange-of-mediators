@@ -16,9 +16,12 @@ class SignupView(FormView):
         response = super().form_valid(form)
         user = form.save(commit=False)
         if form.cleaned_data.get('role') == 'mediator':
-            mediators_group, _ = Group.objects.get_or_create(name='mediator')
-            mediators_group.save()
-            user.groups.set([mediators_group])
+            group_name = 'mediator'
+        else:
+            group_name = 'user'
+
+        new_group, _ = Group.objects.get_or_create(name=group_name)
+        user.groups.set([new_group])
         user.save()
         auth_login(self.request, user)
         return response
