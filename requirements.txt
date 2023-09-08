@@ -3,3 +3,4 @@ Django==4.2.4
 python-dotenv==1.0.0
 sqlparse==0.4.4
 flake8==6.1.0
+django_bootstrap5==23.3.*
