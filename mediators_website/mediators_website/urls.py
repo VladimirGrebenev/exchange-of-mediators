@@ -21,11 +21,6 @@ urlpatterns = [
             template_name='page-contact.html'),
         name='contacts'),
     path(
-        'login/',
-        TemplateView.as_view(
-            template_name='page-login.html'),
-        name='login'),
-    path(
         'error/',
         TemplateView.as_view(
             template_name='page-error.html'),
@@ -94,12 +89,6 @@ urlpatterns = [
             template_name='page-contact.html'),
         name='contacts'
     ),
-    path('login/',
-         TemplateView.as_view(
-             template_name='page-login.html'
-         ),
-         name='login'
-         ),
     path(
         'error/',
         TemplateView.as_view(
