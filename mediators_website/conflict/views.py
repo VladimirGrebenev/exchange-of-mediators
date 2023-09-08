@@ -1,13 +1,5 @@
-# from django.shortcuts import render
-#
-#
-# def appeal(request):
-#     return render(request, 'appeal.html')
-
 from django.views.generic import TemplateView
 from .forms import ConflictForm, ConflictFileForm
-from django.views.decorators import csrf
-from django.views.decorators.csrf import csrf_protect
 
 
 class ConflictView(TemplateView):

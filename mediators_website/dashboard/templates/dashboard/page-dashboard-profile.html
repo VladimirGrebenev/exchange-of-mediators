@@ -1,4 +1,4 @@
-{% extends 'base-dashboard.html' %}
+{% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
 {% block dash-content %}
@@ -23,7 +23,7 @@
                     <div class="profile-box d-sm-flex align-items-center mb30">
                         <div class="profile-img mb20-sm">
                             <img class="w-100 rounded-circle wa-xs"
-                                 src="images/team/fl-1.png" alt="">
+                                 src="{% static 'images/team/fl-1.png' %}" alt="">
                         </div>
                         <div class="profile-content ml20 ml0-xs">
                             <div class="d-flex align-items-center my-3">
@@ -236,7 +236,7 @@
                             <div class="col-md-12">
                                 <div class="text-start">
                                     <a class="ud-btn btn-thm"
-                                       href="page-contact.html">Save<i
+                                       href="/templates/page-contact.html">Save<i
                                             class="fal fa-arrow-right-long"></i></a>
                                 </div>
                             </div>
@@ -338,7 +338,7 @@
                                 <div class="col-md-12">
                                     <div class="text-start">
                                         <a class="ud-btn btn-thm"
-                                           href="page-contact.html">Save<i
+                                           href="/templates/page-contact.html">Save<i
                                                 class="fal fa-arrow-right-long"></i></a>
                                     </div>
                                 </div>
@@ -590,7 +590,7 @@
                                 <div class="col-md-12">
                                     <div class="text-start">
                                         <a class="ud-btn btn-thm"
-                                           href="page-contact.html">Change
+                                           href="/templates/page-contact.html">Change
                                             Password<i
                                                     class="fal fa-arrow-right-long"></i></a>
                                     </div>
@@ -624,7 +624,7 @@
                                     </div>
                                     <div class="text-start">
                                         <a class="ud-btn btn-thm"
-                                           href="page-contact.html">Change
+                                           href="/templates/page-contact.html">Change
                                             Password<i
                                                     class="fal fa-arrow-right-long"></i></a>
                                     </div>

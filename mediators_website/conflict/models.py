@@ -1,10 +1,7 @@
 from uuid import uuid4
 
-from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-from user.models import User
 
 USERS = [(1, _("Иванов")),
          (2, _("Петров")),
