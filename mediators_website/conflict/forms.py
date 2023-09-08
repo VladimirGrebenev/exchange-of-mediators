@@ -1,5 +1,6 @@
 from django import forms
 
+from user.models import Document
 from . import models as conflict_appeal_models
 
 
@@ -7,10 +8,9 @@ class ConflictForm(forms.ModelForm):
     """ form for entering a request """
 
     def __init__(self, *args, user=None, **kwargs):
-        ret = super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if user:
             self.fields["user"].initial = user.pk
-        return ret
 
     class Meta:
         """ visible form fields """
@@ -30,14 +30,13 @@ class ConflictFileForm(forms.Form):
     """ file entry form """
 
     def __init__(self, *args, conflict=None, **kwargs):
-        ret = super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if conflict:
             self.fields["appeal"].initial = conflict.pk
-        return ret
 
     class Meta:
         """ visible form fields """
-        model = conflict_appeal_models.Document
+        model = Document
         fields = ('user', 'conflict', 'type', 'file_path', 'file_as_visible', )
         widgets = {
             "appeal": forms.HiddenInput(),

@@ -1,6 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.urls import include, path
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -10,11 +12,6 @@ urlpatterns = [
         TemplateView.as_view(
             template_name='page-about.html'),
         name='mediators'),
-    path(
-        'dashboard/',
-        TemplateView.as_view(
-            template_name='page-dashboard.html'),
-        name='dashboard'),
     path(
         'contacts/',
         TemplateView.as_view(
@@ -36,82 +33,19 @@ urlpatterns = [
             template_name='page-terms.html'),
         name='terms'),
     path(
-        'dashboard-create-project/',
-        TemplateView.as_view(
-            template_name='page-dashboard-create-project.html'),
-        name='dashboard-create-project'
-    ),
-    path(
-        'dashboard-invoice/',
-        TemplateView.as_view(
-            template_name='page-dashboard-invoice.html'),
-        name='dashboard-invoice'
-    ),
-    path(
-        'dashboard-manage-jobs/',
-        TemplateView.as_view(
-            template_name='page-dashboard-manage-jobs.html'),
-        name='dashboard-manage-jobs'
-    ),
-    path(
-        'dashboard-message/',
-        TemplateView.as_view(
-            template_name='page-dashboard-message.html'),
-        name='dashboard-message'
-    ),
-    path(
-        'dashboard-payouts/',
-        TemplateView.as_view(
-            template_name='page-dashboard-payouts.html'),
-        name='dashboard-payouts'
-    ),
-    path(
-        'dashboard-profile/',
-        TemplateView.as_view(
-            template_name='page-dashboard-profile.html'),
-        name='dashboard-profile'),
-    path(
         'mediators/',
         TemplateView.as_view(
             template_name='page-about.html'),
         name='mediators'
     ),
-    path(
-        'dashboard/',
-        TemplateView.as_view(
-            template_name='page-dashboard.html'
-        ),
-        name='dashboard'
-    ),
-    path(
-        'contacts/',
-        TemplateView.as_view(
-            template_name='page-contact.html'),
-        name='contacts'
-    ),
-    path(
-        'error/',
-        TemplateView.as_view(
-            template_name='page-error.html'
-        ),
-        name='error'
-    ),
-    path(
-        'faq/',
-        TemplateView.as_view(
-            template_name='page-faq.html'),
-        name='faq'
-    ),
-    path(
-        'terms/',
-        TemplateView.as_view(
-            template_name='page-terms.html'),
-        name='terms'
-    ),
     path("users/", include("user.urls", namespace="users")),
     path("signing/", include("signing.urls", namespace="signing")),
     path("conflict/", include("conflict.urls", namespace="conflict")),
-    # path('conflict/', TemplateView.as_view(
-    #     template_name='conflict.html'),
-    #     name='conflict'),
+    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]

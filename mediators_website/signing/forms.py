@@ -1,4 +1,5 @@
-from django.forms import ModelForm, CharField, PasswordInput
+from django.forms import ModelForm, CharField, PasswordInput, ChoiceField, RadioSelect
+from django.utils.translation import gettext_lazy as _
 
 from user.models import User
 
@@ -9,17 +10,19 @@ class UserRegisterForm(ModelForm):
     password1 = CharField(
         widget=PasswordInput,
         max_length=128,
-        label="Password",
+        label=_("Пароль"),
         required=True,
     )
 
     password2 = CharField(
         widget=PasswordInput,
         max_length=128,
-        label="Password (again)",
+        label=_("Ещё раз пароль"),
         required=True,
-        help_text="Passwords should be same.",
+        help_text=_("Пароли должны совпадать"),
     )
+
+    role = ChoiceField(choices=[('client', 'Клиент'), ('mediator', 'Медиатор')], widget=RadioSelect)
 
     class Meta:
         model = User
@@ -31,7 +34,7 @@ class UserRegisterForm(ModelForm):
         password2 = cleaned_data.get(self.password2_field_name)
         if password1 and password1 != password2:
             self.add_error(
-                "password2", "You must type the same password each time.")
+                "password2", _("Пароли не совпадают"))
         return cleaned_data
 
     def save(self, *args, **kwargs):

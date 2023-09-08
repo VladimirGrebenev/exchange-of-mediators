@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_htmx %}
 
 <!DOCTYPE html>
 <html dir="ltr" lang="ru">
@@ -25,6 +26,8 @@
 <link rel="stylesheet" href="{% static 'css/dashbord_navitaion.css' %}">
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<script src="{% static 'libraries/htmx/htmx.min.js' %}" defer></script>
+{% django_htmx_script %}
 <!-- Title -->
 <title>
   {% block title %}

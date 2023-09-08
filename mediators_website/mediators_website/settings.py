@@ -13,9 +13,6 @@ SECRET_KEY = 'django-insecure-761_!a*22u-1r4c5l&xupo&@kpz)j5bs1xaq5mk#^xvg6_ta44
 DEBUG = os.getenv('DJANGO_DEBUG', True)
 ALLOWED_HOSTS = []
 
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -29,11 +26,14 @@ INSTALLED_APPS = [
 
     # other
     "django_bootstrap5",
+    'debug_toolbar',
+    "django_htmx",
 
     # mediators
     'user',
     'signing',
     'conflict',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -44,7 +44,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
+    "utils.middleware.AttachUserGroupsMiddleware"
 ]
+
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+
+    INTERNAL_IPS = [
+        '127.0.0.1',
+        'localhost',
+    ]
+
 
 ROOT_URLCONF = 'mediators_website.urls'
 TEMPLATES = [
@@ -64,6 +78,9 @@ TEMPLATES = [
 ]
 
 AUTH_USER_MODEL = "user.User"
+AUTHENTICATION_BACKENDS = [
+    "utils.backends.EmailBackend"
+]
 
 WSGI_APPLICATION = 'mediators_website.wsgi.application'
 
@@ -111,10 +128,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = reverse_lazy("signing:login")
 
-LOGIN_URL = reverse_lazy('index')
-LOGOUT_URL = reverse_lazy('index')
-SUCCESS_LOGIN_URL = reverse_lazy('dashboard')
+LOGIN_REDIRECT_URL = reverse_lazy("dashboard:dashboard")
+
+LOGOUT_REDIRECT_URL = reverse_lazy("signing:login")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

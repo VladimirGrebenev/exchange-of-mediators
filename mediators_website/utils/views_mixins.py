@@ -1,7 +1,5 @@
 from django.conf import settings
-from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.forms import Form
 from django.shortcuts import redirect
 
 
@@ -19,26 +17,15 @@ class PermissionByGroupMixin(UserPassesTestMixin):
         return result or user.is_superuser
 
     def handle_no_permission(self):
-        return redirect(settings.SUCCESS_LOGIN_URL)
-
-
-class FormValidMessageMixin:
-    """
-         Added success message to request (for example: "Successful authorization")
-    """
-    success_message = ""
-
-    def form_valid(self, form, *args, **kwargs):
-        response = super().form_valid(form, *args, **kwargs)
-        success_message = self.get_success_message(form)
-        messages.success(self.request, success_message)
-        return response
-
-    def get_success_message(self, form: Form):
-        return self.success_message
+        return redirect(settings.LOGIN_REDIRECT_URL)
 
 
 class NextPageMixin:
+    """
+        Redirect mixin. U can use it with query_para next like:
+        '{% url 'create_profile' pk=pk %}?next={% url 'dashboard:dashboard' %}'
+    """
+
     @property
     def success_url(self):
         return self.request.GET.get('next') or self.request.path

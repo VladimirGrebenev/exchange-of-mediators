@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Documents, Document_types, Documents_conflicts
+from .models import Documents
 
 
 class UserForm(UserCreationForm):
@@ -14,22 +14,8 @@ class UserForm(UserCreationForm):
         fields = ('username', 'firstname', 'lastname', 'password1', 'password2')
 
 
-class Documents_conflictsForm(ModelForm):
-    """Форма привязки документа к конфликту"""
-    class Meta:
-        model = Documents_conflicts
-        fields = ('document_id', 'conflict_id')
-
-
 class DocumentsForm(ModelForm):
     """Форма документов(файлов)"""
     class Meta:
         model = Documents
-        fields = ('user_id', 'type_id', 'file_path', 'is_all_visible')
-
-
-class Document_typesForm(ModelForm):
-    """Форма типов файлов"""
-    class Meta:
-        model = Document_types
-        fields = ('title',)
+        fields = ('user', 'type', 'file_path', 'is_all_visible')

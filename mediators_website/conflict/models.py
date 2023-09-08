@@ -72,25 +72,6 @@ class Conflict(models.Model):
         self.save()
 
     class Meta:
-        verbose_name = _("Appeal")
-        verbose_name_plural = _("Appeal")
+        verbose_name = _("Conflict")
+        verbose_name_plural = _("Conflict")
         ordering = ("-created",)
-
-
-class Document(models.Model):  # document
-    """ class for uploading documents """
-    id = models.UUIDField(primary_key=True, default=uuid4)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE,
-    #                          related_name='documents')
-    user = models.CharField(max_length=250, choices=USERS,
-                            default='by appointment')
-    conflict = models.ForeignKey(Conflict, on_delete=models.CASCADE,
-                                 related_name='files')
-    type = models.ForeignKey(DocumentType, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True,
-                                   editable=False)
-    updated = models.DateTimeField(auto_now=True,
-                                   editable=False)
-    file_as_visible = models.BooleanField(default=False,
-                                          verbose_name="As visible")
-    file_path = models.FileField(upload_to=user_directory_path)
