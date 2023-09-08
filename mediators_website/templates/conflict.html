@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+ <section class="bgc-dark pb90 pb30-md">
+      <div class="container">
+        <div class="row align-items-center wow fadeInUp">
+          <div class="col-lg-9">
+            <div class="main-title">
+              <h2 class="title text-white">Обращение</h2>
+              <p class="paragraph text-white"> {{text}}</p>
+                <button class="ud-btn btn-thm4 bdrs12"
+                        type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="collapseTwo">Добавить документ
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+ </section>
+
+{% include 'includes/our-footer.html' %}
+
+{% endblock content %}

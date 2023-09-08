@@ -121,4 +121,8 @@ urlpatterns = [
     ),
     path("users/", include("user.urls", namespace="users")),
     path("signing/", include("signing.urls", namespace="signing")),
+    path("conflict/", include("conflict.urls", namespace="conflict")),
+    # path('conflict/', TemplateView.as_view(
+    #     template_name='conflict.html'),
+    #     name='conflict'),
 ]
