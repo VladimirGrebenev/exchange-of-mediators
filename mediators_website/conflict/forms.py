@@ -1,43 +1,42 @@
 from django import forms
 
-from user.models import Document
-from . import models as conflict_appeal_models
+from conflict.models import Document, Conflict
 
 
 class ConflictForm(forms.ModelForm):
-    """ form for entering a request """
 
-    def __init__(self, *args, user=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        if user:
-            self.fields["user"].initial = user.pk
+    def __init__(self, user, **kwargs):
+        super().__init__(**kwargs)
+        self.initial['creator'] = user
 
     class Meta:
-        """ visible form fields """
-        model = conflict_appeal_models.Conflict
-        fields = ('title', 'status', 'creator', 'respondent', 'description',
-                  'description_as_visible', 'concluded_contract',
-                  'personal_data_processed', 'respect_confidentiality',
-                  'mediator', )
-        # fields = '__all__'
+        model = Conflict
+        fields = (
+            "title",
+            "status",
+            "mediator",
+            "creator",
+            "description",
+            "is_all_visible",
+        )
         widgets = {
-            "user": forms.HiddenInput(),
+            "creator": forms.HiddenInput,
         }
 
 
-class ConflictFileForm(forms.Form):
-    # не совсем понимаю, связан ли файл с юзером.
-    """ file entry form """
+class DocumentForm(forms.ModelForm):
 
-    def __init__(self, *args, conflict=None, **kwargs):
-        super().__init__(*args, **kwargs)
-        if conflict:
-            self.fields["appeal"].initial = conflict.pk
+    def __init__(self, user, **kwargs):
+        super().__init__(**kwargs)
+        self.initial['user'] = user
 
     class Meta:
-        """ visible form fields """
         model = Document
-        fields = ('user', 'conflict', 'type', 'file_path', 'file_as_visible', )
+        fields = (
+            "file_path",
+            "user",
+            "is_all_visible",
+        )
         widgets = {
-            "appeal": forms.HiddenInput(),
+            "user": forms.HiddenInput,
         }

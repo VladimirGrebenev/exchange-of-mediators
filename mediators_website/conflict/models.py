@@ -1,12 +1,10 @@
+import uuid
 from uuid import uuid4
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-USERS = [(1, _("Иванов")),
-         (2, _("Петров")),
-         (3, _("Сидоров")),
-         ]  # Заглушка
+from user.models import User, NULLABLE
 
 
 def user_directory_path(instance, filename):
@@ -16,46 +14,36 @@ def user_directory_path(instance, filename):
     return "user_{0}/{1}".format(instance.user.id, filename)
 
 
-class DocumentType(models.Model):
-    title = models.CharField(max_length=150)
-
-    def __str__(self):
-        return self.title
+class Status(models.TextChoices):
+    IN_PROCESS = 'В работе'
+    CLOSED = 'Завершен'
+    NEW = 'Новый'
+    DRAFT = 'Черновик'
 
 
 class Conflict(models.Model):
     """ class for creating a request """
 
-    class Status(models.TextChoices):
-        ACTIVE = 'active'
-        CLOSED = 'closed'
-
     id = models.UUIDField(primary_key=True, default=uuid4)
-    title = models.CharField(max_length=256, verbose_name="Title")
-    status = models.TextField(choices=Status.choices, default=Status.ACTIVE)
-    # creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE,
-    #                             verbose_name=_("Applicant"))
-    # respondent = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,
-    #                                related_name='defendant')
-    creator = models.CharField(max_length=250, choices=USERS,
-                               default='by appointment')
-    respondent = models.CharField(max_length=250, choices=USERS,
-                                  default='by appointment')
-    description = models.TextField(blank=True, null=True,
-                                   verbose_name="Description")
-    description_as_visible = models.BooleanField(default=False,
-                                                 verbose_name="As visible")
+    title = models.CharField(max_length=256, verbose_name=_("Заголовок"))
+    status = models.TextField(choices=Status.choices, default=Status.DRAFT)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE,
+                                verbose_name=_("Заявитель"), related_name='created_conflicts')
 
-    concluded_contract = models.BooleanField(default=False,
-                                             verbose_name="Signed contract")
-    personal_data_processed = models.BooleanField(default=False,
-                                                  verbose_name="Permission to process data")
-    respect_confidentiality = models.BooleanField(default=False,
-                                                  verbose_name="Respect confidentiality")
-    mediator = models.CharField(max_length=250, choices=USERS,
-                                default='by appointment')
-    body_as_markdown = models.BooleanField(default=False,
-                                           verbose_name="As markdown")
+    mediator = models.ForeignKey(User, on_delete=models.CASCADE,
+                                 verbose_name=_("Медиатор"), **NULLABLE, related_name='ownable_conflicts')
+    respondents = models.ManyToManyField(
+        User,
+        related_name='conflicts_as_respondent',
+        verbose_name=_('Остальные участники'),
+        **NULLABLE,
+    )
+    description = models.TextField(blank=True, null=True,
+                                   verbose_name=_("Описание"))
+    is_all_visible = models.BooleanField(
+        default=False,
+        verbose_name=_("Доступно для всех?")
+    )
     created = models.DateTimeField(auto_now_add=True,
                                    editable=False)
     updated = models.DateTimeField(auto_now=True,
@@ -75,3 +63,22 @@ class Conflict(models.Model):
         verbose_name = _("Conflict")
         verbose_name_plural = _("Conflict")
         ordering = ("-created",)
+
+
+class Document(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, related_name='files', on_delete=models.CASCADE, verbose_name=_('Пользователь'))
+    conflict = models.ForeignKey(
+        Conflict,
+        on_delete=models.CASCADE,
+        related_name='files',
+        verbose_name=_('Обращение'),
+        **NULLABLE,
+    )
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+    file_path = models.FileField(upload_to='documents_users', null=True)
+    is_all_visible = models.BooleanField(default=False, verbose_name='Виден всем?')
+
+    def __str__(self):
+        return f'{self.id}'

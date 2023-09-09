@@ -1,25 +1,38 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 {% load static %}
 {% block content %}
- <section class="bgc-dark pb90 pb30-md">
-      <div class="container">
-        <div class="row align-items-center wow fadeInUp">
-          <div class="col-lg-9">
-            <div class="main-title">
-              <h2 class="title text-white">Обращение</h2>
-              <p class="paragraph text-white"> {{text}}</p>
-                <button class="ud-btn btn-thm4 bdrs12"
-                        type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo"
-                        aria-expanded="false"
-                        aria-controls="collapseTwo">Добавить документ
-                </button>
+    <section class="bgc-dark pb90 pb30-md">
+        <div class="container">
+            <table>
+                <thead>
+                <tr>
+                    <th>заголовок</th>
+                    <th>описание</th>
+                    <th>количество прикрепленных файлов</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for conflict in object_list %}
+                    <tr>
+                        <td>{{ conflict.title }}</td>
+                        <td>{{ conflict.description }}</td>
+                        <td>{{ conflict.files|length }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div id="conflict-form-container">
+                <a
+                        id="add-conflict-btn"
+                        class="btn btn-secondary"
+                        hx-get="{% url 'conflict:conflict_form' %}"
+                        hx-target="#conflict-form-container"
+                        hx-swap="innerHTML"
+                >Создать конфликт
+                </a>
             </div>
-          </div>
         </div>
-      </div>
- </section>
-
-{% include 'includes/our-footer.html' %}
-
+    </section>
+    {% include 'includes/our-footer.html' %}
 {% endblock content %}
