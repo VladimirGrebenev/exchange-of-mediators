@@ -13,7 +13,6 @@ SECRET_KEY = 'django-insecure-761_!a*22u-1r4c5l&xupo&@kpz)j5bs1xaq5mk#^xvg6_ta44
 DEBUG = os.getenv('DJANGO_DEBUG', True)
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -59,7 +58,6 @@ if DEBUG:
         'localhost',
     ]
 
-
 ROOT_URLCONF = 'mediators_website.urls'
 TEMPLATES = [
     {
@@ -103,7 +101,6 @@ else:
         }
     }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -119,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -133,6 +129,10 @@ LOGIN_URL = reverse_lazy("signing:login")
 LOGIN_REDIRECT_URL = reverse_lazy("dashboard:dashboard")
 
 LOGOUT_REDIRECT_URL = reverse_lazy("signing:login")
+
+EMAIL_CONFIRM_CODE_TTL_DAYS = 1
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = str(BASE_DIR / 'emails_test')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

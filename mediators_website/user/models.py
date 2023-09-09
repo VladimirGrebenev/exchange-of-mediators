@@ -40,6 +40,23 @@ class User(PermissionsMixin, AbstractBaseUser):
         return self.email
 
 
+class EmailConfirmation(models.Model):
+    user = models.OneToOneField(
+        User,
+        related_name="email_confirmation",
+        verbose_name="email confirmation",
+        on_delete=models.DO_NOTHING,
+    )
+    approval_code = models.CharField(
+        max_length=128,
+        verbose_name='Approve code',
+        unique=True,
+    )
+    code_expiration_date = models.DateTimeField(
+        verbose_name='code expiration date')
+    is_approved = models.BooleanField(verbose_name='Approved?', default=False)
+
+
 class BasicUser(User):
     objects = OnlyBasicUserManager()
 

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
-from .models import Documents
+from .models import Document
 
 
 class UserForm(UserCreationForm):
@@ -17,5 +17,5 @@ class UserForm(UserCreationForm):
 class DocumentsForm(ModelForm):
     """Форма документов(файлов)"""
     class Meta:
-        model = Documents
+        model = Document
         fields = ('user', 'type', 'file_path', 'is_all_visible')
