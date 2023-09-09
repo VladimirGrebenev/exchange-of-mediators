@@ -48,7 +48,7 @@ class DocumentFormView(FormView):
                 kwargs['instance'] = document
             except Document.DoesNotExist:
                 pass
-        return kwargs
+        return kwargs | {"user": self.request.user}
 
 
 class ConflictCreateView(CreateView):
