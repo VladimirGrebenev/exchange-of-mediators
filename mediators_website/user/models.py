@@ -76,8 +76,8 @@ class MediatorType(models.TextChoices):
     TYPE_C = "Type C"
     TYPE_D = "Type D"
 
-class MediatorDetails(models.Model):
-    mediator = models.OneToOneField(
+class AdditionalInfo(models.Model):
+    user = models.OneToOneField(
         Mediator,
         on_delete=models.CASCADE,
         primary_key=True,
