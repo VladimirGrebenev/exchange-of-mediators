@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% load static %}
+{% block content %}
+    <section class="bgc-dark pb90 pb30-md">
+        <div class="container">
+            <table>
+                <thead>
+                <tr>
+                    <th>заголовок</th>
+                    <th>описание</th>
+                    <th>количество прикрепленных файлов</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for conflict in object_list %}
+                    <tr>
+                        <td>{{ conflict.title }}</td>
+                        <td>{{ conflict.description }}</td>
+                        <td>{{ conflict.files|length }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div id="conflict-form-container">
+                <a
+                        id="add-conflict-btn"
+                        class="btn btn-secondary"
+                        hx-get="{% url 'conflict:conflict_form' %}"
+                        hx-target="#conflict-form-container"
+                        hx-swap="innerHTML"
+                >Создать конфликт
+                </a>
+            </div>
+        </div>
+    </section>
+    {% include 'includes/our-footer.html' %}
+{% endblock content %}

@@ -1,7 +1,9 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 import uuid
 
+from user.object_managers import MediatorManager, OnlyBasicUserManager
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -13,7 +15,7 @@ class Statuses(models.TextChoices):
     DECLINED = "Declined"
 
 
-class User(AbstractUser):
+class User(PermissionsMixin, AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     firstname = models.CharField(max_length=150, **NULLABLE)
     lastname = models.CharField(max_length=150, **NULLABLE)
@@ -30,5 +32,39 @@ class User(AbstractUser):
         blank=False,
     )
 
+    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = 'email'
+
     def __str__(self):
         return self.email
+
+
+class EmailConfirmation(models.Model):
+    user = models.OneToOneField(
+        User,
+        related_name="email_confirmation",
+        verbose_name="email confirmation",
+        on_delete=models.DO_NOTHING,
+    )
+    approval_code = models.CharField(
+        max_length=128,
+        verbose_name='Approve code',
+        unique=True,
+    )
+    code_expiration_date = models.DateTimeField(
+        verbose_name='code expiration date')
+    is_approved = models.BooleanField(verbose_name='Approved?', default=False)
+
+
+class BasicUser(User):
+    objects = OnlyBasicUserManager()
+
+    class Meta:
+        proxy = True
+
+
+class Mediator(User):
+    objects = MediatorManager()
+
+    class Meta:
+        proxy = True

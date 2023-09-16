@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load django_htmx %}
 <!DOCTYPE html>
 <html dir="ltr" lang="ru">
 <head>
@@ -26,6 +26,8 @@
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 <!-- Title -->
+<script src="{% static 'libraries/htmx/htmx.min.js' %}" defer></script>
+{% django_htmx_script %}
 <title>
   {% block title %}
   Решала - портал медиаторов для внесудебного урегулирования конфликтов
@@ -52,7 +54,10 @@
 </head>
 <body>
 <div class="wrapper ovh">
-  <div class="preloader"></div>
+    {% comment %}
+    # TODO отключил, т.к. мешает htmx'у работать нормально.
+      <div class="preloader"></div>
+    {% endcomment %}
 
   <!-- Main Header Nav -->
   {% include 'includes/main-header-nav.html' %}

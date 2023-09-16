@@ -8,47 +8,45 @@
                 <div class="col-auto px-0 px-xl-3">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="logos">
-                            <a class="header-logo logo1" href="index.html"><img
-                                    src="{% static 'images/header-logo-white.svg' %}"
-                                    alt="Header Logo"></a>
+                            <a class="header-logo logo1" href="{% url 'index' %}"><img
+                                    src="{% static 'images/header-logo-white.svg' %}" alt="Header Logo"></a>
                             <a class="header-logo logo2" href="index.html"><img
-                                    src="{% static 'images/header-logo2.svg' %}"
-                                    alt="Header Logo"></a>
+                                    src="{% static 'images/header-logo2.svg' %}" alt="Header Logo"></a>
                         </div>
-                        <a class="login-info pl30" data-bs-toggle="modal"
-                           href="#exampleModalToggle" role="button"><span
+                        <a class="login-info pl30" data-bs-toggle="modal" href="#exampleModalToggle" role="button"><span
                                 class="flaticon-loupe"></span></a>
                     </div>
                 </div>
                 <div class="col-auto pe-0 pe-xl-3">
                     <div class="d-flex align-items-center">
                         <!-- Responsive Menu Structure-->
-                        <ul id="respMenu" class="ace-responsive-menu"
-                            data-menu-style="horizontal">
-                            <li class="visible_list"><a class="list-item"
-                                                        href="/"><span
-                                    class="title">Главная
-                </span></a>
+                        <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+                            <li class="visible_list"><a class="list-item" href="{% url 'index' %}"><span class="title">Главная
+                                    </span></a>
                             </li>
-                            <li class="visible_list"><a class="list-item"
-                                                        href="../mediators/"><span
+                            <li class="visible_list"><a class="list-item" href="{% url 'mediators' %}"><span
                                     class="title">О
-                медиаторах</span></a>
+                                        медиаторах</span></a>
                             </li>
-                            <li class="visible_list"><a class="list-item"
-                                                        href="../dashboard/"><span
-                                    class="title">Личный кабинет
-                </span></a>
-                            </li>
-                            <li><a class="list-item pe-0"
-                                   href="../contacts/">Контакты
+                            {% if request.user.is_authenticated %}
+                                <li class="visible_list"><a class="list-item"
+                                                            href="{% url 'dashboard:dashboard' %}"><span
+                                        class="title">Личный кабинет
+                                    </span></a>
+                                </li>
+                            {% endif %}
+                            <li><a class="list-item pe-0" href="{% url 'contacts' %}">Контакты
                             </a></li>
                         </ul>
-                        <a
-                                class="login-info ml30 mr10 home18-sign-btn px30 py-1 bdrs12"
-                                href="../login/">Вход</a>
-                        <a class="ud-btn btn-white add-joining home17-join-btn bdrs12"
-                           href="../register/">Регистрация</a>
+                        {% if request.user.is_authenticated %}
+                            <a class="login-info ml30 mr10 home18-sign-btn px30 py-1 bdrs12"
+                               href="{% url 'signing:logout' %}">Выйти</a>
+                        {% else %}
+                            <a class="login-info ml30 mr10 home18-sign-btn px30 py-1 bdrs12"
+                               href="{% url 'signing:login' %}">Вход</a>
+                            <a class="ud-btn btn-white add-joining home17-join-btn bdrs12"
+                               href="{% url 'signing:register' %}">Регистрация</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

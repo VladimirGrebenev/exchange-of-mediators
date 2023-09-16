@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+
+from django.urls import reverse_lazy
 from dotenv import load_dotenv
 
 # Dirs
@@ -11,10 +13,6 @@ SECRET_KEY = 'django-insecure-761_!a*22u-1r4c5l&xupo&@kpz)j5bs1xaq5mk#^xvg6_ta44
 DEBUG = os.getenv('DJANGO_DEBUG', True)
 ALLOWED_HOSTS = []
 
-if DEBUG:
-    ALLOWED_HOSTS = ['*']
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -25,9 +23,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # other
+    "django_bootstrap5",
+    'debug_toolbar',
+    "django_htmx",
+
     # mediators
     'user',
     'signing',
+    'conflict',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -38,7 +43,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django_htmx.middleware.HtmxMiddleware",
+    "utils.middleware.AttachUserGroupsMiddleware"
 ]
+
+if DEBUG:
+    ALLOWED_HOSTS = ['*']
+    MIDDLEWARE += [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+
+    INTERNAL_IPS = [
+        '127.0.0.1',
+        'localhost',
+    ]
 
 ROOT_URLCONF = 'mediators_website.urls'
 TEMPLATES = [
@@ -58,6 +76,9 @@ TEMPLATES = [
 ]
 
 AUTH_USER_MODEL = "user.User"
+AUTHENTICATION_BACKENDS = [
+    "utils.backends.EmailBackend"
+]
 
 WSGI_APPLICATION = 'mediators_website.wsgi.application'
 
@@ -65,7 +86,7 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': str(BASE_DIR / 'db.sqlite3'),
         }
     }
 else:
@@ -79,7 +100,6 @@ else:
             "PORT": int(os.getenv("DJANGO_DB_PORT", 5432)),
         }
     }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -96,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
@@ -105,6 +124,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = reverse_lazy("signing:login")
+
+LOGIN_REDIRECT_URL = reverse_lazy("dashboard:dashboard")
+
+LOGOUT_REDIRECT_URL = reverse_lazy("signing:login")
+
+EMAIL_CONFIRM_CODE_TTL_DAYS = 1
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = str(BASE_DIR / 'emails_test')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -113,6 +141,9 @@ STATIC_URL = '/static/'
 
 STATIC_DIR = BASE_DIR / 'static'
 # STATIC_ROOT = os.path.join(BASE_DIR, '')
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = [
     STATIC_DIR,

@@ -1,0 +1,183 @@
+{% extends 'dashboard/base-dashboard.html' %}
+{% load static %}
+
+{% block dash-content %}
+<!-- Dashboard Content -->
+<div class="row align-items-center justify-content-between pb40">
+            <div class="col-xl-4">
+              <div class="dashboard_title_area">
+                <h2>Счета</h2>
+                <p class="text">Оплачивайте счета вовремя.</p>
+              </div>
+            </div>
+            <div class="col-xl-4">
+              <div class="dashboard_search_meta">
+                <div class="search_area">
+                  <input type="text" class="form-control bdrs4"
+                         placeholder="Искать счёт">
+                  <label><span class="far fa-magnifying-glass"></span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+<div class="row">
+            <div class="col-xl-12">
+              <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
+                <div class="packages_table table-responsive">
+                  <table class="table-style3 table at-savesearch">
+                    <thead class="t-head">
+                      <tr>
+                        <th scope="col">№ счёта</th>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Просмотр</th>
+                      </tr>
+                    </thead>
+                    <tbody class="t-body">
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">Старт</span></div>
+                        </th>
+                        <td class="vam">Апрель 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span
+                                class="pending-style style1">оплатить
+                        </span></td>
+                        <td class="vam">
+                          <a href=""
+                             class="table-action fz15 fw500 text-thm2"
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top" title="View"><span
+                                  class="flaticon-website me-2 vam"></span>
+                            счёт</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">Услуги</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span
+                                class="pending-style style2">оплачен
+                        </span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="active">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span
+                                class="pending-style style2">оплачен
+                        </span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span
+                                class="pending-style style3">не прошёл
+                        </span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span class="pending-style style3">Cancel</span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th class="active">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span class="pending-style style2">Completed</span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span class="pending-style style2">Completed</span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span class="pending-style style1">In Progress</span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">
+                          <div>#99 <span class="ms-3">App Services</span></div>
+                        </th>
+                        <td class="vam">April 9, 2023</td>
+                        <td class="vam">$1.200</td>
+                        <td class="vam"><span class="pending-style style3">Cancel</span></td>
+                        <td class="vam">
+                          <a href="" class="table-action fz15 fw500 text-thm2" data-bs-toggle="tooltip" data-bs-placement="top" title="View"><span class="flaticon-website me-2 vam"></span> View</a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="mbp_pagination dark-style text-center mt30">
+                    <ul class="page_navigation">
+                      <li class="page-item">
+                        <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item active" aria-current="page">
+                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">4</a></li>
+                      <li class="page-item"><a class="page-link" href="#">5</a></li>
+                      <li class="page-item"><a class="page-link" href="#">...</a></li>
+                      <li class="page-item"><a class="page-link" href="#">20</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                    <p class="mt10 mb-0 pagination_page_count text-center">1
+                      – 20 из 300+ счетов</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- Dashboard Content End -->
+{% endblock dash-content %}
+
+
+
+
+

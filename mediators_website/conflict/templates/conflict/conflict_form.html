@@ -1,0 +1,34 @@
+{% load django_bootstrap5 %}
+<form enctype="multipart/form-data"
+      hx-post="{% url 'conflict:create_conflict' %}"
+      hx-trigger="submit"
+      onsubmit="refreshPage()"
+>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <a id="add_document_btn" link="{% url 'conflict:document_form' %}" class="btn btn-secondary"
+       onclick="addNewDocFormOnClick(this)">
+        Добавить документ
+    </a>
+
+    <div id="document-forms-container"></div>
+    <button class="btn btn-secondary mt-2" type="submit">Создать конфликт</button>
+</form>
+
+<script>
+    let documentContainerCounter = 0
+
+    function addNewDocFormOnClick(elem) {
+        let formContainer = document.getElementById('document-forms-container');
+        let newContainer = document.createElement('div');
+        newContainer.id = `document-form-${documentContainerCounter}`;
+        documentContainerCounter++;
+        formContainer.appendChild(newContainer);
+        htmx.ajax('GET', elem.getAttribute('link'), `#${newContainer.id}`);
+    }
+
+    function refreshPage() {
+        location.reload();
+    }
+</script>
+

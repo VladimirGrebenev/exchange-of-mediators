@@ -1,0 +1,64 @@
+{% load static %}
+<!-- Dashboard Sidebar List -->
+        <div class="dashboard_sidebar_list">
+          <p class="fz15 fw400 ff-heading pl30">Тариф Старт</p>
+          <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:dashboard' %}" class="items-center -is-active"><i
+                    class="flaticon-home mr15"></i>Рабочий кабинет</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:jobs' %}" class="items-center"><i
+                    class="flaticon-document mr15"></i>Мои конфликты</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="#" class="items-center"><i
+                    class="flaticon-like mr15"></i>Избранное</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'dashboard:message' %}" class="items-center"><i
+                    class="flaticon-chat mr15"></i>Сообщения</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="#" class="items-center"><i
+                    class="flaticon-review-1 mr15"></i>Отзывы</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:invoice' %}" class="items-center"><i
+                    class="flaticon-receipt mr15"></i>Счета</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:payout' %}" class="items-center"><i
+                    class="flaticon-dollar mr15"></i>Платежи</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="#" class="items-center"><i
+                    class="flaticon-web mr15"></i>Обращения</a>
+          </div>
+          <p class="fz15 fw400 ff-heading pl30 mt30">Управление конфликтами</p>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'dashboard:create-project' %}"
+               class="items-center"><i
+                    class="flaticon-presentation mr15"></i>Создать
+              обращение</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="#"
+               class="items-center"><i class="flaticon-briefcase mr15"></i>
+              Смотреть медиаторов</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="#"
+               class="items-center"><i
+                    class="flaticon-content mr15"></i>Удалить обращение
+            </a>
+          </div>
+          <p class="fz15 fw400 ff-heading pl30 mt30">Аккаунт</p>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'dashboard:profile' %}" class="items-center"><i
+                    class="flaticon-photo mr15"></i>Мой профиль</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'signing:logout' %}" class="items-center"><i
+                    class="flaticon-logout mr15"></i>Выйти</a>
+          </div>
+        </div>

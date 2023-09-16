@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+    <!-- Black Header -->
+    <section class="bgc-dark pb-0">
+    </section>
+
+    <!-- Our SignUp Area -->
+    <section class="our-register">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 m-auto wow fadeInUp" data-wow-delay="300ms">
+                    <div class="main-title text-center">
+                        <h2 class="title">Регистрация</h2>
+                        <p class="paragraph">Пройдите регистрацию и Вы получите
+                            доступ к личному кабинету</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row wow fadeInRight" data-wow-delay="300ms">
+                <div class="col-xl-6 mx-auto">
+                    <div class="log-reg-form search-modal form-style1 bgc-white p50 p30-sm default-box-shadow1 bdrs12">
+                        <div class="mb30">
+                            <h4>Давайте создадим Ваш аккаунт!</h4>
+                            <p class="text mt20">Уже есть аккаунт? <a href="{% url 'signing:login' %}" class="text-thm">Тогда
+                                войдите!</a></p>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="mb25">
+                                <div class="col-auto">
+                                    <div class="ui-content">
+                                        <h5 class="title fz15 mb20 mt50">Ваша роль на портале:</h5>
+                                        <div class="radiobox-style1">
+                                            <div class="radio-element">
+                                                <div class="form-check d-flex align-items-center mb15">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                           id="role_client" value="client" checked>
+                                                    <label class="form-check-label" for="role_client">Клиент</label>
+                                                </div>
+                                                <div class="form-check d-flex align-items-center mb15">
+                                                    <input class="form-check-input" type="radio" name="role"
+                                                           id="role_mediator" value="mediator">
+                                                    <label class="form-check-label" for="role_mediator">Медиатор</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% bootstrap_form form exclude='role' %}
+                            {% comment %}
+                        <div class="mb25">
+                            <label class="form-label fw500 dark-color">Фамилия</label>
+                            {{ form.lastname }}
+                        </div>
+                        <div class="mb25">
+                            <label class="form-label fw500 dark-color">Имя</label>
+                            {{ form.firstname }}
+                        </div>
+                        <div class="mb25">
+                            <label class="form-label fw500 dark-color">Отчество</label>
+                            <input type="text" class="form-control" placeholder="Иванович">
+                        </div>
+                        <div class="mb25">
+                            <label class="form-label fw500 dark-color">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="mb15">
+                            <label class="form-label fw500 dark-color">Пароль</label>
+                            {{ form.password1 }}
+                        </div>
+                        <div class="mb15">
+                            <label class="form-label fw500 dark-color">Повторите пароль</label>
+                            {{ form.password2 }}
+                        </div>
+                        {% endcomment %}
+                            <div class="d-grid mb20">
+                                <button class="ud-btn btn-dark default-box-shadow2" type="submit">Создать аккаунт <i
+                                        class="fal fa-arrow-right-long"></i></button>
+                            </div>
+                            <div class="hr_content mb20">
+                                <hr>
+                                <span class="hr_top_text">или</span>
+                            </div>
+                            <div class="d-md-flex justify-content-between">
+                                <button class="ud-btn btn-white mb25 me-4" type="button"><i
+                                        class="fab fa-vk pr10"></i>Vkontakte
+                                </button>
+                                <button class="ud-btn btn-white mb25 me-4" type="button"><i
+                                        class="fab fa-odnoklassniki pr10"></i>
+                                    Odnoklassniki
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    {% include 'includes/our-footer.html' %}
+{% endblock content %}

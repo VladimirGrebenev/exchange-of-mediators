@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_htmx %}
 
 <!DOCTYPE html>
 <html dir="ltr" lang="ru">
@@ -25,6 +26,8 @@
 <link rel="stylesheet" href="{% static 'css/dashbord_navitaion.css' %}">
 <!-- Responsive stylesheet -->
 <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<script src="{% static 'libraries/htmx/htmx.min.js' %}" defer></script>
+{% django_htmx_script %}
 <!-- Title -->
 <title>
   {% block title %}
@@ -32,8 +35,8 @@
   {% endblock title %}
 </title>
 <!-- Favicon -->
-<link href="{% static 'images/favicon.ico' %}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
-<link href="{% static 'images/favicon.ico' %}" sizes="128x128" rel="shortcut icon" />
+<link href="{% static 'images/favicon.png' %}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="{% static 'images/favicon.png' %}" sizes="128x128" rel="shortcut icon" />
 <!-- Apple Touch Icon -->
 <link href="{% static 'images/apple-touch-icon-60x60.png' %}" sizes="60x60" rel="apple-touch-icon">
 <link href="{% static 'images/apple-touch-icon-72x72.png' %}" sizes="72x72" rel="apple-touch-icon">
@@ -52,19 +55,19 @@
   <div class="preloader"></div>
 
   <!-- Main Header Nav -->
-  {% include 'includes/dash-main-header-nav.html' %}
+  {% include 'dashboard/includes/dash-main-header-nav.html' %}
   <!-- Search Modal -->
-  {% include 'includes/dash-search-modal.html' %}
+  {% include 'dashboard/includes/dash-search-modal.html' %}
 
   <!-- Mobile Nav  -->
-  {% include 'includes/dash-mobile-nav.html' %}
+  {% include 'dashboard/includes/dash-mobile-nav.html' %}
 
   <!-- Dashboard Wrapper Content  -->
   <div class="dashboard_content_wrapper">
     <div class="dashboard dashboard_wrapper pr30 pr0-xl">
       <div class="dashboard__sidebar d-none d-lg-block">
         <!-- Dashboard Sidebar List -->
-        {% include 'includes/dash-sidebar-list.html' %}
+        {% include 'dashboard/includes/dash-sidebar-list.html' %}
       </div>
       <!-- Dashboard Main -->
       <div class="dashboard__main pl0-md">
@@ -72,7 +75,7 @@
           <div class="row pb40">
             <div class="col-lg-12">
               <!-- Dashboard Nav Block -->
-              {% include 'includes/dash-nav-block.html' %}
+              {% include 'dashboard/includes/dash-nav-block.html' %}
             </div>
             <div class="col-lg-12">
               <!-- Dashboard Title -->
@@ -84,7 +87,7 @@
                 </h2>
                 <p class="text">
                   {% block dash-description %}
-                  dash description Lorem ipsum dolor sit amet, consectetur.
+                  Описание текущей вкладки
                   {% endblock dash-description %}
                 </p>
               </div>
@@ -97,7 +100,7 @@
           <!-- Dashboard Content End -->
         </div>
         <!-- Dashboard Footer -->
-        {% include 'includes/dash-footer.html' %}
+        {% include 'dashboard/includes/dash-footer.html' %}
       </div>
     </div>
   </div>

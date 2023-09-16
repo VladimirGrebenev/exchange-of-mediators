@@ -1,6 +1,8 @@
 from django.contrib import admin
-from django.urls import path, include
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.urls import include, path
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,53 +11,41 @@ urlpatterns = [
         'mediators/',
         TemplateView.as_view(
             template_name='page-about.html'),
-        name='mediators'
-    ),
-    path(
-        'dashboard/',
-        TemplateView.as_view(
-            template_name='page-dashboard.html'
-        ),
-        name='dashboard'
-    ),
+        name='mediators'),
     path(
         'contacts/',
         TemplateView.as_view(
             template_name='page-contact.html'),
-        name='contacts'
-    ),
-    path('login/',
-         TemplateView.as_view(
-             template_name='page-login.html'
-         ),
-         name='login'
-         ),
-    path(
-        'register/',
-        TemplateView.as_view(
-            template_name='page-register.html'
-        ),
-        name='register'
-    ),
+        name='contacts'),
     path(
         'error/',
         TemplateView.as_view(
-            template_name='page-error.html'
-        ),
-        name='error'
-    ),
+            template_name='page-error.html'),
+        name='error'),
     path(
         'faq/',
         TemplateView.as_view(
             template_name='page-faq.html'),
-        name='faq'
-    ),
+        name='faq'),
     path(
         'terms/',
         TemplateView.as_view(
             template_name='page-terms.html'),
-        name='terms'
+        name='terms'),
+    path(
+        'mediators/',
+        TemplateView.as_view(
+            template_name='page-about.html'),
+        name='mediators'
     ),
-    path("users/", include("user.urls", namespace="users")),
+    path("user/", include("user.urls", namespace="user")),
     path("signing/", include("signing.urls", namespace="signing")),
+    path("conflict/", include("conflict.urls", namespace="conflict")),
+    path("dashboard/", include("dashboard.urls", namespace="dashboard")),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ]
