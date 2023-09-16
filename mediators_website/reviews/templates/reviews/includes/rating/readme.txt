@@ -1,0 +1,1 @@
+Источник: https://snipp.ru/html-css/rating-css

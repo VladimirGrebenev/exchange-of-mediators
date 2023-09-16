@@ -42,6 +42,7 @@ urlpatterns = [
     path("signing/", include("signing.urls", namespace="signing")),
     path("conflict/", include("conflict.urls", namespace="conflict")),
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
+    path("reviews/", include("reviews.urls", namespace="reviews")),
 ]
 
 if settings.DEBUG:

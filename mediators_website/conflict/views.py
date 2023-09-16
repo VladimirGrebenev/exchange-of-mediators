@@ -26,7 +26,7 @@ class ConflictFormView(FormView):
         kwargs = super().get_form_kwargs()
         if pk := self.request.GET.get('pk'):
             try:
-                conflict = Conflict.objects.get(pk=pk)
+                conflict = Conflict.objects.get()
                 kwargs['instance'] = conflict
             except Conflict.DoesNotExist:
                 pass
@@ -44,7 +44,7 @@ class DocumentFormView(FormView):
         kwargs = super().get_form_kwargs()
         if pk := self.request.GET.get('pk'):
             try:
-                document = Document.objects.get(pk=pk)
+                document = Document.objects.get()
                 kwargs['instance'] = document
             except Document.DoesNotExist:
                 pass
