@@ -32,6 +32,11 @@ class User(PermissionsMixin, AbstractBaseUser):
         blank=False,
     )
 
+    # Add news field for model mediator
+    rate = models.IntegerField(blank=True, null=True)
+    photo = models.FilePathField(path='mediators_photo/', blank=True, null=True)
+    summary = models.IntegerField(blank=True, null=True)
+
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
 

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.urls import include, path
+from mediators_website import views
 
 
 urlpatterns = [
@@ -9,9 +10,14 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
     path(
         'mediators/',
-        TemplateView.as_view(
+        views.MediatorsListView.as_view(
             template_name='page-about.html'),
         name='mediators'),
+    # path(
+    #     'mediators/',
+    #     TemplateView.as_view(
+    #         template_name='page-about.html'),
+    #     name='mediators'),
     path(
         'contacts/',
         TemplateView.as_view(
