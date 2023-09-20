@@ -3,6 +3,8 @@ from django.views.generic import TemplateView
 
 import dashboard.views as views
 
+from user.views import DashboardProfileView
+
 app_name = "dashboard"
 
 urlpatterns = [
@@ -41,7 +43,7 @@ urlpatterns = [
     ),
     path(
         'profile/',
-        TemplateView.as_view(
+        DashboardProfileView.as_view(
             template_name='dashboard/page-dashboard-profile.html'),
         name='profile'),
 ]

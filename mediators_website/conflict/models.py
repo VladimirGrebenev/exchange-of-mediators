@@ -36,7 +36,7 @@ class Conflict(models.Model):
         User,
         related_name='conflicts_as_respondent',
         verbose_name=_('Остальные участники'),
-        **NULLABLE,
+        # **NULLABLE,
     )
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_("Описание"))
