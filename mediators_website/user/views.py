@@ -2,8 +2,10 @@ from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.views import View
+from django.views.generic import ListView
 
-from .models import EmailConfirmation
+from .models import EmailConfirmation, Mediator
+from utils.views_mixins import TopFiveMediatorsMixin
 
 
 class EmailConfirmView(View):
@@ -17,3 +19,9 @@ class EmailConfirmView(View):
             email.save()
             messages.success(request, 'Mail has been successfully confirmed')
         return redirect(settings.LOGIN_URL)
+
+
+class TopMediatorsList(TopFiveMediatorsMixin, ListView):
+    model = Mediator
+    template_name = 'page-about.html'
+    context_object_name = 'mediators_list'

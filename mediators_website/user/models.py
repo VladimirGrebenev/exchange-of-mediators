@@ -36,7 +36,7 @@ class User(PermissionsMixin, AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return self.email
+        return f'{self.firstname} {self.lastname}, {self.email}'
 
 
 class EmailConfirmation(models.Model):
