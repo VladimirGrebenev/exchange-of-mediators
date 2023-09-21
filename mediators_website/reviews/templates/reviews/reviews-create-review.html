@@ -8,6 +8,7 @@
         <h3>Оставьте свой отзыв</h3>
     <form class="form-style1" method="post">
         {% csrf_token %}
+        {{ form.from_user }}
         <div class="row">
             <div class="col-sm-6 left">
                 <label class="heading-color ff-heading fw500 mb10">К пользователю</label>

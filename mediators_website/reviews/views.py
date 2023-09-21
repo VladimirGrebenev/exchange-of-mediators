@@ -12,18 +12,13 @@ class CreateReview(LoginRequiredMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         form = ReviewForm(request.POST)
-        form.data._mutable = True
-        # Вставляем в поле 'from_user' ID пользователя написавшего отзыв
-        form.data['from_user'] = request.user.id
-        form.data._mutable = False
-
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/reviews')
         return render(request, 'reviews/reviews-create-review.html', {'form': form})
 
     def get(self, request, **kwargs):
-        form = ReviewForm()
+        form = ReviewForm(initial={'from_user': request.user.id})
         # пишем отзывы на медиаторов
         # form.fields['to_user'].queryset = User.objects.filter(groups__name='mediator')
         return render(request, 'reviews/reviews-create-review.html', {'form': form})
