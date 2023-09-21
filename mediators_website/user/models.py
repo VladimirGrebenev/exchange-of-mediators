@@ -68,3 +68,15 @@ class Mediator(User):
 
     class Meta:
         proxy = True
+
+
+class AdditionalInfo(Mediator):
+    mediator = models.OneToOneField(
+        Mediator,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='add_info_for_mediator',
+    )
+    rate = models.IntegerField(blank=True, null=True)
+    photo = models.FilePathField(path='mediators_photo/', blank=True, null=True)
+    summary = models.IntegerField(blank=True, null=True)

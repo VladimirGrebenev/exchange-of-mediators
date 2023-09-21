@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.views import View
 from django.views.generic import ListView
 
-from .models import EmailConfirmation, Mediator
+from .models import EmailConfirmation, Mediator, AdditionalInfo, User
 from utils.views_mixins import TopFiveMediatorsMixin
 
 
@@ -25,3 +25,11 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-about.html'
     context_object_name = 'mediators_list'
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['objects_mediators'] = Mediator.objects.all()
+        print(context)
+        print(context['objects_mediators'])
+        return context
