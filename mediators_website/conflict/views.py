@@ -60,6 +60,22 @@ class ConflictCreateView(CreateView):
         return super().get_form_kwargs() | {"user": self.request.user}
 
     def form_valid(self, form):
+        # print('self.request.FILES', self.request.FILES)
+        # print('len ', len(self.request.FILES))
+        # print('type', type(self.request.FILES))
+        # print('self.request.POST', self.request.POST)
+        # files = self.request.FILES.getlist('file_path')
+        # print('files ', files)
+        # print('type(files) ', type(files))
+        # i = 0
+        # for file in files:
+        #     print('file.name ', file.name)  # Gives name
+        #     print('file.content_type',
+        #           file.content_type)  # Gives Content type text/html etc
+        #     print('file.size', file.size)  # Gives file's size in byte
+        #     print('____________________________________i ', i)
+        #     i = i + 1
+
         # TODO вот тут должна быть обработка приходящей формы. Там внутри лежит форма конфликта + бесконечное
         #  количество файлов. Т.е. надо вытащить все файлы + их поля из self.request.POST и как-то их разобрать.
         #  мб имеет смысл обернуть все файлы в отдельный формы и разбирать их в контроллере. Надо пробовать,

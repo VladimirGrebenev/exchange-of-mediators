@@ -1,0 +1,212 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-14 07:36+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\conflict\models.py:20
+msgid "В работе"
+msgstr "В работе"
+
+#: .\conflict\models.py:21
+msgid "Завершен"
+msgstr "Завершен"
+
+#: .\conflict\models.py:22
+msgid "Новый"
+msgstr ""
+
+#: .\conflict\models.py:23
+msgid "Черновик"
+msgstr "Черновик"
+
+#: .\conflict\models.py:28 .\conflict\models.py:37 .\conflict\models.py:48
+#: .\conflict\models.py:56
+msgid "не выбрано"
+msgstr "не выбрано"
+
+#: .\conflict\models.py:29
+msgid "новичок"
+msgstr "новичок"
+
+#: .\conflict\models.py:30
+msgid "бывалый"
+msgstr "бывалый"
+
+#: .\conflict\models.py:31
+msgid "дорогой"
+msgstr "дорогой"
+
+#: .\conflict\models.py:32
+msgid "уровень Бог"
+msgstr "уровень Бог"
+
+#: .\conflict\models.py:38
+msgid "корпоративный"
+msgstr "корпоративный"
+
+#: .\conflict\models.py:39
+msgid "бизнес"
+msgstr "бизнес"
+
+#: .\conflict\models.py:40
+msgid "семейный"
+msgstr "семейный"
+
+#: .\conflict\models.py:41
+msgid "недвижимость"
+msgstr "недвижимость"
+
+#: .\conflict\models.py:42
+msgid "наследство"
+msgstr "наследство"
+
+#: .\conflict\models.py:43
+msgid "личный"
+msgstr "личный"
+
+#: .\conflict\models.py:49
+msgid "низкая"
+msgstr "низкая"
+
+#: .\conflict\models.py:50
+msgid "средняя"
+msgstr "средняя"
+
+#: .\conflict\models.py:51
+msgid "высокая"
+msgstr "высокая"
+
+#: .\conflict\models.py:57
+msgid "1 День"
+msgstr "1 День"
+
+#: .\conflict\models.py:58
+msgid "2 Дня"
+msgstr "2 Дня"
+
+#: .\conflict\models.py:59
+msgid "3 Дня"
+msgstr "3 Дня"
+
+#: .\conflict\models.py:60
+msgid "1 Неделя"
+msgstr "1 Неделя"
+
+#: .\conflict\models.py:68
+msgid "Статус"
+msgstr "Статус"
+
+#: .\conflict\models.py:71
+msgid "Категория"
+msgstr "Категория"
+
+#: .\conflict\models.py:74
+msgid "Уровень медиатора"
+msgstr "Уровень медиатора"
+
+#: .\conflict\models.py:77 .\conflict\models.py:78
+msgid "Цена"
+msgstr "Цена"
+
+#: .\conflict\models.py:81
+msgid "Время на решение"
+msgstr "Время на решение"
+
+#: .\conflict\models.py:82
+msgid "Страна"
+msgstr "Страна"
+
+#: .\conflict\models.py:83
+msgid "Город"
+msgstr "Город"
+
+#: .\conflict\models.py:84
+msgid "Язык"
+msgstr "Язык"
+
+#: .\conflict\models.py:85
+msgid "Уровень владения языком"
+msgstr "Уровень владения языком"
+
+#: .\conflict\models.py:88
+msgid "Заголовок обращения"
+msgstr "Заголовок обращения"
+
+#: .\conflict\models.py:91
+msgid "Заявитель"
+msgstr "Заявитель"
+
+#: .\conflict\models.py:94
+msgid "Медиатор"
+msgstr "Медиатор"
+
+#: .\conflict\models.py:98
+msgid "Остальные участники"
+msgstr "Остальные участники"
+
+#: .\conflict\models.py:102
+msgid "Описание"
+msgstr "Описание"
+
+#: .\conflict\models.py:105
+msgid "Доступно для всех?"
+msgstr "Доступно для всех?"
+
+#: .\conflict\models.py:123 .\conflict\models.py:124
+msgid "Conflict"
+msgstr "Конфликт"
+
+#: .\conflict\models.py:130
+msgid "Пользователь"
+msgstr "Пользователь"
+
+#: .\conflict\models.py:135
+msgid "Обращение"
+msgstr "Обращение"
+
+#: .\mediators_website\settings.py:124
+msgid "English"
+msgstr "Английский"
+
+#: .\mediators_website\settings.py:125
+msgid "Russian"
+msgstr "Русский"
+
+#: .\signing\forms.py:13
+msgid "Пароль"
+msgstr "Пароль"
+
+#: .\signing\forms.py:20
+msgid "Ещё раз пароль"
+msgstr "Ещё раз пароль"
+
+#: .\signing\forms.py:22
+msgid "Пароли должны совпадать"
+msgstr "Пароли должны совпадать"
+
+#: .\signing\forms.py:37
+msgid "Пароли не совпадают"
+msgstr "Пароли не совпадают"
+
+#~ msgid "New"
+#~ msgstr "Новый"
+
+#~ msgid "Choose"
+#~ msgstr "не выбрано"

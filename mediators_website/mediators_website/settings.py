@@ -3,6 +3,7 @@ from pathlib import Path
 
 from django.urls import reverse_lazy
 from dotenv import load_dotenv
+from django.utils.translation import gettext_lazy as _
 
 # Dirs
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -70,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'mediators_website.context_processors.random_mediators',
             ],
         },
     },
@@ -117,6 +120,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = 'ru-ru'
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('ru', _('Russian')),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),  # Путь к каталогу с файлами перевода
+]
 
 TIME_ZONE = 'UTC'
 

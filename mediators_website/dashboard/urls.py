@@ -7,8 +7,8 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", views.DashboardDispatcherView.as_view(), name='dashboard'),
-    path("user/", views.UserDashboardView.as_view(), name='user_dashboard'),
-    path("mediator/", views.MediatorsDashboardView.as_view(), name='mediator_dashboard'),
+    path("user/", views.UserDashboardView.as_view(template_name = 'dashboard/page-dashboard.html'), name='user_dashboard'),
+    path("mediator/", views.MediatorsDashboardView.as_view(template_name = 'dashboard/page-dashboard.html'), name='mediator_dashboard'),
     path(
         'create-project/',
         TemplateView.as_view(
@@ -22,10 +22,16 @@ urlpatterns = [
         name='invoice'
     ),
     path(
-        'manage-jobs/',
-        TemplateView.as_view(
+        'user/manage-jobs/',
+        views.UserDashboardListConflictsView.as_view(
             template_name='dashboard/page-dashboard-manage-jobs.html'),
         name='jobs'
+    ),
+    path(
+        'mediator/manage-jobs-mediator/',
+        views.MediatorDashboardListConflictsView.as_view(
+            template_name='dashboard/page-dashboard-manage-jobs-mediator.html'),
+        name='jobs-mediator'
     ),
     path(
         'message/',
