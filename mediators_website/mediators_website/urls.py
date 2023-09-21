@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.urls import include, path
-from mediators_website import views
 
 from user.views import TopMediatorsList
 
