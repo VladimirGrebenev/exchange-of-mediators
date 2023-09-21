@@ -1,11 +1,14 @@
 from django.conf import settings
 from django.views import View
 <<<<<<< HEAD
+<<<<<<< HEAD
 from django.views.generic import ListView
 
 from .models import EmailConfirmation, Mediator
 from utils.views_mixins import TopFiveMediatorsMixin
 =======
+=======
+>>>>>>> 36e16bcdae6388a87ec18ad434983ae50d160463
 from django.views.generic import FormView
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -14,7 +17,10 @@ from django.contrib.auth import update_session_auth_hash
 
 from .models import EmailConfirmation
 from .forms import UserFormProfile
+<<<<<<< HEAD
 >>>>>>> 36e16bc (added the ability to edit profile)
+=======
+>>>>>>> 36e16bcdae6388a87ec18ad434983ae50d160463
 
 
 class EmailConfirmView(View):
@@ -31,11 +37,14 @@ class EmailConfirmView(View):
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class TopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-about.html'
     context_object_name = 'mediators_list'
 =======
+=======
+>>>>>>> 36e16bcdae6388a87ec18ad434983ae50d160463
 class DashboardProfileView(FormView):
     """
     Представление на основе `FormView` для отображения и обработки
@@ -77,5 +86,9 @@ class DashboardProfileView(FormView):
                 'profile_form': profile_form,
             }
         return render(request, self.template_name, context)
+<<<<<<< HEAD
     
 >>>>>>> 36e16bc (added the ability to edit profile)
+=======
+    
+>>>>>>> 36e16bcdae6388a87ec18ad434983ae50d160463
