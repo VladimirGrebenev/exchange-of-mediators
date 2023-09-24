@@ -3,15 +3,16 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.urls import include, path
 
+from user.views import TopMediatorsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path(
-        'mediators/',
-        TemplateView.as_view(
-            template_name='page-about.html'),
-        name='mediators'),
+    # path(
+    #     'mediators/',
+    #     TemplateView.as_view(
+    #         template_name='page-about.html'),
+    #     name='mediators'),
     path(
         'contacts/',
         TemplateView.as_view(
@@ -34,7 +35,7 @@ urlpatterns = [
         name='terms'),
     path(
         'mediators/',
-        TemplateView.as_view(
+        TopMediatorsList.as_view(
             template_name='page-about.html'),
         name='mediators'
     ),
