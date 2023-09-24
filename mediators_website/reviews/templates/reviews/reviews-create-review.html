@@ -1,0 +1,42 @@
+{% extends 'dashboard/base-dashboard.html' %}
+
+{% block reviews-create-form %}
+
+{% include 'reviews/includes/rating/rating-styles.html' %}
+
+<div class="col-sm-10">
+        <h3>Оставьте свой отзыв</h3>
+    <form class="form-style1" method="post">
+        {% csrf_token %}
+        {{ form.from_user }}
+        <div class="row">
+            <div class="col-sm-6 left">
+                <label class="heading-color ff-heading fw500 mb10">К пользователю</label>
+                {{ form.to_user }}
+                {{ form.to_user.errors }}
+            </div>
+            <div class="col-sm-4">
+                <div class="mb20">
+                    <label class="heading-color ff-heading fw500 mb10">Оценка</label>
+                    {% include 'reviews/includes/rating/rating-stars.html' %}
+                    {{ form.rating.errors }}
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="mb10">
+                    <label class="heading-color ff-heading fw500 mb10">Отзыв</label>
+                    {{ form.text }}
+                </div>
+            </div>
+            <div class="col-sm-10">
+                <div class="text-start">
+                    <button class="ud-btn btn-thm" type="submit">Save
+                        <i class="fal fa-arrow-right-long"></i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock reviews-create-form %}

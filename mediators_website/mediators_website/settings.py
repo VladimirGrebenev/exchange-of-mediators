@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'signing',
     'conflict',
     'dashboard',
+    'reviews',
     'conference',
 ]
 
