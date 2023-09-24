@@ -68,3 +68,29 @@ class Mediator(User):
 
     class Meta:
         proxy = True
+
+
+class MediatorType(models.TextChoices):
+    TYPE_A = "Type A"
+    TYPE_B = "Type B"
+    TYPE_C = "Type C"
+    TYPE_D = "Type D"
+
+class AdditionalInfo(models.Model):
+    user = models.OneToOneField(
+        Mediator,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    description = models.TextField()
+    price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
+    successful_cases_procentage = models.DecimalField(
+        max_digits=5, decimal_places=2
+    )
+    type = models.CharField(
+        max_length=50,
+        choices=MediatorType.choices,
+    )
+
+    def __str__(self):
+        return self.mediator.email
