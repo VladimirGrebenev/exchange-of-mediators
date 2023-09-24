@@ -1,5 +1,9 @@
 from django.conf import settings
 from django.views import View
+from django.views.generic import ListView
+
+from .models import EmailConfirmation, Mediator, AdditionalInfo, User
+
 from django.views.generic import FormView, ListView
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -29,6 +33,14 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-about.html'
     context_object_name = 'mediators_list'
+    paginate_by = 12
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['objects_mediators'] = Mediator.objects.all()
+        print(context)
+        print(context['objects_mediators'])
+        return context
 
 
 class DashboardProfileView(FormView):
@@ -72,4 +84,3 @@ class DashboardProfileView(FormView):
                 'profile_form': profile_form,
             }
         return render(request, self.template_name, context)
-    
