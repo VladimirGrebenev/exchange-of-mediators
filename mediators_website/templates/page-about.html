@@ -14,264 +14,46 @@
                         огромным опытом работы и положительными отзывами</p>
                 </div>
             </div>
-            <div>
-                {% for user in top_mediators %}
-                <p>{{ user }}</p>
-                {% endfor %}
-            </div>
-
         </div>
-        <!--        <div class="row">-->
-        <!--          <div class="col-lg-12">-->
-        <!--            <div class="dots_nav_light navi_pagi_bottom_center slider-4-grid owl-carousel owl-theme">-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-        <!--                    <p class="mb-0">Семейный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="dots_nav_light navi_pagi_bottom_center slider-4-grid owl-carousel owl-theme">
+                      {% for mediator in objects_mediators|slice:":2" %}
+                        <div class="item">
+                        <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                            <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">
+                            <span class="online"></span>
+                          </div>
+                          <div class="details">
+                            <h5 class="title mb-1">{{ mediator.firstname }}
+                                {{ mediator.lastname }}</h5>
+                            <p class="mb-0">Семейный медиатор</p>
+                            <div class="review"><p><i
+                                    class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>
 
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-2.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Рут Матвеева</h5>-->
-        <!--                    <p class="mb-0">Бизнес медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
+                            <hr class="opacity-100 mt20 mb15">
+                            <div class="fl-meta d-flex align-items-center justify-content-between">
+                              <a class="meta fw500 text-start">Ставка<br><span
+                                      class="fz14 fw400">$90 / час</span></a>
+                              <a class="meta fw500 text-start">Результат<br><span
+                                      class="fz14 fw400">%98</span></a>
+                            </div>
+                            <div class="d-grid mt15">
+                              <a href="page-freelancer-single.html"
+                                 class="ud-btn btn-white2 bdrs90">Подробнее<i
+                                      class="fal fa-arrow-right-long"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {% endfor %}
 
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-3.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Алёша Попович</h5>-->
-        <!--                    <p class="mb-0">Корпоративный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-4.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Наташа Простая</h5>-->
-        <!--                    <p class="mb-0">Просто медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-        <!--                    <p class="mb-0">Семейный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-2.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-        <!--                    <p class="mb-0">Семейный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-3.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-        <!--                    <p class="mb-0">Семейный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-4.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-        <!--                    <p class="mb-0">Семейный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              <div class="item">-->
-        <!--                <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
-        <!--                  <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-        <!--                    <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">-->
-        <!--                    <span class="online"></span>-->
-        <!--                  </div>-->
-        <!--                  <div class="details">-->
-        <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-        <!--                    <p class="mb-0">Семейный медиатор</p>-->
-        <!--                    <div class="review"><p><i-->
-        <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-        <!--                    <hr class="opacity-100 mt20 mb15">-->
-        <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-        <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-        <!--                              class="fz14 fw400">$90 / час</span></a>-->
-        <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-        <!--                              class="fz14 fw400">%98</span></a>-->
-        <!--                    </div>-->
-        <!--                    <div class="d-grid mt15">-->
-        <!--                      <a href="page-freelancer-single.html"-->
-        <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-        <!--                              class="fal fa-arrow-right-long"></i></a>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <!--      </div>-->
-        <!--    </section>-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
 
         <!-- Title Mediators -->
         <section class="pb-0 pb50">
@@ -394,7 +176,8 @@
                     <hr class="opacity-100 mt20 mb15">
                     <div class="fl-meta d-flex align-items-center justify-content-between">
                       <a class="meta fw500 text-start">Ставка<br><span
-                              class="fz14 fw400">${{ item.rate}} / час</span></a>
+                              class="fz14 fw400">$ {{ item.rate }} /
+                          час</span></a>
                       <a class="meta fw500 text-start">Результат<br><span
                               class="fz14 fw400">%{{ item.summary }}</span></a>
                     </div>
@@ -434,361 +217,31 @@
               300+ зарегистрированных медиаторов</p>
           </div>
 
-                <!--        <div class="row">-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
 
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-2.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-3.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-4.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-2.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-3.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-4.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-2.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-3.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--          <div class="col-md-6 col-lg-4 col-xl-3">-->
-                <!--            <div class="freelancer-style1 text-center bdr1 hover-box-shadow">-->
-                <!--              <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
-                <!--                <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-4.png' %}" alt="">-->
-                <!--                <span class="online"></span>-->
-                <!--              </div>-->
-                <!--              <div class="details">-->
-                <!--                    <h5 class="title mb-1">Маша Кучерявая</h5>-->
-                <!--                    <p class="mb-0">Семейный медиатор</p>-->
-                <!--                    <div class="review"><p><i-->
-                <!--                            class="fas fa-star fz10 review-color pr10"></i><span class="dark-color fw500">4.9</span> (595 отзывов)</p></div>-->
-
-                <!--                    <hr class="opacity-100 mt20 mb15">-->
-                <!--                    <div class="fl-meta d-flex align-items-center justify-content-between">-->
-                <!--                      <a class="meta fw500 text-start">Ставка<br><span-->
-                <!--                              class="fz14 fw400">$90 / час</span></a>-->
-                <!--                      <a class="meta fw500 text-start">Результат<br><span-->
-                <!--                              class="fz14 fw400">%98</span></a>-->
-                <!--                    </div>-->
-                <!--                    <div class="d-grid mt15">-->
-                <!--                      <a href="page-freelancer-single.html"-->
-                <!--                         class="ud-btn btn-white2 bdrs90">Подробнее<i-->
-                <!--                              class="fal fa-arrow-right-long"></i></a>-->
-                <!--                    </div>-->
-                <!--                  </div>-->
-                <!--            </div>-->
-                <!--          </div>-->
-                <!--        </div>-->
-                <!--        <div class="row">-->
-                <!--          <div class="mbp_pagination dark-style mt30 text-center">-->
-                <!--            <ul class="page_navigation">-->
-                <!--              <li class="page-item">-->
-                <!--                <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>-->
-                <!--              </li>-->
-                <!--              <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-                <!--              <li class="page-item active" aria-current="page">-->
-                <!--                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
-                <!--              </li>-->
-                <!--              <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-                <!--              <li class="page-item"><a class="page-link" href="#">4</a></li>-->
-                <!--              <li class="page-item d-inline-block d-sm-none"><a class="page-link" href="#">...</a></li>-->
-                <!--              <li class="page-item"><a class="page-link" href="#">5</a></li>-->
-                <!--              <li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#">...</a></li>-->
-                <!--              <li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#">20</a></li>-->
-                <!--              <li class="page-item">-->
-                <!--                <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>-->
-                <!--              </li>-->
-                <!--            </ul>-->
-                <!--            <p class="mt10 mb-0 pagination_page_count text-center">1 – 20 из-->
-                <!--              300+ зарегистрированных медиаторов</p>-->
-                <!--          </div>-->
-                <!--        </div>-->
-<!--                <div>-->
-<!--                    {% for user in mediators_list %}-->
-<!--                    <p>{{ user }}</p>-->
-<!--                    {% endfor %}-->
-<!--                </div>-->
+              <div class="row">
+                              <div class="mbp_pagination dark-style mt30 text-center">
+                                <ul class="page_navigation">
+                                  <li class="page-item">
+                                    <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                  <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                  </li>
+                                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                  <li class="page-item d-inline-block d-sm-none"><a class="page-link" href="#">...</a></li>
+                                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                  <li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#">...</a></li>
+                                  <li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#">20</a></li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>
+                                  </li>
+                                </ul>
+                                <p class="mt10 mb-0 pagination_page_count text-center">1 – 20 из
+                                  300+ зарегистрированных медиаторов</p>
+                              </div>
+                            </div>
             </div>
         </section>
 
