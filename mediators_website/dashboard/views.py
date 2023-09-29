@@ -3,8 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.db.models import Q
+from user.models import Mediator
 
 from utils.views_mixins import PermissionByGroupMixin
 
@@ -25,20 +26,55 @@ class DashboardDispatcherView(LoginRequiredMixin, View):
         return redirect(reverse('index'))
 
 
-class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, TemplateView):
+class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
     """
         User dashboard
     """
     allowed_groups = ('user',)
     template_name = 'page-dashboard.html'
 
+    model = Mediator
 
-class MediatorsDashboardView(LoginRequiredMixin, PermissionByGroupMixin, TemplateView):
+    def get_context_data(self, **kwargs):
+        """
+        Отображение полного списка медиаторов внизу страницы
+        """
+        context = super().get_context_data(**kwargs)
+
+        mediators = Mediator.objects.all().order_by('create_at')
+        num_mediators = min(mediators.count(), 3)  # если медиаторов меньше трех, берем число медиаторов, иначе 3
+        context['objects_mediators'] = mediators[:num_mediators]
+        if num_mediators > 1:
+            context['last_mediator'] = mediators[
+                num_mediators - 1]  # Нужно чтобы не ставить в шаблоне черту после последнего элемента
+        else:
+            context['last_mediator'] = 0
+        return context
+
+
+class MediatorsDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
     """
         Mediators dashboard
     """
     allowed_groups = ('mediator',)
     template_name = 'dashboard/page-dashboard.html'
+
+    model = Mediator
+
+    def get_context_data(self, **kwargs):
+        """
+        Отображение полного списка медиаторов внизу страницы
+        """
+        context = super().get_context_data(**kwargs)
+
+        mediators = Mediator.objects.all().order_by('create_at')
+        num_mediators = min(mediators.count(), 3) # если медиаторов меньше трех, берем число медиаторов, иначе 3
+        context['objects_mediators'] = mediators[:num_mediators]
+        if num_mediators > 1:
+            context['last_mediator'] = mediators[num_mediators-1] # Нужно чтобы не ставить в шаблоне черту после последнего элемента
+        else:
+            context['last_mediator'] = 0
+        return context
 
 
 class UserDashboardListConflictsView(LoginRequiredMixin,
