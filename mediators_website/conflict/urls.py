@@ -1,5 +1,6 @@
 from django.urls import path
 from conflict.views import ConflictView, DocumentFormView, ConflictFormView, ConflictCreateView
+# from dashboard.views import ConflictCreateView
 
 app_name = 'conflict'
 
