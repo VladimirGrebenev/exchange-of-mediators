@@ -3,13 +3,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from django.db.models import Q
 
 from utils.views_mixins import PermissionByGroupMixin
 
 from conflict.models import Conflict
-
+# from conflict.forms import ConflictForm
+# from conflict.views import ConflictCreateView
 
 class DashboardDispatcherView(LoginRequiredMixin, View):
     """
@@ -74,3 +75,20 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
         conflicts = Conflict.objects.filter(mediator=user, deleted=False)
         context['conflicts'] = conflicts
         return context
+
+
+# class ConflictCreateView(CreateView):
+#     model = Conflict
+#     form_class = ConflictForm
+#     success_url = 'dashboard/page-dashboard-create-project.html'
+#     template_name = 'dashboard/page-dashboard-create-project.html'
+# 
+#     def get_form_kwargs(self):
+#         return super().get_form_kwargs() | {"user": self.request.user}
+# 
+#     def form_valid(self, form):
+#         # Save the conflict form
+#         conflict = form.save(commit=True)
+# 
+#         # Redirect to the success URL
+#         return redirect(self.get_success_url())

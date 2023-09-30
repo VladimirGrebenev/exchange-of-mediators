@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block dash-content %}
-<!-- Dashboard Content -->
+ Dashboard Content
 <div class="row pb40">
     <div class="col-lg-9">
         <div class="dashboard_title_area">
@@ -10,6 +10,7 @@
             <p class="text">Заполните форму обращения и опубликуйте</p>
         </div>
     </div>
+
     <div class="col-lg-3">
         <div class="text-lg-end">
             <a href="" class="ud-btn btn-dark">Опубликовать<i
@@ -24,14 +25,29 @@
                 <h5 class="list-title">Первичная информация</h5>
             </div>
             <div class="col-xl-8">
-                <form class="form-style1">
+                <form class="form-style1"
+                      action=""
+                      method="post"
+                >
+                    {% csrf_token %}
+                    {{ form.creator }}
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="mb20">
                                 <label
                                         class="heading-color ff-heading fw500 mb10">Заголовок обращения</label>
-                                <input type="text" class="form-control"
-                                       placeholder="Отцы и дети">
+                                {{ form.title }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb20">
+                                <div class="form-style1">
+                                    <label
+                                            class="heading-color ff-heading fw500 mb10">Статус конфликта</label>
+                                    <div class="bootselect-multiselect">
+                                        {{ form.status }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -40,16 +56,7 @@
                                     <label
                                             class="heading-color ff-heading fw500 mb10">Категория конфликта</label>
                                     <div class="bootselect-multiselect">
-                                        <select class="selectpicker">
-                                            <option>Выбрать</option>
-                                            <option>Корпоративный</option>
-                                            <option>Бизнес</option>
-                                            <option>Семейный
-                                            </option>
-                                            <option>Недвижимость</option>
-                                            <option>Наследство</option>
-                                            <option>Личный</option>
-                                        </select>
+                                        {{ form.category }}
                                     </div>
                                 </div>
                             </div>
@@ -59,13 +66,7 @@
                                 <label
                                         class="heading-color ff-heading fw500 mb10">Уровень медиатора</label>
                                 <div class="bootselect-multiselect">
-                                    <select class="selectpicker">
-                                        <option>Выбрать</option>
-                                        <option>Новичёк</option>
-                                        <option>Бывалый</option>
-                                        <option>Дорогой</option>
-                                        <option>Уровень Бог</option>
-                                    </select>
+                                    {{ form.mediators_level }}
                                 </div>
                             </div>
                         </div>
@@ -74,12 +75,7 @@
                                 <label
                                         class="heading-color ff-heading fw500 mb10">Цена</label>
                                 <div class="bootselect-multiselect">
-                                    <select class="selectpicker">
-                                        <option>Выбрать</option>
-                                        <option>Низкая($)</option>
-                                        <option>Средняя($$)</option>
-                                        <option>Высокая($$$)</option>
-                                    </select>
+                                    {{ form.prise }}
                                 </div>
                             </div>
                         </div>
@@ -87,8 +83,7 @@
                             <div class="mb20">
                                 <label
                                         class="heading-color ff-heading fw500 mb10">Цена</label>
-                                <input type="email" class="form-control"
-                                       placeholder="$">
+                                {{ form.fixed_price }}
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -97,13 +92,7 @@
                                     <label
                                             class="heading-color ff-heading fw500 mb10">Время на решение</label>
                                     <div class="bootselect-multiselect">
-                                        <select class="selectpicker">
-                                            <option>Выбрать</option>
-                                            <option>1 День</option>
-                                            <option>2 Дня</option>
-                                            <option>3 Дня</option>
-                                            <option>1 Неделя</option>
-                                        </select>
+                                        {{ form.decide_time }}
                                     </div>
                                 </div>
                             </div>
@@ -111,14 +100,9 @@
                         <div class="col-sm-6">
                             <div class="mb20">
                                 <div class="form-style1">
-                                    <label class="heading-color ff-heading fw500 mb10">Level</label>
+                                    <label class="heading-color ff-heading fw500 mb10">Страна</label>
                                     <div class="bootselect-multiselect">
-                                        <select class="selectpicker">
-                                            <option>Select</option>
-                                            <option>Entry Level</option>
-                                            <option>Standard Level</option>
-                                            <option>Expert Level</option>
-                                        </select>
+                                        {{ form.country }}
                                     </div>
                                 </div>
                             </div>
@@ -126,17 +110,9 @@
                         <div class="col-sm-6">
                             <div class="mb20">
                                 <div class="form-style1">
-                                    <label class="heading-color ff-heading fw500 mb10">Country</label>
+                                    <label class="heading-color ff-heading fw500 mb10">Город</label>
                                     <div class="bootselect-multiselect">
-                                        <select class="selectpicker">
-                                            <option>Turkey</option>
-                                            <option>United Kingdom</option>
-                                            <option>United State</option>
-                                            <option>Ukraine</option>
-                                            <option>Uruguay</option>
-                                            <option>UK</option>
-                                            <option>Uzbekistan</option>
-                                        </select>
+                                        {{ form.city }}
                                     </div>
                                 </div>
                             </div>
@@ -144,36 +120,9 @@
                         <div class="col-sm-6">
                             <div class="mb20">
                                 <div class="form-style1">
-                                    <label class="heading-color ff-heading fw500 mb10">City</label>
+                                    <label class="heading-color ff-heading fw500 mb10">Язык</label>
                                     <div class="bootselect-multiselect">
-                                        <select class="selectpicker">
-                                            <option data-tokens="California">
-                                                California
-                                            </option>
-                                            <option data-tokens="Chicago">
-                                                Chicago
-                                            </option>
-                                            <option data-tokens="LosAngeles">
-                                                Los Angeles
-                                            </option>
-                                            <option data-tokens="Manhattan">
-                                                Manhattan
-                                            </option>
-                                            <option data-tokens="NewJersey">New
-                                                Jersey
-                                            </option>
-                                            <option data-tokens="NewYork">New
-                                                York
-                                            </option>
-                                            <option data-tokens="SanDiego">San
-                                                Diego
-                                            </option>
-                                            <option data-tokens="SanFrancisco">
-                                                San Francisco
-                                            </option>
-                                            <option data-tokens="Texas">Texas
-                                            </option>
-                                        </select>
+                                        {{ form.language }}
                                     </div>
                                 </div>
                             </div>
@@ -181,47 +130,10 @@
                         <div class="col-sm-6">
                             <div class="mb20">
                                 <div class="form-style1">
-                                    <label class="heading-color ff-heading fw500 mb10">Languages</label>
+                                    <label class="heading-color ff-heading fw500 mb10">
+                                        Уровень владения языком</label>
                                     <div class="bootselect-multiselect">
-                                        <select class="selectpicker" multiple>
-                                            <option>English</option>
-                                            <option>Spanish</option>
-                                            <option>Greek</option>
-                                            <option>Tarkish</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mb20">
-                                <div class="form-style1">
-                                    <label class="heading-color ff-heading fw500 mb10">Languages
-                                        Level</label>
-                                    <div class="bootselect-multiselect">
-                                        <select class="selectpicker" multiple>
-                                            <option>Select</option>
-                                            <option>Fluent</option>
-                                            <option>Mid Level</option>
-                                            <option>Conversational</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="mb20">
-                                <div class="form-style1">
-                                    <label class="heading-color ff-heading fw500 mb10">Skills</label>
-                                    <div class="bootselect-multiselect">
-                                        <select class="selectpicker" multiple>
-                                            <option>Figma</option>
-                                            <option>Adobe XD</option>
-                                            <option>CSS</option>
-                                            <option>HTML</option>
-                                            <option>Bootstrap</option>
-                                        </select>
+                                        {{ form.language_level }}
                                     </div>
                                 </div>
                             </div>
@@ -230,51 +142,62 @@
                             <div class="mb10">
                                 <label
                                         class="heading-color ff-heading fw500 mb10">Описание сути конфликта</label>
-                                <textarea cols="30" rows="6"
-                                          placeholder="Description"></textarea>
+                                {{ form.description }}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="mb10">
+                                <label
+                                        class="heading-color ff-heading fw500 mb10">Доступно для всех?</label>
+                                {{ form.is_all_visible }}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb20">
+                                <div class="form-style1">
+                                    <label
+                                            class="heading-color ff-heading fw500 mb10">Медиатор</label>
+                                    <div class="bootselect-multiselect">
+                                        {{ form.mediator }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="mb20">
+                                <div class="form-style1">
+                                    <label
+                                            class="heading-color ff-heading fw500 mb10">Респондент</label>
+                                    <div class="bootselect-multiselect">
+                                        {{ form.respondents }}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="text-start">
-                                <a class="ud-btn btn-thm"
-                                   href="/templates/page-contact.html">Сохранить<i
-                                        class="fal fa-arrow-right-long"></i></a>
+                                <button class="ud-btn btn-thm" type="submit">Сохранить
+                                    <i class="fal fa-arrow-right-long"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-        <div class="ps-widget bgc-white bdrs12 p30 mb30 overflow-hidden position-relative">
-            <div class="bdrb1 pb15 mb25">
-                <h5 class="list-title">Загрузите документы</h5>
-            </div>
-            <div class="row">
-                <div class="col-6 col-xl-2">
-                    <div class="project-attach">
-                        <h6 class="title">Документы</h6>
-                        <p>PDF</p>
-                        <span class="icon flaticon-page"></span>
-                    </div>
-                </div>
-                <div class="col-6 col-xl-2">
-                    <div class="project-attach">
-                        <h6 class="title">Фотографии</h6>
-                        <p>jpg</p>
-                        <span class="icon flaticon-page"></span>
-                    </div>
-                </div>
-                <div class="col-6 col-xl-3">
-                    <a class="upload-img" href="">Загрузить файлы</a>
-                </div>
-            </div>
-            <p class="text">Максимальный размер файла: 10 MB</p>
-            <div class="text-start">
-                <a class="ud-btn btn-thm" href="/templates/page-contact.html">Сохранить
-                 и опубликовать<i class="fal fa-arrow-right-long"></i></a>
-            </div>
-        </div>
     </div>
 </div>
+
+<!--    <h1>Создать конфликт</h1>-->
+<!--    <form method="post">-->
+<!--        {% csrf_token %}-->
+<!--        {{ form.as_p }}-->
+<!--        <button type="submit">Создать</button>-->
+<!--    </form>-->
+
 <!-- Dashboard Content End -->
 {% endblock dash-content %}
+
+
+
+
