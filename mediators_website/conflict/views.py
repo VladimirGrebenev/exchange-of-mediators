@@ -77,33 +77,11 @@ class DocumentFormView(FormView):
 logger = logging.getLogger(__name__)
 
 
-# class ConflictCreateView(CreateView):
-#     model = Conflict
-#     form_class = ConflictForm
-#     success_url = 'dashboard/page-dashboard-create-project.html'
-#     template_name = 'dashboard/page-dashboard-create-project.html'
-#
-#     def get_form_kwargs(self):
-#         return super().get_form_kwargs() | {"user": self.request.user}
-#
-#     def form_valid(self, form):
-#         # Save the conflict form
-#         conflict = form.save(commit=True)
-#         # Создание нового экземпляра формы
-#         form = self.form_class(ConflictForm)
-#         # Логирование данных
-#         logger.info("Данные формы успешно прошли проверку: %s", form.cleaned_data)
-#         # Redirect to the success URL
-#         return redirect(self.get_success_url())
-
 class ConflictCreateView(CreateView):
     model = Conflict
     form_class = ConflictForm
     success_url = "/dashboard/create-project/"
 
-    # def get_form_kwargs(self):
-    #     logger.info("get_form_kwargs ")
-    #     return super().get_form_kwargs() | {"user": self.request.user}
 
     def form_valid(self, form):
         form.instance.creator = self.request.user

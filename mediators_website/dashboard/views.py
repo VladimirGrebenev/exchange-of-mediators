@@ -75,20 +75,3 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
         conflicts = Conflict.objects.filter(mediator=user, deleted=False)
         context['conflicts'] = conflicts
         return context
-
-
-# class ConflictCreateView(CreateView):
-#     model = Conflict
-#     form_class = ConflictForm
-#     success_url = 'dashboard/page-dashboard-create-project.html'
-#     template_name = 'dashboard/page-dashboard-create-project.html'
-# 
-#     def get_form_kwargs(self):
-#         return super().get_form_kwargs() | {"user": self.request.user}
-# 
-#     def form_valid(self, form):
-#         # Save the conflict form
-#         conflict = form.save(commit=True)
-# 
-#         # Redirect to the success URL
-#         return redirect(self.get_success_url())
