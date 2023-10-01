@@ -100,7 +100,6 @@ class ConflictCreateView(CreateView):
     model = Conflict
     form_class = ConflictForm
     success_url = "/dashboard/create-project/"
-    template_name = 'dashboard/page-dashboard-create-project.html'
 
     # def get_form_kwargs(self):
     #     logger.info("get_form_kwargs ")
