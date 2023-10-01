@@ -80,11 +80,7 @@ class ConflictForm(forms.ModelForm):
             "mediator": forms.Select({
                 'class': "selectpicker",
             }),
-<<<<<<< HEAD
             "respondents": forms.SelectMultiple({
-=======
-            "respondents": forms.Select({
->>>>>>> e965eed83eef59dd8f9a34ae48dbd184a309db07
                 'class': "selectpicker",
             }),
             "is_all_visible": forms.CheckboxInput(attrs={
