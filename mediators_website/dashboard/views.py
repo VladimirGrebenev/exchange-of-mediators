@@ -3,13 +3,14 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from django.db.models import Q
 
 from utils.views_mixins import PermissionByGroupMixin
 
 from conflict.models import Conflict
-
+# from conflict.forms import ConflictForm
+# from conflict.views import ConflictCreateView
 
 class DashboardDispatcherView(LoginRequiredMixin, View):
     """

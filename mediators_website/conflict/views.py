@@ -1,4 +1,9 @@
+from django.http import request
+from django.http import HttpRequest
+
 from django.urls import reverse_lazy
+import logging
+from django.shortcuts import redirect
 from django.views.generic import FormView, TemplateView, CreateView
 
 from conflict.forms import ConflictForm, DocumentForm
@@ -9,7 +14,7 @@ class ConflictView(TemplateView):
     """
         Temporary view. Retire in the future
     """
-    template_name = 'conflict/conflict.html'
+    template_name = 'dashboard/page-dashboard-create-project.html'
     extra_context = {
         "object_list": Conflict.objects.all().prefetch_related('files')
     }
@@ -19,7 +24,7 @@ class ConflictFormView(FormView):
     """
         Returned conflict form
     """
-    template_name = "conflict/conflict_form.html"
+    template_name = "dashboard/page-dashboard-create-project.html"
     form_class = ConflictForm
 
     def get_form_kwargs(self):
@@ -32,6 +37,23 @@ class ConflictFormView(FormView):
                 pass
         return kwargs | {"user": self.request.user}
 
+
+# class DocumentFormView(FormView):
+    # """
+    #     Returned document form
+    # """
+    # template_name = "conflict/document_form.html"
+    # form_class = DocumentForm
+    #
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     if pk := self.request.GET.get('pk'):
+    #         try:
+    #             document = Document.objects.get(pk=pk)
+    #             kwargs['instance'] = document
+    #         except Document.DoesNotExist:
+    #             pass
+    #     return kwargs | {"user": self.request.user}
 
 class DocumentFormView(FormView):
     """
@@ -51,33 +73,32 @@ class DocumentFormView(FormView):
         return kwargs | {"user": self.request.user}
 
 
+# Настройка логгера
+logger = logging.getLogger(__name__)
+
+
 class ConflictCreateView(CreateView):
     model = Conflict
     form_class = ConflictForm
-    success_url = reverse_lazy('conflict:conflict')
+    success_url = "/dashboard/create-project/"
 
-    def get_form_kwargs(self):
-        return super().get_form_kwargs() | {"user": self.request.user}
 
     def form_valid(self, form):
-        # print('self.request.FILES', self.request.FILES)
-        # print('len ', len(self.request.FILES))
-        # print('type', type(self.request.FILES))
-        # print('self.request.POST', self.request.POST)
-        # files = self.request.FILES.getlist('file_path')
-        # print('files ', files)
-        # print('type(files) ', type(files))
-        # i = 0
-        # for file in files:
-        #     print('file.name ', file.name)  # Gives name
-        #     print('file.content_type',
-        #           file.content_type)  # Gives Content type text/html etc
-        #     print('file.size', file.size)  # Gives file's size in byte
-        #     print('____________________________________i ', i)
-        #     i = i + 1
+        form.instance.creator = self.request.user
+        logger.info("Я попал в form_valid ")
+        print(form.cleaned_data)
+        # Сохраняем форму конфликта
+        conflict = form.save(commit=True)
 
-        # TODO вот тут должна быть обработка приходящей формы. Там внутри лежит форма конфликта + бесконечное
-        #  количество файлов. Т.е. надо вытащить все файлы + их поля из self.request.POST и как-то их разобрать.
-        #  мб имеет смысл обернуть все файлы в отдельный формы и разбирать их в контроллере. Надо пробовать,
-        #  я не знаю заранее, как будет работать. Сейчас конфликты создаются. Файлы - нет.
+        # Логируем данные формы
+        logger.info("Данные формы успешно прошли проверку")
+
         return super().form_valid(form)
+        # Redirect to the success URL
+        # return redirect(self.get_success_url())
+
+    def get_form_kwargs(self):
+        logger.info("get_form_kwargs ")
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user  # Передаем текущего пользователя в форму
+        return kwargs
