@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.urls import include, path
 
-from user.views import TopMediatorsList
+from user.views import TopMediatorsList, ContactTopMediatorsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,7 +15,7 @@ urlpatterns = [
     #     name='mediators'),
     path(
         'contacts/',
-        TemplateView.as_view(
+        ContactTopMediatorsList.as_view(
             template_name='page-contact.html'),
         name='contacts'),
     path(

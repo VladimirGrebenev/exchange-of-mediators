@@ -67,25 +67,16 @@ class Mediator(User):
     objects = MediatorManager()
 
     class Meta:
+        ordering = ['create_at']
         proxy = True
 
 
-class AdditionalInfo(Mediator):
-    mediator = models.OneToOneField(
-        Mediator,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        related_name='add_info_for_mediator',
-    )
-    rate = models.IntegerField(blank=True, null=True)
-    photo = models.FilePathField(path='mediators_photo/', blank=True, null=True)
-    summary = models.IntegerField(blank=True, null=True)
+# class MediatorType(models.TextChoices):
+#     TYPE_A = "Type A"
+#     TYPE_B = "Type B"
+#     TYPE_C = "Type C"
+#     TYPE_D = "Type D"
 
-class MediatorType(models.TextChoices):
-    TYPE_A = "Type A"
-    TYPE_B = "Type B"
-    TYPE_C = "Type C"
-    TYPE_D = "Type D"
 
 class AdditionalInfo(models.Model):
     user = models.OneToOneField(
@@ -98,10 +89,10 @@ class AdditionalInfo(models.Model):
     successful_cases_procentage = models.DecimalField(
         max_digits=5, decimal_places=2
     )
-    type = models.CharField(
-        max_length=50,
-        choices=MediatorType.choices,
-    )
+    # type = models.CharField(
+    #     max_length=50,
+    #     choices=MediatorType.choices,
+    # )
 
     def __str__(self):
-        return self.mediator.email
+        return self.user.email

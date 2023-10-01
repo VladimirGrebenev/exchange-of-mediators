@@ -39,7 +39,7 @@ class NextPageMixin:
 class TopFiveMediatorsMixin(ContextMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        mediators = Mediator.objects.all()
+        mediators = Mediator.objects.all().order_by('lastname')
         num_mediators = min(mediators.count(), 5)  # определяем количество записей или возьмем 5
         random_mediators_list = sample(list(mediators), num_mediators)  # выбираем случайные записи из модели
         context['top_mediators'] = random_mediators_list
