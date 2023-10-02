@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.views import View
 
-# from .models import EmailConfirmation, Mediator, AdditionalInfo, User
+from .models import EmailConfirmation, Mediator, AdditionalInfo, User
 
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
@@ -82,9 +82,6 @@ class DashboardProfileView(View):
             'delete_form': delete_form,
         }
         return render(request, self.template_name, context)
-<<<<<<< HEAD
-    
-=======
 
 
 class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
@@ -94,4 +91,3 @@ class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-contact.html'
     context_object_name = 'mediators_list'
->>>>>>> development
