@@ -1,8 +1,9 @@
-from django.forms import ModelForm, CharField, TextInput, EmailInput, DateInput, PasswordInput
+from django.forms import ModelForm, CharField, TextInput, EmailInput, DateInput, PasswordInput, ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import models
 from .models import User
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime
 
 
 class UserForm(UserCreationForm):
@@ -29,15 +30,16 @@ class UserFormProfile(ModelForm):
         required=False,
         help_text=_("Пароли должны совпадать"),
     )
+
     class Meta:
         model = User
-        fields = ('firstname', 'lastname', 'email', 'phone', 'birthday',)
+        fields = ('firstname', 'lastname', 'email', 'phone', 'birthday', 'profile_image')
         widgets = {
             'firstname': TextInput(attrs={'class': 'form-control', 'placeholder': 'Имя'}),
             'lastname': TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'}),
             'email': EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
             'phone': TextInput(attrs={'class': 'form-control', 'placeholder': 'Номер телефона'}),
-            'birthday': DateInput(attrs={'class': 'form-control', 'placeholder': 'День рождения'}),
+            'birthday': DateInput(attrs={'class': 'form-control', 'placeholder': 'Дата рождения'}),
         }
 
     def clean(self):
@@ -52,9 +54,8 @@ class UserFormProfile(ModelForm):
 
         if password1 and password2 and password1 != password2:
             self.add_error('password2', _('Пароли не совпадают'))
-
         return cleaned_data
-
+    
     def save(self, *args, **kwargs):
         """
         Метод, который сохраняет данные формы. Если поля пароля не содержат ошибок
@@ -64,4 +65,43 @@ class UserFormProfile(ModelForm):
         if self.cleaned_data.get('password1'):
             self.instance.set_password(self.cleaned_data['password1'])
         return super().save(*args, **kwargs)
+    
+    
+class DeleteProfileForm(ModelForm):
+    password = CharField(widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': '**********'}),
+                               required=True)
+
+    class Meta:
+        model = User
+        fields = []
+
+    def clean_password(self):
+        """
+        Метод для проверки правильности пароля. Он получает значение пароля
+        из очищенных данных формы (`self.cleaned_data.get('password')`) и 
+        экземпляр пользователя из атрибута `instance`. Затем он вызывает метод 
+        `check_password()` модели `User`, чтобы проверить, совпадает ли хэш пароля 
+        с хэшем, хранящимся в базе данных. Если пароль неверный, он вызывает исключение `ValidationError`.
+        """
+        password = self.cleaned_data.get('password')
+        user = self.instance
+
+        if not user.check_password(password):
+            raise ValidationError('Неверный пароль')
+        return password
+
+    def save(self, commit=True):
+        """
+         метод для сохранения изменений в модели `User`. 
+         Он устанавливает значение `deleted` в `True` для экземпляра 
+         пользователя и сохраняет его в базе данных. Если параметр `commit` равен `True`, 
+         то изменения будут сохранены в базе данных.
+        """
+        user = self.instance
+        user.deleted = True
+        user.deleted_at = datetime.now()
+
+        if commit:
+            user.save()
+        return user
     

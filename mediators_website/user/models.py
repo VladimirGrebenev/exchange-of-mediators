@@ -26,6 +26,7 @@ class User(PermissionsMixin, AbstractBaseUser):
     birthday = models.DateField(**NULLABLE)
     create_at = models.DateTimeField(auto_now_add=True, **NULLABLE)
     is_superuser = models.BooleanField(default=False)
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     status = models.TextField(
         verbose_name="status",
         choices=Statuses.choices,
@@ -33,6 +34,8 @@ class User(PermissionsMixin, AbstractBaseUser):
         null=False,
         blank=False,
     )
+    deleted = models.BooleanField(default=False)
+    deleted_at = models.DateTimeField(null=True)
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
