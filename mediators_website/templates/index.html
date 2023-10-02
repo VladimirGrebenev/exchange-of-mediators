@@ -18,12 +18,42 @@
                         <br class="d-none d-lg-block">путем выработки решения,
                         отвечающего интересам всех сторон.</p>
                     <div class="d-sm-flex align-items-center mt30 animate-up-3">
-                        <a href="page-job-list-v1.html"
-                           class="ud-btn btn-1 me-3 bdrs120 btn-1">Решить
-                            конфликт</a>
-                        <a href="page-freelancer-v1.html"
+
+                        <a href="#" id="redirectLink" class="ud-btn btn-1 me-3 bdrs120 btn-1">Решить конфликт</a>
+<!--                        <a href="#" id="mediatorLink" class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать медиатором</a>-->
+                        <script>
+                            document.getElementById("redirectLink").addEventListener("click", function(event) {
+                                event.preventDefault();
+                                var isUserLoggedIn = false;
+                                {% if user.is_authenticated %}
+                                    isUserLoggedIn = true;
+                                {% endif %}
+                                if (isUserLoggedIn) {
+                                    window.location.href = "/dashboard/create-project/";
+                                } else {
+                                    window.location.href = "/signing/signin/";
+                                }
+                            });
+<!--                            document.getElementById("mediatorLink").addEventListener("click", function(event) {-->
+<!--                                event.preventDefault();-->
+<!--                                var isMediator = false;-->
+<!--                                {% if user.is_ %}-->
+<!--                                    isMediator = true;-->
+<!--                                {% endif %}-->
+<!--                                if (isMediator) {-->
+<!--                                    window.location.href = "/signing/signup/";-->
+<!--                                } else {-->
+<!--                                    window.location.href = "/signing/signup/";-->
+<!--                                }-->
+<!--                            });-->
+                        </script>
+
+
+
+                        <a href="/signing/signup/"
                            class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать
                             медиатором</a>
+
                     </div>
                 </div>
             </div>

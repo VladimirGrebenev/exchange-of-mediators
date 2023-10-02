@@ -2,6 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 import dashboard.views as views
+from conflict.views import ConflictFormView, ConflictView, ConflictCreateView
 
 from user.views import DashboardProfileView
 
@@ -9,14 +10,16 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", views.DashboardDispatcherView.as_view(), name='dashboard'),
-    path("user/", views.UserDashboardView.as_view(template_name = 'dashboard/page-dashboard.html'), name='user_dashboard'),
-    path("mediator/", views.MediatorsDashboardView.as_view(template_name = 'dashboard/page-dashboard.html'), name='mediator_dashboard'),
+    path("user/", views.UserDashboardView.as_view(), name='user_dashboard'),
+    path("mediator/", views.MediatorsDashboardView.as_view(), name='mediator_dashboard'),
+    path('conflict/', ConflictView.as_view(), name='conflict'),
     path(
         'create-project/',
-        TemplateView.as_view(
+        ConflictCreateView.as_view(
             template_name='dashboard/page-dashboard-create-project.html'),
         name='create-project'
     ),
+    path('get-conflict-form/', ConflictFormView.as_view(), name='conflict_form'),
     path(
         'invoice/',
         TemplateView.as_view(
@@ -28,6 +31,21 @@ urlpatterns = [
         views.UserDashboardListConflictsView.as_view(
             template_name='dashboard/page-dashboard-manage-jobs.html'),
         name='jobs'
+    ),
+    path(
+        'user/manage-jobs/status-new/',
+        views.UserDashboardListConflictStatusNew.as_view(),
+        name='new'
+    ),
+    path(
+        'user/manage-jobs/status-in-work/',
+        views.UserDashboardListConflictStatusInWork.as_view(),
+        name='in-work'
+    ),
+    path(
+        'user/manage-jobs/status-completed/',
+        views.UserDashboardListConflictStatusCompleted.as_view(),
+        name='completed'
     ),
     path(
         'mediator/manage-jobs-mediator/',
