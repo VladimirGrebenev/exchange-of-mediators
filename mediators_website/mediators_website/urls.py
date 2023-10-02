@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.urls import include, path
+from django.conf.urls.static import static
 
 from user.views import TopMediatorsList
 
@@ -44,7 +45,7 @@ urlpatterns = [
     path("conflict/", include("conflict.urls", namespace="conflict")),
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     path("reviews/", include("reviews.urls", namespace="reviews")),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     import debug_toolbar

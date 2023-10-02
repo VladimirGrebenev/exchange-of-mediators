@@ -6,3 +6,4 @@ flake8==6.1.0
 django_bootstrap5==23.3.*
 django-debug-toolbar==4.2.*
 django-htmx==1.16.*
+pillow==10.0.1
