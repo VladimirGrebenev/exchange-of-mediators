@@ -33,7 +33,12 @@ class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
         User dashboard
     """
     allowed_groups = ('user',)
-    template_name = 'page-dashboard.html'
+    template_name = 'dashboard/page-dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['conflicts'] = Conflict.objects.all()
+        return context
 
     model = Mediator
 
@@ -85,7 +90,7 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
         User dashboard / conflicts list
     """
     allowed_groups = ('user',)
-    template_name = 'dashboard/page-dashboard-manage-job.html'
+    template_name = 'dashboard/page-dashboard-manage-jobs.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -111,4 +116,25 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
         # Filter conflicts created by the user and not deleted
         conflicts = Conflict.objects.filter(mediator=user, deleted=False)
         context['conflicts'] = conflicts
+        return context
+
+
+class UserDashboardListConflictStatusNew(UserDashboardListConflictsView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['conflicts'] = self.request.user.created_conflicts.filter(status='Новый').all()
+        return context
+
+
+class UserDashboardListConflictStatusInWork(UserDashboardListConflictsView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['conflicts'] = self.request.user.created_conflicts.filter(status='В работе').all()
+        return context
+
+
+class UserDashboardListConflictStatusCompleted(UserDashboardListConflictsView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['conflicts'] = self.request.user.created_conflicts.filter(status='Завершен').all()
         return context

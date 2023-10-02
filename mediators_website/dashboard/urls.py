@@ -10,12 +10,9 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", views.DashboardDispatcherView.as_view(), name='dashboard'),
-    path("user/", views.UserDashboardView.as_view(
-        template_name='dashboard/page-dashboard.html'), name='user_dashboard'),
+    path("user/", views.UserDashboardView.as_view(), name='user_dashboard'),
+    path("mediator/", views.MediatorsDashboardView.as_view(), name='mediator_dashboard'),
     path('conflict/', ConflictView.as_view(), name='conflict'),
-    path("mediator/", views.MediatorsDashboardView.as_view(
-        template_name='dashboard/page-dashboard.html'),
-         name='mediator_dashboard'),
     path(
         'create-project/',
         ConflictCreateView.as_view(
@@ -34,6 +31,21 @@ urlpatterns = [
         views.UserDashboardListConflictsView.as_view(
             template_name='dashboard/page-dashboard-manage-jobs.html'),
         name='jobs'
+    ),
+    path(
+        'user/manage-jobs/status-new/',
+        views.UserDashboardListConflictStatusNew.as_view(),
+        name='new'
+    ),
+    path(
+        'user/manage-jobs/status-in-work/',
+        views.UserDashboardListConflictStatusInWork.as_view(),
+        name='in-work'
+    ),
+    path(
+        'user/manage-jobs/status-completed/',
+        views.UserDashboardListConflictStatusCompleted.as_view(),
+        name='completed'
     ),
     path(
         'mediator/manage-jobs-mediator/',
