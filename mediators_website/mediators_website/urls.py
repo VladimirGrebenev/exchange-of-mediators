@@ -4,7 +4,7 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 
-from user.views import TopMediatorsList
+from user.views import TopMediatorsList, ContactTopMediatorsList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,7 +16,7 @@ urlpatterns = [
     #     name='mediators'),
     path(
         'contacts/',
-        TemplateView.as_view(
+        ContactTopMediatorsList.as_view(
             template_name='page-contact.html'),
         name='contacts'),
     path(
@@ -42,7 +42,7 @@ urlpatterns = [
     ),
     path("user/", include("user.urls", namespace="user")),
     path("signing/", include("signing.urls", namespace="signing")),
-    path("conflict/", include("conflict.urls", namespace="conflict")),
+    # path("conflict/", include("conflict.urls", namespace="conflict")),
     path("dashboard/", include("dashboard.urls", namespace="dashboard")),
     path("reviews/", include("reviews.urls", namespace="reviews")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

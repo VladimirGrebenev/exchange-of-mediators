@@ -1,0 +1,37 @@
+{% extends 'dashboard/base-dashboard.html' %}
+{% load static %}
+
+
+{% block dash-description %}
+    <span class="text-secondary">Медиатора:</span>
+    <span class="text-secondary">{{ user.firstname }} {{ user.lastname }}</span>
+{% endblock dash-description %}
+
+
+
+{% block dash-content %}
+<div class="row">
+  <div class="col-sm-6 col-xxl-3">
+    <div class="d-flex align-items-center justify-content-between statistics_funfact">
+      <div class="details">
+        <div class="fz15">Мой рейтинг</div>
+        <a href="#" class="title">{{ user.add_info_for_mediator.rate }}</a>
+        <div class="text fz14"><span class="text-thm">+10???</span> Новых отзывов
+        </div>
+      </div>
+      <div class="icon text-center"><i class="flaticon-contract"></i></div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-xxl-3">
+    <div class="d-flex align-items-center justify-content-between statistics_funfact">
+      <div class="details">
+        <div class="fz15">Завершено конфликтов</div>
+        <a href="#" class="title">0???</a>
+        <div class="text fz14"><span class="text-thm">+8??? Новых</span>
+          отзывов</div>
+      </div>
+      <div class="icon text-center"><i class="flaticon-success"></i></div>
+    </div>
+  </div>
+</div>
+{% endblock dash-content %}

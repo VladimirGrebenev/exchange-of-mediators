@@ -1,3 +1,5 @@
+from random import sample
+
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -41,6 +43,23 @@ class User(PermissionsMixin, AbstractBaseUser):
     def __str__(self):
         return f'{self.firstname} {self.lastname}, {self.email}'
 
+    def top3_mediator_list(self):
+        """Тут выборка из всех медиаторов. Надо бы посчитать рейтинг, потом как-нибудь"""
+        k = min(Mediator.objects.count(), 3)
+        return sample(list(Mediator.objects.all()), k=k)
+
+    def conflicts_new(self):
+        """Вернет количество конфликтов, у которых статус 'Новый'"""
+        return self.created_conflicts.filter(status='Новый').count()
+
+    def conflicts_in_work(self):
+        """Вернет количество конфликтов, у которых статус 'В работе'"""
+        return self.created_conflicts.filter(status='В работе').count()
+
+    def conflicts_completed(self):
+        """Вернет количество конфликтов, у которых статус 'Завершен'"""
+        return self.created_conflicts.filter(status='Завершен').count()
+
 
 class EmailConfirmation(models.Model):
     user = models.OneToOneField(
@@ -70,6 +89,7 @@ class Mediator(User):
     objects = MediatorManager()
 
     class Meta:
+        ordering = ['create_at']
         proxy = True
 
 
@@ -83,28 +103,32 @@ class AdditionalInfo(Mediator):
     rate = models.IntegerField(blank=True, null=True)
     photo = models.FilePathField(path='mediators_photo/', blank=True, null=True)
     summary = models.IntegerField(blank=True, null=True)
-
-class MediatorType(models.TextChoices):
-    TYPE_A = "Type A"
-    TYPE_B = "Type B"
-    TYPE_C = "Type C"
-    TYPE_D = "Type D"
-
-class AdditionalInfo(models.Model):
-    user = models.OneToOneField(
-        Mediator,
-        on_delete=models.CASCADE,
-        primary_key=True,
-    )
     description = models.TextField()
-    price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
-    successful_cases_procentage = models.DecimalField(
-        max_digits=5, decimal_places=2
-    )
-    type = models.CharField(
-        max_length=50,
-        choices=MediatorType.choices,
-    )
 
-    def __str__(self):
-        return self.mediator.email
+
+# class MediatorType(models.TextChoices):
+#     TYPE_A = "Type A"
+#     TYPE_B = "Type B"
+#     TYPE_C = "Type C"
+#     TYPE_D = "Type D"
+
+
+
+# class AdditionalInfo(models.Model):
+#     user = models.OneToOneField(
+#         Mediator,
+#         on_delete=models.CASCADE,
+#         primary_key=True,
+#     )
+#     description = models.TextField()
+#     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
+#     successful_cases_procentage = models.DecimalField(
+#         max_digits=5, decimal_places=2
+#     )
+#     type = models.CharField(
+#         max_length=50,
+#         choices=MediatorType.choices,
+#     )
+#
+#     def __str__(self):
+#         return self.mediator.email
