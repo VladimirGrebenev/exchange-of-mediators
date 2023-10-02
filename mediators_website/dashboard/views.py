@@ -14,6 +14,7 @@ from conflict.models import Conflict
 # from conflict.forms import ConflictForm
 # from conflict.views import ConflictCreateView
 
+
 class DashboardDispatcherView(LoginRequiredMixin, View):
     """
         Dashboard dispatcher by groups.
@@ -33,13 +34,7 @@ class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
         User dashboard
     """
     allowed_groups = ('user',)
-    template_name = 'dashboard/page-dashboard.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['conflicts'] = Conflict.objects.all()
-        return context
-
+    template_name = 'dashboard/page-dashboard-user.html'
     model = Mediator
 
     def get_context_data(self, **kwargs):
@@ -64,7 +59,7 @@ class MediatorsDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListVie
         Mediators dashboard
     """
     allowed_groups = ('mediator',)
-    template_name = 'dashboard/page-dashboard.html'
+    template_name = 'dashboard/page-dashboard-mediator.html'
 
     model = Mediator
 
