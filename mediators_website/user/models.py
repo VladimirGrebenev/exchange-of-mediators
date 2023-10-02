@@ -42,7 +42,8 @@ class User(PermissionsMixin, AbstractBaseUser):
 
     def top3_mediator_list(self):
         """Тут выборка из всех медиаторов. Надо бы посчитать рейтинг, потом как-нибудь"""
-        return sample(list(Mediator.objects.all()), k=3)
+        k = min(Mediator.objects.count(), 3)
+        return sample(list(Mediator.objects.all()), k=k)
 
     def conflicts_new(self):
         """Вернет количество конфликтов, у которых статус 'Новый'"""
@@ -87,7 +88,6 @@ class Mediator(User):
     class Meta:
         ordering = ['create_at']
         proxy = True
-
 
 
 class AdditionalInfo(Mediator):
