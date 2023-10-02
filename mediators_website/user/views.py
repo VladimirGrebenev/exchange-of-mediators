@@ -1,8 +1,7 @@
 from django.conf import settings
 from django.views import View
-from django.views.generic import ListView
 
-from .models import EmailConfirmation, Mediator, AdditionalInfo, User
+# from .models import EmailConfirmation, Mediator, AdditionalInfo, User
 
 from django.views.generic import FormView, ListView
 from django.shortcuts import render, redirect
@@ -30,16 +29,22 @@ class EmailConfirmView(View):
 
 
 class TopMediatorsList(TopFiveMediatorsMixin, ListView):
+    """
+    Отображение списка медиаторов на странице Медиаторы
+    """
     model = Mediator
     template_name = 'page-about.html'
     context_object_name = 'mediators_list'
-    paginate_by = 12
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
+        """
+        Отображение полного списка медиаторов внизу страницы
+        """
         context = super().get_context_data(**kwargs)
-        context['objects_mediators'] = Mediator.objects.all()
-        print(context)
-        print(context['objects_mediators'])
+        context['objects_mediators'] = Mediator.objects.all().order_by('lastname')
+        context['count_mediators'] = len(context['objects_mediators'])
+        # context['objects_mediators'] = Mediator.objects.all()
         return context
 
 
@@ -84,3 +89,12 @@ class DashboardProfileView(FormView):
                 'profile_form': profile_form,
             }
         return render(request, self.template_name, context)
+
+
+class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
+    """
+    Отображение списка медиаторов на странице Медиаторы
+    """
+    model = Mediator
+    template_name = 'page-contact.html'
+    context_object_name = 'mediators_list'

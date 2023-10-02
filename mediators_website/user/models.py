@@ -85,7 +85,9 @@ class Mediator(User):
     objects = MediatorManager()
 
     class Meta:
+        ordering = ['create_at']
         proxy = True
+
 
 
 class AdditionalInfo(Mediator):
@@ -101,11 +103,12 @@ class AdditionalInfo(Mediator):
     description = models.TextField()
 
 
-class MediatorType(models.TextChoices):
-    TYPE_A = "Type A"
-    TYPE_B = "Type B"
-    TYPE_C = "Type C"
-    TYPE_D = "Type D"
+# class MediatorType(models.TextChoices):
+#     TYPE_A = "Type A"
+#     TYPE_B = "Type B"
+#     TYPE_C = "Type C"
+#     TYPE_D = "Type D"
+
 
 
 # class AdditionalInfo(models.Model):
