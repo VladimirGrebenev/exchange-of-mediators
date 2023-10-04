@@ -7,6 +7,10 @@
 {% block dash-description %}
 {% endblock dash-description %}
 
+{% block dash-sidebar %}
+    {% include 'dashboard/includes/dash-sidebar-list.html' with active_conflicts='-is-active'  %}
+{% endblock %}
+
 {% block dash-content %}
 <!-- Dashboard Content -->
 

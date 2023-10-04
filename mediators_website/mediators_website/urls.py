@@ -4,7 +4,7 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 
-from user.views import TopMediatorsList, ContactTopMediatorsList
+from user.views import TopMediatorsList, ContactTopMediatorsList, MediatorDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,6 +39,11 @@ urlpatterns = [
         TopMediatorsList.as_view(
             template_name='page-about.html'),
         name='mediators'
+    ),
+    path(
+        "mediator/<str:pk>",
+        MediatorDetailView.as_view(),
+        name='mediator-detail',
     ),
     path("user/", include("user.urls", namespace="user")),
     path("signing/", include("signing.urls", namespace="signing")),
