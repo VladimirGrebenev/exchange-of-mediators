@@ -3,16 +3,15 @@ from django.views import View
 
 from .models import EmailConfirmation, Mediator, AdditionalInfo, User
 
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from utils.views_mixins import TopFiveMediatorsMixin
 
-
-from .models import EmailConfirmation
 from .forms import UserFormProfile, DeleteProfileForm
-from user.models import Mediator
+from conflict.models import Conflict
+from reviews.forms import ReviewForm
 
 
 class EmailConfirmView(View):
@@ -91,3 +90,27 @@ class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-contact.html'
     context_object_name = 'mediators_list'
+
+
+class MediatorDetailView(DetailView):
+    model = Mediator
+    template_name = 'user/page-mediator-detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = ReviewForm(initial={'to_user': kwargs['object'].id, 'from_user': self.request.user.id})
+        mediator = kwargs['object']
+        conflicts = Conflict.objects.filter(mediator=mediator)
+        completed_conflicts = conflicts.filter(status='Завершен')
+        active_conflicts = conflicts.exclude(status='Завершен')
+        context['completed_conflicts'] = completed_conflicts
+        context['active_conflicts'] = active_conflicts
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('mediator-detail', kwargs['pk'])
+        return render(request, self.template_name, {'form': form})
+

@@ -3,11 +3,12 @@
         <div class="dashboard_sidebar_list">
             <p class="fz15 fw400 ff-heading pl30"> </p>
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:dashboard' %}" class="items-center -is-active"><i
+<!--            <a href="{% url 'dashboard:dashboard' %}" class="items-center -is-active"><i-->
+            <a href="{% url 'dashboard:dashboard' %}" class="items-center {{ active_start }}"><i
                     class="flaticon-home mr15"></i>Рабочий кабинет</a>
           </div>
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:jobs' %}" class="items-center"><i
+            <a href="{% url 'dashboard:jobs' %}" class="items-center {{ active_conflicts }}"><i
                     class="flaticon-document mr15"></i>Мои конфликты</a>
           </div>
 <!--          <div class="sidebar_list_item">-->
@@ -37,7 +38,7 @@
           <p class="fz15 fw400 ff-heading pl30 mt30">Управление конфликтами</p>
           <div class="sidebar_list_item ">
             <a href="{% url 'dashboard:create-project' %}"
-               class="items-center"><i
+               class="items-center {{ active_create_project }}"><i
                     class="flaticon-presentation mr15"></i>Создать
               обращение</a>
           </div>
@@ -54,7 +55,7 @@
           </div>
           <p class="fz15 fw400 ff-heading pl30 mt30">Аккаунт</p>
           <div class="sidebar_list_item ">
-            <a href="{% url 'dashboard:profile' %}" class="items-center"><i
+            <a href="{% url 'dashboard:profile' %}" class="items-center {{ active_profile }}"><i
                     class="flaticon-photo mr15"></i>Мой профиль</a>
           </div>
           <div class="sidebar_list_item ">
