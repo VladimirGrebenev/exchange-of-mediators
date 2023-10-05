@@ -1,0 +1,462 @@
+[
+  {
+    "model": "user.user",
+    "pk": "04be0348-fec0-47eb-a585-6fdd5d61b1a8",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$AzplpDOuteVkabvmclwxYf$7hV8t1CtNYap6smFSMOcscpalujNXjhbIBT75Ke4XXY=",
+      "last_login": "2023-10-04T18:05:02.227Z",
+      "firstname": "Kapriz",
+      "lastname": "Antifriz",
+      "email": "kapriz@kapriz.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:05:02.164Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "1b0fd81a-babc-4002-9c23-9194117a6437",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$qCzY9uESaDnVvagpvbFYUp$tfQTPRW7bnmUI/jKVZUOUbZWvrLvO11jvmSZ1QIdqIE=",
+      "last_login": "2023-10-04T17:56:02.579Z",
+      "firstname": "Goga",
+      "lastname": "Frog",
+      "email": "goga@goga.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:56:02.519Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "1e0df69b-3b4c-40dc-b448-50852d1e9c0d",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$2FUCltGoYqtgVwafDocThZ$4DVy9LDGhvUidsEaZqmWRlFLpTELvIGIRuTpXW5G1L4=",
+      "last_login": "2023-10-04T17:57:08.705Z",
+      "firstname": "Fifa",
+      "lastname": "Wins",
+      "email": "fifa@fifa.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:57:08.639Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "1fcdaabc-6779-4575-a56d-7c02e798fa8d",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$mthwoK1867oNDenXlMMIm6$74eaJKbglu2Ql3I8MXhe1Wcuht4nSp1ObxurKU+mDbw=",
+      "last_login": "2023-10-04T18:00:16.366Z",
+      "firstname": "Tualet",
+      "lastname": "Violet",
+      "email": "tualet@tualet.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:00:16.286Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "2792edb3-0820-437f-9ff7-5573118663b9",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$kWEBRB6TNTAor0vBdJKpkz$IHzqCO8p/U5DVXySsk7kkBmEjREqmugF0rwocCKN5UA=",
+      "last_login": "2023-10-04T18:01:05.918Z",
+      "firstname": "Pol",
+      "lastname": "Podol",
+      "email": "pol@pol.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:01:05.855Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "3b547363-7776-49a0-8257-63464b6930be",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$Ql23Q5XKxh7vvhWfkzgVux$+P/HPxeSVaRCRPrVRtz+nJjUmvMBkpeUT7mlmgRAHDE=",
+      "last_login": "2023-10-04T18:05:38.172Z",
+      "firstname": "Tunis",
+      "lastname": "Vineriz",
+      "email": "tunis@tunis.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:05:38.108Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "486cd721-a0d0-4dbf-a902-2c3d76af64d1",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$JkEoUUiS4WAPoYTOlHUJI5$FGCmu660DKeqIqyo7wx/ylup55eeDNeq6gzrr9HCtdg=",
+      "last_login": "2023-10-04T17:58:23.363Z",
+      "firstname": "Hiphop",
+      "lastname": "Pulemet",
+      "email": "hiphop@hiphop.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:58:23.300Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "536d30a5-44bd-4b10-8e66-8fb543fbf04c",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$jGjDJ1pdJgoY4fhnHtFved$yxDxKd5ZsXcPk3FWSntCpXapf5/yZrAtlu0YdOLl3xg=",
+      "last_login": "2023-10-04T18:03:46.716Z",
+      "firstname": "Human",
+      "lastname": "Bublik",
+      "email": "human@human.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:03:46.656Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "6dad088d-ef42-48b5-8e24-e03b7d5d5db4",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$KqmMpN6I3lnfcWlideRMQD$UDhJOu92ru3hpMTon3EulJLkGIZJe1CoO7Uc1r8+yBY=",
+      "last_login": "2023-10-04T18:03:16.910Z",
+      "firstname": "Baran",
+      "lastname": "Sarafan",
+      "email": "baran@baran.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:03:16.850Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "6e868806-71f6-4aa5-aa0e-41a2c9b93aac",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$wQAG6UWGjCvKv3juc7Y3xp$vjD57w9JvAf2az8bctZhAMRNwE8ncZyNV9XJqckMHBA=",
+      "last_login": "2023-10-04T18:04:19.209Z",
+      "firstname": "Iris",
+      "lastname": "Noris",
+      "email": "iris@iris.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:04:19.149Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "6ecacd00-eb68-4ed6-9fdc-319a0adec6b3",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$hJo62KvBggl3rOu3BNqLEF$dliU9uQfUHGDuSLuiqgML7jJ53MByUfwinVSln0uh10=",
+      "last_login": "2023-10-04T17:56:38.386Z",
+      "firstname": "Tula",
+      "lastname": "Lipov",
+      "email": "tula@tula.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:56:38.325Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "7d2ec5c3-3913-4e7f-a2c4-5d13e8e309c2",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$w4eOdfXLOc5DF5bdOg7S5U$BLEEi3Bg+X2TVdAY/ErDKcSrJptpblojZ90MVG853BA=",
+      "last_login": "2023-10-04T17:54:47.503Z",
+      "firstname": "Mega",
+      "lastname": "Gramm",
+      "email": "mega@mega.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:54:47.443Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "9ac6c57b-13bb-46ca-bb20-3ea7580f2d2c",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$03e9vRXDLCz2m4hfWYvtaL$LyC9QQ70/DEhrCavjKB8dBxgcUswJakUoa8eoXY8Kok=",
+      "last_login": "2023-10-04T18:02:46.480Z",
+      "firstname": "Tuman",
+      "lastname": "Baklazhan",
+      "email": "tuman@tuman.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:02:46.418Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "9ddfda0e-433f-4bff-b2bc-40af06625a34",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$alxg8MXDa8SajlOAYoXRFV$iUtmmvDhZkn4mTzZRYUUWPtKW8fJ0bUQPsX73kNUfBE=",
+      "last_login": "2023-10-04T18:02:17.560Z",
+      "firstname": "Arkan",
+      "lastname": "Katamaran",
+      "email": "arkan@arkan.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:02:17.499Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "bbde24eb-226c-4afb-bcff-2064f4053bfc",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$AMeSpYRCyjsXVeqpqve17m$lk8Hunv1PAe4snKjPjtk5cIlFCUGZCay6EdbKK2ohbk=",
+      "last_login": "2023-10-04T18:01:39.766Z",
+      "firstname": "Potolok",
+      "lastname": "Klubok",
+      "email": "potolok@potolok.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T18:01:39.705Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        2
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "c4e8f418-58a7-4c73-baae-5c5f8c0b22c6",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$AwGxaJhIjTKD7P8swGdxjp$pkICg9LJAOXT5UxdEMl2BI6DaeEvRn4/5Yr8kLzJfts=",
+      "last_login": "2023-10-04T17:55:31.900Z",
+      "firstname": "Bob",
+      "lastname": "Bibovich",
+      "email": "bob@bob.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:55:31.839Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "d1df4093-5632-4f4d-9e14-12d4eba182a5",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$0SK4rdviHcG7tKTxHJNo30$7DUlJ5H30J3811hTWPpzEVDax9SNu3bcGHtLpUmq7Gg=",
+      "last_login": "2023-10-04T17:58:59.993Z",
+      "firstname": "Amulet",
+      "lastname": "Queryset",
+      "email": "queryset@queryset.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:58:59.932Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "d3548cdb-c8dd-402e-99d1-9c8aa42d8742",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$vg4Nzz7LIIWjjnk1v8fGuo$QiVHvfx8xV9aZ4LV574OMIQEz1npbu/ujNKtf0j00Po=",
+      "last_login": "2023-10-04T17:53:59.475Z",
+      "firstname": "Ultra",
+      "lastname": "Kilogram",
+      "email": "ultra@ultra.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:53:59.384Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "da9a3a7f-4135-40f0-b42b-95505fb5fcef",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$CFdOZnZkQDTUd5vIEeFsKz$c8RVPz/i1RfFfDapBWevNh9X/bAyujRydZpRvIrabXU=",
+      "last_login": "2023-10-04T17:59:31.905Z",
+      "firstname": "Daulet",
+      "lastname": "Pistolet",
+      "email": "daulet@daulet.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:59:31.843Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": "efa96552-701f-4c83-a83c-4e1d0b6b1e6c",
+    "fields": {
+      "password": "pbkdf2_sha256$600000$vy9rQRjHxsepkeVfDxPjXW$7Mvrdj90dKbRQy9GBkINjxK46iuzQlksTh6CBEnW2UY=",
+      "last_login": "2023-10-04T17:57:43.781Z",
+      "firstname": "Uefa",
+      "lastname": "Presents",
+      "email": "uefa@uefa.com",
+      "phone": null,
+      "birthday": null,
+      "create_at": "2023-10-04T17:57:43.720Z",
+      "is_superuser": false,
+      "profile_image": "",
+      "status": "New",
+      "deleted": false,
+      "deleted_at": null,
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  }
+]
