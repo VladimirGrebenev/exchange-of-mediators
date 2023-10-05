@@ -20,7 +20,7 @@ class StatusChoices(models.TextChoices):
     IN_PROCESS = 'В работе', _('В работе')
     CLOSED = 'Завершен', _('Завершен')
     NEW = 'Новый', _('Новый')
-    DRAFT = 'Черновик', _('Черновик')
+    # DRAFT = 'Черновик', _('Черновик')
 
 
 class MediatorsLevel(models.TextChoices):
@@ -73,28 +73,28 @@ class DecidedTime(models.TextChoices):
 class Conflict(models.Model):
     """ class for creating a request """
 
-    status = models.TextField(choices=StatusChoices.choices,
-                              default=StatusChoices.DRAFT,
+    status = models.TextField(choices=StatusChoices.choices, null=True,
+                              default=StatusChoices.NEW,
                               verbose_name=_("Статус"))
     category = models.TextField(choices=ConflictCategory.choices,
                                 default=ConflictCategory.CHOOSE,
                                 verbose_name=_("Категория"))
-    mediators_level = models.TextField(choices=MediatorsLevel.choices,
-                                       default=MediatorsLevel.CHOOSE,
-                                       verbose_name=_("Уровень медиатора"))
-    prise = models.TextField(choices=PriseChoices.choices,
-                             default=PriseChoices.CHOOSE,
-                             verbose_name=_("Цена"))
+    # mediators_level = models.TextField(choices=MediatorsLevel.choices,
+    #                                    default=MediatorsLevel.CHOOSE,
+    #                                    verbose_name=_("Уровень медиатора"))
+    # prise = models.TextField(choices=PriseChoices.choices,
+    #                          default=PriseChoices.CHOOSE,
+    #                          verbose_name=_("Цена"))
     fixed_price = models.CharField(max_length=256, null=True, verbose_name=_("Цена"))
     decide_time = models.TextField(choices=DecidedTime.choices,
                                    default=DecidedTime.CHOOSE,
                                    verbose_name=_("Время на решение"))
     country = models.CharField(max_length=256, null=True, verbose_name=_("Страна"))
     city = models.CharField(max_length=256, null=True, verbose_name=_("Город"))
-    language = models.CharField(max_length=256, null=True, verbose_name=_("Язык"))
-    language_level = models.TextField(choices=LanguageLevel.choices,
-                                      default=LanguageLevel.BASIC_A_1,
-                                      verbose_name=_("Уровень владения языком"))
+    # language = models.CharField(max_length=256, null=True, verbose_name=_("Язык"))
+    # language_level = models.TextField(choices=LanguageLevel.choices,
+    #                                   default=LanguageLevel.BASIC_A_1,
+    #                                   verbose_name=_("Уровень владения языком"))
     id = models.UUIDField(primary_key=True, default=uuid4)
     title = models.CharField(max_length=256, verbose_name=_("Заголовок обращения"))
     creator = models.ForeignKey(User, on_delete=models.CASCADE,
@@ -106,14 +106,14 @@ class Conflict(models.Model):
         User,
         related_name='conflicts_as_respondent',
         verbose_name=_('Остальные участники'),
-        # **NULLABLE,
+        **NULLABLE,
     )
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_("Описание"))
-    is_all_visible = models.BooleanField(
-        default=False,
-        verbose_name=_("Доступно для всех?")
-    )
+    # is_all_visible = models.BooleanField(
+    #     default=False,
+    #     verbose_name=_("Доступно для всех?")
+    # )
     created = models.DateTimeField(auto_now_add=True,
                                    editable=False)
     updated = models.DateTimeField(auto_now=True,
