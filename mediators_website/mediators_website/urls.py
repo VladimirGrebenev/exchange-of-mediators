@@ -4,7 +4,7 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 
-from user.views import TopMediatorsList, ContactTopMediatorsList
+from user.views import TopMediatorsList, ContactTopMediatorsList, delete_avatar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +40,7 @@ urlpatterns = [
             template_name='page-about.html'),
         name='mediators'
     ),
+    path('delete-avatar/', delete_avatar, name='delete_avatar'),
     path("user/", include("user.urls", namespace="user")),
     path("signing/", include("signing.urls", namespace="signing")),
     # path("conflict/", include("conflict.urls", namespace="conflict")),

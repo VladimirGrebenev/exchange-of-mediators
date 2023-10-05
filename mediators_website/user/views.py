@@ -8,6 +8,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from utils.views_mixins import TopFiveMediatorsMixin
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 from .models import EmailConfirmation
@@ -47,7 +49,20 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
         # context['objects_mediators'] = Mediator.objects.all()
         return context
     
+@login_required
+def delete_avatar(request):
+    if request.method == 'POST':
+        user = request.user
 
+        if user.profile_image:
+            # Удаление файла аватара
+            user.profile_image.delete(save=False)
+            user.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False}, status=400)
+    
 class DashboardProfileView(View):
     template_name = 'dashboard/page-dashboard-profile.html'
 
@@ -70,7 +85,7 @@ class DashboardProfileView(View):
             delete_form.save()
             return redirect('/signing/signout/')
 
-        if profile_form.is_valid():   
+        if profile_form.is_valid():
             profile_form.save()
             update_session_auth_hash(request, user)
             return redirect('/dashboard/profile/')
