@@ -9,7 +9,7 @@
           </div>
           {% if user.groups.first.name == 'mediator' %}
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:jobs' %}" class="items-center {{ active_conflicts }}"><i
+            <a href="{% url 'dashboard:jobs-mediator' %}" class="items-center {{ active_conflicts }}"><i
                     class="flaticon-document mr15"></i>Мои конфликты</a>
           </div>
 <!--          <div class="sidebar_list_item">-->
@@ -73,9 +73,13 @@
               обращение</a>
           </div>
           <div class="sidebar_list_item ">
-            <a href="#"
+            <a href="{% url 'dashboard:list-mediators' %}"
                class="items-center"><i class="flaticon-briefcase mr15"></i>
               Смотреть медиаторов</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:jobs' %}" class="items-center {{ active_conflicts }}"><i
+                    class="flaticon-document mr15"></i>Мои конфликты</a>
           </div>
 <!--          <div class="sidebar_list_item ">-->
 <!--            <a href="#"-->

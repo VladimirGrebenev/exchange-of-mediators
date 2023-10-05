@@ -342,9 +342,12 @@
               <li class="user_setting">
                 <div class="dropdown">
                   <a class="btn" href="#" data-bs-toggle="dropdown">
-                    <p class="fz30 fw400 ff-heading mb10 pl30">{{ request.user.firstname }} {{ request.user.lastname }}
+                    <p class="fz18 fw400 ff-heading mb10 pl30">
+                      {{ request.user.firstname }} >
                     {% if user.profile_image %}
-                     <img class="w-40 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="Аватар" style="width: 70px; height: 70px;">
+                     <img class="w-40 rounded-circle wa-xs"
+                          src="{{ user.profile_image.url }}" alt="Аватар"
+                          style="width: 50px; height: 50px; margin-right: 10px;">
                     {% endif %}
                     </p>
                   </a>
@@ -361,7 +364,7 @@
                       <a class="dropdown-item active" href="{% url 'dashboard:dashboard' %}"><i
                           class="flaticon-home mr10"></i>Рабочий
                         кабинет</a>
-                      <a class="dropdown-item" href="{% url 'dashboard:jobs' %}"><i
+                      <a class="dropdown-item" href="{% url 'dashboard:jobs-mediator' %}"><i
                           class="flaticon-document mr10"></i>Мои
                         конфликты</a>
 <!--                      <a class="dropdown-item" href="page-dashboard-save.html">-->
@@ -432,7 +435,7 @@
                         <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i
                             class="flaticon-presentation mr10"></i>Создать обращение
                         </a>
-                        <a class="dropdown-item" href="#"><i class="flaticon-briefcase mr10"></i>Смотреть
+                        <a class="dropdown-item" href="{% url 'dashboard:list-mediators' %}"><i class="flaticon-briefcase mr10"></i>Смотреть
                           медиаторов
                         </a>
                         <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
