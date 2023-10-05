@@ -2,6 +2,11 @@
 {% load static %}
 
 
+{% block dash-sidebar %}
+  {% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
+{% endblock %}
+
+
 {% block dash-description %}
   {% if user.groups.first.name == 'mediator' %}
     <span class="text-secondary">Медиатора:</span>
@@ -19,6 +24,7 @@
         <div class="d-flex align-items-center justify-content-between statistics_funfact">
           <div class="details">
             <div class="fz15">Конфликтов в работе</div>
+
             <a href="{% url 'dashboard:in-work' %}" class="title">{{ user.conflicts_in_work }}</a>
             <div class="text fz14"><span class="text-thm">+10???</span> Обновлений
             </div>
@@ -68,21 +74,24 @@
             <a class="text-decoration-underline text-thm6" href="{% url 'mediators' %}">Смотреть все</a>
           </div>
           <div class="dashboard-img-service">
-            {% for mediator in view.request.user.top3_mediator_list %}
+            {% for mediator in user.top3_mediator_list %}
               <div class="listing-style1 list-style d-block d-xl-flex align-items-center border-0 mb10">
                 <div class="list-thumb flex-shrink-0 bdrs4">
                   <img class="w-100 rounded-circle" height="120" width="100"  src="{% static 'images/blog/blog-15.jpg' %}" alt="">
                 </div>
                 <div class="list-content flex-grow-1 pt10 pb10 pl15 pl0-lg">
-                  <h5><a href="">{{ mediator.lastname }}</a></h5>
-                  <h6 class="list-title mb-2">{{ mediator.add_info_for_mediator.description }}</h6>
+                  <h5><a href="{% url 'mediator-detail' mediator.id %}">{{ mediator.lastname }}</a></h5>
+                  <h6 class="list-title mb-2">{{ mediator.get_info.description }}</h6>
                   <div class="list-meta d-flex justify-content-between align-items-center">
                     <div class="review-meta d-flex align-items-center">
                       <i class="fas fa-star fz10 review-color me-2"></i>
-                      <p class="mb-0 body-color fz14"><span class="dark-color me-2">{{ mediator.add_info_for_mediator.rate }}</span></p>
+                      <p class="mb-0 body-color fz14">
+                        <span class="dark-color fw-bold me-2">{{ mediator.average_rating }}</span>
+                        <span class="dark-color small text-muted me-2">Отзывов: {{ mediator.reviews.count }}</span>
+                      </p>
                     </div>
                     <div class="budget">
-                      <p class="mb-0 body-color">Starting at<span class="fz17 fw500 dark-color ms-1">${{ mediator.add_info_for_mediator.summary }}</span></p>
+                      <p class="mb-0 body-color fz14">Starting at<span class="fz16 fw500 dark-color ms-1">${{ mediator.get_info.rate }}</span></p>
                     </div>
                   </div>
                 </div>
@@ -91,8 +100,6 @@
             {% endfor %}
           </div>
         </div>
-        {% if mediator != last_mediator %} <hr class="opacity-100 mt-0"> {% endif %}
-
 
 <!--        <div class="listing-style1 list-style d-block d-xl-flex align-items-center border-0 mb10">-->
 <!--          <div class="list-thumb flex-shrink-0 bdrs4">-->
@@ -143,7 +150,7 @@
                 <img class="wa img-2" src="{% static 'images/team/client-1.png' %}" alt="">
               </div>
               <div class="list-content flex-grow-1 py-0 pb10 pl15 pl0-lg">
-                <h6 class="list-title mb-2">{{ conflict.description }}</h6>
+                <h6 class="list-title mb-2">{{ conflict.description|truncatechars:120 }}</h6>
                 <div class="list-meta d-flex justify-content-between align-items-center">
                   <div class="review-meta d-flex align-items-center">
                     <p class="mb-0 body-color fz14">{{ conflict.updated }}</p>
@@ -154,43 +161,8 @@
                 </div>
               </div>
             </div>
-            <hr class="opacity-100 mt-0">
+            {% if not forloop.last %}<hr class="opacity-100 mt-0">{% endif %}
             {% endfor %}
-            {% comment %}
-            <div class="listing-style1 list-style d-block d-xl-flex align-items-start border-0 mb10 mt20">
-              <div class="list-thumb wa flex-shrink-0 bdrs4 mb15-lg">
-                <img class="wa img-2" src="{% static 'images/team/client-3.png' %}" alt="">
-              </div>
-              <div class="list-content flex-grow-1 py-0 pb10 pl15 pl0-lg">
-                <h6 class="list-title mb-2">Medium. <span class="text-thm">has purchased</span> I will deal with your item Description and assets</h6>
-                <div class="list-meta d-flex justify-content-between align-items-center">
-                  <div class="review-meta d-flex align-items-center">
-                    <p class="mb-0 body-color fz14">February 26, 2021</p>
-                  </div>
-                  <div class="budget">
-                    <p class="mb-0"><span class="fz15 fw500 dark-color">$983</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="opacity-100 mt-0">
-            <div class="listing-style1 list-style d-block d-xl-flex align-items-start border-0 mb-0 mt20">
-              <div class="list-thumb wa flex-shrink-0 bdrs4 mb15-lg">
-                <img class="wa img-2" src="{% static 'images/team/client-6.png' %}" alt="">
-              </div>
-              <div class="list-content flex-grow-1 py-0 pl15 pl0-lg">
-                <h6 class="list-title mb-2">Medium. <span class="text-thm">has purchased</span> I will deal with your item Description and assets</h6>
-                <div class="list-meta d-flex justify-content-between align-items-center">
-                  <div class="review-meta d-flex align-items-center">
-                    <p class="mb-0 body-color fz14">February 26, 2021</p>
-                  </div>
-                  <div class="budget">
-                    <p class="mb-0"><span class="fz15 fw500 dark-color">$983</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endcomment %}
           </div>
         </div>
       </div>

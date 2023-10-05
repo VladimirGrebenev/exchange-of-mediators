@@ -1,6 +1,10 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% block dash-sidebar %}
+    {% include 'dashboard/includes/dash-sidebar-list.html' with active_create_project='-is-active'  %}
+{% endblock %}
+
 {% block dash-content %}
 <!-- Dashboard Content-->
 <div class="row pb40">

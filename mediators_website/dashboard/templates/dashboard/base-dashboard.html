@@ -67,7 +67,9 @@
     <div class="dashboard dashboard_wrapper pr30 pr0-xl">
       <div class="dashboard__sidebar d-none d-lg-block">
         <!-- Dashboard Sidebar List -->
-        {% include 'dashboard/includes/dash-sidebar-list.html' %}
+        {% block dash-sidebar %}
+          {% include 'dashboard/includes/dash-sidebar-list.html' %}
+        {% endblock %}
       </div>
       <!-- Dashboard Main -->
       <div class="dashboard__main pl0-md">
@@ -87,7 +89,7 @@
                 </h2>
                 <p class="text">
                   {% block dash-description %}
-                  Описание текущей вкладки
+                  Работа денежку копит, а вино топит.
                   {% endblock dash-description %}
                 </p>
               </div>
@@ -100,15 +102,15 @@
           <!-- Dashboard Content End -->
 
           <!-- Review Content -->
-          {% block reviews-create-form %}
-          <!-- Content here  -->
-          {% endblock reviews-create-form %}
-          <!-- Review Content End -->
-
-          <!-- Review Content -->
           {% block reviews-list-reviews %}
           <!-- Content here  -->
           {% endblock reviews-list-reviews %}
+          <!-- Review Content End -->
+
+          <!-- Review Content -->
+          {% block reviews-create-form %}
+          <!-- Content here  -->
+          {% endblock reviews-create-form %}
           <!-- Review Content End -->
 
         </div>

@@ -1,4 +1,4 @@
-from random import sample
+from utils.sample_objects import sample_queryset
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -43,10 +43,18 @@ class User(PermissionsMixin, AbstractBaseUser):
     def __str__(self):
         return f'{self.firstname} {self.lastname}, {self.email}'
 
+    def average_rating(self):
+        """Вывод среднего рейтинга медиатора"""
+        rating = self.reviews.aggregate(avg_rating=models.Avg('rating'))['avg_rating']
+        if rating is None:
+            return 0.0
+        return round(rating, 1)
+
     def top3_mediator_list(self):
         """Тут выборка из всех медиаторов. Надо бы посчитать рейтинг, потом как-нибудь"""
-        k = min(Mediator.objects.count(), 3)
-        return sample(list(Mediator.objects.all()), k=k)
+        # k = min(Mediator.objects.count(), 3)
+        # return sample(list(Mediator.objects.all()), k=k)
+        return sample_queryset(Mediator, 3)
 
     def conflicts_new(self):
         """Вернет количество конфликтов, у которых статус 'Новый'"""
@@ -98,37 +106,7 @@ class AdditionalInfo(Mediator):
         Mediator,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='add_info_for_mediator',
+        related_name='get_info',
     )
     rate = models.IntegerField(blank=True, null=True)
-    photo = models.FilePathField(path='mediators_photo/', blank=True, null=True)
-    summary = models.IntegerField(blank=True, null=True)
-    description = models.TextField()
-
-
-# class MediatorType(models.TextChoices):
-#     TYPE_A = "Type A"
-#     TYPE_B = "Type B"
-#     TYPE_C = "Type C"
-#     TYPE_D = "Type D"
-
-
-
-# class AdditionalInfo(models.Model):
-#     user = models.OneToOneField(
-#         Mediator,
-#         on_delete=models.CASCADE,
-#         primary_key=True,
-#     )
-#     description = models.TextField()
-#     price_per_hour = models.DecimalField(max_digits=10, decimal_places=2)
-#     successful_cases_procentage = models.DecimalField(
-#         max_digits=5, decimal_places=2
-#     )
-#     type = models.CharField(
-#         max_length=50,
-#         choices=MediatorType.choices,
-#     )
-#
-#     def __str__(self):
-#         return self.mediator.email
+    description = models.TextField(blank=True, null=True)

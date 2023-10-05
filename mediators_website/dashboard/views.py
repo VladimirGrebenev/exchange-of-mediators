@@ -6,9 +6,10 @@ from django.views import View
 
 from django.views.generic import TemplateView, CreateView, ListView
 from django.db.models import Q
-from user.models import Mediator
+from user.models import Mediator, BasicUser
 
 from utils.views_mixins import PermissionByGroupMixin
+from utils.sample_objects import sample_queryset
 
 from conflict.models import Conflict
 # from conflict.forms import ConflictForm
@@ -35,22 +36,11 @@ class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
     """
     allowed_groups = ('user',)
     template_name = 'dashboard/page-dashboard-user.html'
-    model = Mediator
+    model = BasicUser
 
     def get_context_data(self, **kwargs):
-        """
-        Отображение полного списка медиаторов внизу страницы
-        """
         context = super().get_context_data(**kwargs)
-
-        mediators = Mediator.objects.all().order_by('create_at')
-        num_mediators = min(mediators.count(), 3)  # если медиаторов меньше трех, берем число медиаторов, иначе 3
-        context['objects_mediators'] = mediators[:num_mediators]
-        if num_mediators > 1:
-            context['last_mediator'] = mediators[
-                num_mediators - 1]  # Нужно чтобы не ставить в шаблоне черту после последнего элемента
-        else:
-            context['last_mediator'] = 0
+        context['conflicts'] = sample_queryset(Conflict, 3)
         return context
 
 
@@ -64,19 +54,16 @@ class MediatorsDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListVie
     model = Mediator
 
     def get_context_data(self, **kwargs):
-        """
-        Отображение полного списка медиаторов внизу страницы
-        """
         context = super().get_context_data(**kwargs)
-
-        mediators = Mediator.objects.all().order_by('create_at')
-        num_mediators = min(mediators.count(), 3) # если медиаторов меньше трех, берем число медиаторов, иначе 3
-        context['objects_mediators'] = mediators[:num_mediators]
-        if num_mediators > 1:
-            context['last_mediator'] = mediators[num_mediators-1] # Нужно чтобы не ставить в шаблоне черту после последнего элемента
-        else:
-            context['last_mediator'] = 0
+        mediator = self.request.user
+        conflicts = mediator.ownable_conflicts
+        completed_conflicts = conflicts.filter(status='Завершен')
+        active_conflicts = conflicts.exclude(status='Завершен')
+        context['mediator'] = mediator
+        context['completed_conflicts'] = completed_conflicts
+        context['active_conflicts'] = active_conflicts
         return context
+
 
 
 class UserDashboardListConflictsView(LoginRequiredMixin,
