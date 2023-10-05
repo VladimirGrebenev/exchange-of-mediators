@@ -11,12 +11,12 @@
 
 {% block dash-content %}
 <div class="row">
-  <h5 class="border-bottom">Информация обо мне</h5>
+  <h5 class="border-bottom">Брифинг</h5>
   <div class="col-sm-6 col-xxl-3">
     <div class="d-flex align-items-center justify-content-between statistics_funfact">
       <div class="details">
-        <div class="fz15">В вашим услугам</div>
-        <div class="title">{{ user.lastname }} {{ user.firstname }}</div>
+        <div class="fz15">Медиатор:</div>
+        <div class="fz15">{{ user.lastname }} {{ user.firstname }}</div>
       </div>
       <div class="icon text-center"><i class="flaticon-photo"></i></div>
     </div>
@@ -24,8 +24,8 @@
   <div class="col-sm-6 col-xxl-3">
     <div class="d-flex align-items-center justify-content-between statistics_funfact">
       <div class="details">
-        <div class="fz15">Мой email</div>
-        <div class="title">{{ user.email }}</div>
+        <div class="fz15">Мой email:</div>
+        <div class="fz15">{{ user.email }}</div>
       </div>
       <div class="icon text-center"><i class="flaticon-mail"></i></div>
     </div>
@@ -33,17 +33,8 @@
   <div class="col-sm-6 col-xxl-3">
     <div class="d-flex align-items-center justify-content-between statistics_funfact">
       <div class="details">
-        <div class="fz15">Отзывов обо мне</div>
+        <div class="fz15">Отзывов обо мне:</div>
         <div class="title">{{ user.reviews.count }}</div>
-      </div>
-      <div class="icon text-center"><i class="flaticon-presentation"></i></div>
-    </div>
-  </div>
-  <div class="col-sm-6 col-xxl-3">
-    <div class="d-flex align-items-center justify-content-between statistics_funfact">
-      <div class="details">
-        <div class="fz15">Моя цена за услугу (указана в мексиканских песо)</div>
-        <div class="title">{{ user.get_info.rate }}</div>
       </div>
       <div class="icon text-center"><i class="flaticon-presentation"></i></div>
     </div>
@@ -58,11 +49,11 @@
     </div>
   </div>
 
-  <h5 class="border-bottom">Мои дела</h5>
+  <h5 class="border-bottom">Мои конфликты</h5>
   <div class="col-sm-6 col-xxl-3">
     <div class="d-flex align-items-center justify-content-between statistics_funfact">
       <div class="details">
-        <div class="fz15">Всего конфликтов</div>
+        <div class="fz15">Всего:</div>
         <div class="title">{{ user.ownable_conflicts.count }}</div>
       </div>
       <div class="icon text-center"><i class="flaticon-search"></i></div>
@@ -71,7 +62,7 @@
   <div class="col-sm-6 col-xxl-3">
     <div class="d-flex align-items-center justify-content-between statistics_funfact">
       <div class="details">
-        <div class="fz15">Активных конфликтов</div>
+        <div class="fz15">В работе:</div>
         <div class="title">{{ active_conflicts.count }}</div>
       </div>
       <div class="icon text-center"><i class="flaticon-pencil"></i></div>
@@ -80,7 +71,7 @@
   <div class="col-sm-6 col-xxl-3">
     <div class="d-flex align-items-center justify-content-between statistics_funfact">
       <div class="details">
-        <div class="fz15">Завершенных конфликтов</div>
+        <div class="fz15">Завершено:</div>
         <div class="title">{{ completed_conflicts.count }}</div>
       </div>
       <div class="icon text-center"><i class="flaticon-tick"></i></div>

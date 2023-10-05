@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 import dashboard.views as views
 from conflict.views import ConflictFormView, ConflictView, ConflictCreateView
 
-from user.views import DashboardProfileView
+from user.views import DashboardProfileView, TopMediatorsList
 
 app_name = "dashboard"
 
@@ -31,6 +31,12 @@ urlpatterns = [
         views.UserDashboardListConflictsView.as_view(
             template_name='dashboard/page-dashboard-manage-jobs.html'),
         name='jobs'
+    ),
+    path(
+        'user/list-mediator/',
+        TopMediatorsList.as_view(
+            template_name='dashboard/page-dashboard-list-mediators.html'),
+        name='list-mediators'
     ),
     path(
         'user/manage-jobs/status-new/',
