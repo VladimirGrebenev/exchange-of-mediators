@@ -1,9 +1,9 @@
 from django.db import models
-from user.models import User
+from user.models import User, Mediator
 
 
 class Review(models.Model):
-    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    to_user = models.ForeignKey(Mediator, on_delete=models.CASCADE, related_name='reviews')
     from_user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(blank=False, null=False)
     text = models.TextField(null=True, blank=True)

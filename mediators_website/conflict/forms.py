@@ -4,6 +4,8 @@ from django import forms
 from django.forms import TextInput, Textarea
 
 from conflict.models import Document, Conflict
+from user.models import User
+from django.db.models import Q
 
 
 class ConflictForm(forms.ModelForm):
@@ -13,32 +15,36 @@ class ConflictForm(forms.ModelForm):
 
         if user:
             self.fields['creator'].initial = user
+            # self.fields['mediator'].queryset = User.objects.exclude(
+            #     pk=user.pk)
+            # self.fields['respondents'].queryset = User.objects.exclude(
+            #     pk=user.pk)
 
     class Meta:
         model = Conflict
         fields = (
             "title",
-            "status",
+            # "status",
             "category",
-            "mediators_level",
-            "prise",
+            # "mediators_level",
+            # "prise",
             "fixed_price",
             "decide_time",
             "country",
             "city",
-            "language",
-            "language_level",
-            "mediator",
-            "respondents",
+            # "language",
+            # "language_level",
+            # "mediator",
+            # "respondents",
             "creator",
             "description",
-            "is_all_visible",
+            # "is_all_visible",
         )
         widgets = {
             'creator': forms.HiddenInput(),
-            "status": forms.Select({
-                'class': "selectpicker",
-            }),
+            # "status": forms.Select({
+            #     'class': "selectpicker",
+            # }),
             "title": TextInput(attrs={
                 'class': "form-control",
                 'placeholder': "Текст заголовка",
@@ -46,12 +52,12 @@ class ConflictForm(forms.ModelForm):
             "category": forms.Select({
                 'class': "selectpicker",
             }),
-            "mediators_level": forms.Select({
-                'class': "selectpicker",
-            }),
-            "prise": forms.Select({
-                'class': "selectpicker",
-            }),
+            # "mediators_level": forms.Select({
+            #     'class': "selectpicker",
+            # }),
+            # "prise": forms.Select({
+            #     'class': "selectpicker",
+            # }),
             "fixed_price": TextInput(attrs={
                 'class': "form-control",
                 'placeholder': "$",
@@ -67,25 +73,25 @@ class ConflictForm(forms.ModelForm):
                 'class': "form-control",
                 'placeholder': "Город",
             }),
-            "language": TextInput(attrs={
-                'class': "form-control",
-                'placeholder': "Язык",
-            }),
+            # "language": TextInput(attrs={
+            #     'class': "form-control",
+            #     'placeholder': "Язык",
+            # }),
             "description": Textarea(attrs={
                 'cols': "30",
                 'rows': "6",
                 'class': "form-control",
                 'placeholder': "Описание конфликта",
             }),
-            "mediator": forms.Select({
-                'class': "selectpicker",
-            }),
-            "respondents": forms.SelectMultiple({
-                'class': "selectpicker",
-            }),
-            "is_all_visible": forms.CheckboxInput(attrs={
-                'class': "form-check-input",
-            })
+            # "mediator": forms.Select({
+            #     'class': "selectpicker",
+            # }),
+            # "respondents": forms.SelectMultiple({
+            #     'class': "selectpicker",
+            # }),
+            # "is_all_visible": forms.CheckboxInput(attrs={
+            #     'class': "form-check-input",
+            # })
         }
 
     def save(self, commit=True):

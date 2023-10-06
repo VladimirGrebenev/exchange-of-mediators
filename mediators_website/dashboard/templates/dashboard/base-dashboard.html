@@ -106,21 +106,88 @@
             <!-- Content here  -->
             {% endblock reviews-create-form %}
             <!-- Review Content End -->
+            <!-- Dashboard Wrapper Content  -->
+            <div class="dashboard_content_wrapper">
+              <div class="dashboard dashboard_wrapper pr30 pr0-xl">
+                <div class="dashboard__sidebar d-none d-lg-block">
+                  <!-- Dashboard Sidebar List -->
+                  {% block dash-sidebar %}
+                  {% include 'dashboard/includes/dash-sidebar-list.html' %}
+                  {% endblock %}
+                </div>
+                <!-- Dashboard Main -->
+                <div class="dashboard__main pl0-md">
+                  <div class="dashboard__content hover-bgc-color">
+                    <div class="row pb40">
+                      <div class="col-lg-12">
+                        <!-- Dashboard Nav Block -->
+                        {% include 'dashboard/includes/dash-nav-block.html' %}
+                      </div>
+                      <div class="col-lg-12">
+                        <!-- Dashboard Title -->
+                        <div class="dashboard_title_area">
+                          <h2>
+                            {% block dash-title %}
+                            Рабочий кабинет
+                            {% endblock dash-title %}
+                          </h2>
+                          <p class="text">
+                            {% block dash-description %}
+                            Работа денежку копит, а вино топит.
+                            {% endblock dash-description %}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Dashboard Content -->
+                    {% block dash-content %}
+                    <!-- Content here  -->
+                    {% endblock dash-content %}
+                    <!-- Dashboard Content End -->
 
-            <!-- Review Content -->
-            {% block reviews-list-reviews %}
-            <!-- Content here  -->
-            {% endblock reviews-list-reviews %}
-            <!-- Review Content End -->
+                    <!-- Review Content -->
+                    {% block reviews-list-reviews %}
+                    <!-- Content here  -->
+                    {% endblock reviews-list-reviews %}
+                    <!-- Review Content End -->
 
+                  </div>
+                  <!-- Dashboard Footer -->
+                  {% include 'dashboard/includes/dash-footer.html' %}
+                </div>
+              </div>
+            </div>
+            <!-- Dashboard Scroll Up -->
+            <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
           </div>
-          <!-- Dashboard Footer -->
-          {% include 'dashboard/includes/dash-footer.html' %}
+          <!-- Wrapper End -->
+          <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+          <script src="{% static 'js/jquery-migrate-3.0.0.min.js' %}"></script>
+          <script src="{% static 'js/popper.min.js' %}"></script>
+          <script src="{% static 'js/bootstrap.min.js' %}"></script>
+          <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+          <script src="{% static 'js/jquery.mmenu.all.js' %}"></script>
+          <script src="{% static 'js/ace-responsive-menu.js' %}"></script>
+          <script src="{% static 'js/chart.min.js' %}"></script>
+          <script src="{% static 'js/chart-custome.js' %}"></script>
+          <script src="{% static 'js/jquery-scrolltofixed-min.js' %}"></script>
+          <script src="{% static 'js/dashboard-script.js' %}"></script>
+          <!-- Custom script for all pages -->
+          <script src="{% static 'js/script.js' %}"></script>
+          <!-- Review Content -->
+          {% block reviews-create-form %}
+          <!-- Content here  -->
+          {% endblock reviews-create-form %}
+          <!-- Review Content End -->
+
         </div>
+        <!-- Dashboard Footer -->
+        {% include 'dashboard/includes/dash-footer.html' %}
       </div>
     </div>
-    <!-- Dashboard Scroll Up -->
-    <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
+  </div>
+  <!-- Dashboard Scroll Up -->
+  <a class="scrollToHome" href="#"><i class="fas fa-angle-up"></i></a>
   </div>
   <!-- Wrapper End -->
   <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>

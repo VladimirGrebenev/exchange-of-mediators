@@ -3,11 +3,13 @@
         <div class="dashboard_sidebar_list">
             <p class="fz15 fw400 ff-heading pl30"> </p>
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:dashboard' %}" class="items-center -is-active"><i
+<!--            <a href="{% url 'dashboard:dashboard' %}" class="items-center -is-active"><i-->
+            <a href="{% url 'dashboard:dashboard' %}" class="items-center {{ active_start }}"><i
                     class="flaticon-home mr15"></i>Рабочий кабинет</a>
           </div>
+          {% if user.groups.first.name == 'mediator' %}
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:jobs' %}" class="items-center"><i
+            <a href="{% url 'dashboard:jobs-mediator' %}" class="items-center {{ active_conflicts }}"><i
                     class="flaticon-document mr15"></i>Мои конфликты</a>
           </div>
 <!--          <div class="sidebar_list_item">-->
@@ -34,27 +36,27 @@
 <!--            <a href="#" class="items-center"><i-->
 <!--                    class="flaticon-web mr15"></i>Обращения</a>-->
 <!--          </div>-->
-          <p class="fz15 fw400 ff-heading pl30 mt30">Управление конфликтами</p>
-          <div class="sidebar_list_item ">
-            <a href="{% url 'dashboard:create-project' %}"
-               class="items-center"><i
-                    class="flaticon-presentation mr15"></i>Создать
-              обращение</a>
-          </div>
-          <div class="sidebar_list_item ">
-            <a href="#"
-               class="items-center"><i class="flaticon-briefcase mr15"></i>
-              Смотреть медиаторов</a>
-          </div>
-          <div class="sidebar_list_item ">
-            <a href="#"
-               class="items-center"><i
-                    class="flaticon-content mr15"></i>Удалить обращение
-            </a>
-          </div>
+<!--          <p class="fz15 fw400 ff-heading pl30 mt30">Управление конфликтами</p>-->
+<!--          <div class="sidebar_list_item ">-->
+<!--            <a href="{% url 'dashboard:create-project' %}"-->
+<!--               class="items-center {{ active_create_project }}"><i-->
+<!--                    class="flaticon-presentation mr15"></i>Создать-->
+<!--              обращение</a>-->
+<!--          </div>-->
+<!--          <div class="sidebar_list_item ">-->
+<!--            <a href="#"-->
+<!--               class="items-center"><i class="flaticon-briefcase mr15"></i>-->
+<!--              Смотреть медиаторов</a>-->
+<!--          </div>-->
+<!--          <div class="sidebar_list_item ">-->
+<!--            <a href="#"-->
+<!--               class="items-center"><i-->
+<!--                    class="flaticon-content mr15"></i>Удалить обращение-->
+<!--            </a>-->
+<!--          </div>-->
           <p class="fz15 fw400 ff-heading pl30 mt30">Аккаунт</p>
           <div class="sidebar_list_item ">
-            <a href="{% url 'dashboard:profile' %}" class="items-center"><i
+            <a href="{% url 'dashboard:profile' %}" class="items-center {{ active_profile }}"><i
                     class="flaticon-photo mr15"></i>Мой профиль</a>
           </div>
           <div class="sidebar_list_item ">
@@ -62,3 +64,37 @@
                     class="flaticon-logout mr15"></i>Выйти</a>
           </div>
         </div>
+        {% else %}
+                  <p class="fz15 fw400 ff-heading pl30 mt30">Управление конфликтами</p>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'dashboard:create-project' %}"
+               class="items-center {{ active_create_project }}"><i
+                    class="flaticon-presentation mr15"></i>Создать
+              обращение</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'dashboard:list-mediators' %}"
+               class="items-center"><i class="flaticon-briefcase mr15"></i>
+              Смотреть медиаторов</a>
+          </div>
+          <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:jobs' %}" class="items-center {{ active_conflicts }}"><i
+                    class="flaticon-document mr15"></i>Мои конфликты</a>
+          </div>
+<!--          <div class="sidebar_list_item ">-->
+<!--            <a href="#"-->
+<!--               class="items-center"><i-->
+<!--                    class="flaticon-content mr15"></i>Удалить обращение-->
+<!--            </a>-->
+<!--          </div>-->
+          <p class="fz15 fw400 ff-heading pl30 mt30">Аккаунт</p>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'dashboard:profile' %}" class="items-center {{ active_profile }}"><i
+                    class="flaticon-photo mr15"></i>Мой профиль</a>
+          </div>
+          <div class="sidebar_list_item ">
+            <a href="{% url 'signing:logout' %}" class="items-center"><i
+                    class="flaticon-logout mr15"></i>Выйти</a>
+          </div>
+        </div>
+        {% endif %}

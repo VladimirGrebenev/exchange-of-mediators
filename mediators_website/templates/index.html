@@ -19,8 +19,20 @@
                         отвечающего интересам всех сторон.</p>
                     <div class="d-sm-flex align-items-center mt30 animate-up-3">
 
-                        <a href="#" id="redirectLink" class="ud-btn btn-1 me-3 bdrs120 btn-1">Решить конфликт</a>
+                        <a href="#" id="redirectLink" class="ud-btn btn-1 me-3 bdrs120 btn-1">
+                            Решить конфликт</a>
 <!--                        <a href="#" id="mediatorLink" class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать медиатором</a>-->
+                        <noscript>
+                            <p> Для корректной работы этой страницы необходимо включить JavaScript.
+                                <br>
+                                Кнопка решить конфликт не работает.
+                                <br>
+                                Для подачи обращения
+                                <br>
+                                нажмите Вход.
+                                <a href="/signing/signin/" class="ud-btn me-3 bdrs120 btn-1"> Вход </a>
+                            </p>
+                        </noscript>
                         <script>
                             document.getElementById("redirectLink").addEventListener("click", function(event) {
                                 event.preventDefault();
@@ -47,9 +59,6 @@
 <!--                                }-->
 <!--                            });-->
                         </script>
-
-
-
                         <a href="/signing/signup/"
                            class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать
                             медиатором</a>
