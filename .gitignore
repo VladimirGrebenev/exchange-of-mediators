@@ -7,6 +7,9 @@ __pycache__/
 # C extensions
 *.so
 
+# migrations
+mediators_website/*/migrations/
+
 # Distribution / packaging
 .Python
 build/
