@@ -12,7 +12,7 @@ urlpatterns = [
     path("", views.DashboardDispatcherView.as_view(), name='dashboard'),
     path("user/", views.UserDashboardView.as_view(), name='user_dashboard'),
     path("mediator/", views.MediatorsDashboardView.as_view(), name='mediator_dashboard'),
-    path('conflict/', ConflictView.as_view(), name='conflict'),
+    # path('conflict/', ConflictView.as_view(), name='conflict'),
     path(
         'create-project/',
         ConflictCreateView.as_view(
