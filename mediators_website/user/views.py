@@ -1,13 +1,15 @@
 from django.conf import settings
 from django.views import View
 
-from .models import EmailConfirmation, Mediator, AdditionalInfo, User
+from .models import EmailConfirmation, Mediator, User
 
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from utils.views_mixins import TopFiveMediatorsMixin
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from .forms import UserFormProfile, DeleteProfileForm
 from conflict.models import Conflict
@@ -44,8 +46,22 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
         context['objects_mediators'] = Mediator.objects.all().order_by('lastname')
         context['count_mediators'] = len(context['objects_mediators'])
         return context
-    
 
+@login_required
+def delete_avatar(request):
+    if request.method == 'POST':
+        user = request.user
+
+        if user.profile_image:
+            # Удаление файла аватара
+            user.profile_image.delete(save=False)
+            user.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False}, status=400)
+    
+    
 class DashboardProfileView(View):
     template_name = 'dashboard/page-dashboard-profile.html'
 
@@ -68,7 +84,7 @@ class DashboardProfileView(View):
             delete_form.save()
             return redirect('/signing/signout/')
 
-        if profile_form.is_valid():   
+        if profile_form.is_valid():
             profile_form.save()
             update_session_auth_hash(request, user)
             return redirect('/dashboard/profile/')
@@ -80,7 +96,7 @@ class DashboardProfileView(View):
             'delete_form': delete_form,
         }
         return render(request, self.template_name, context)
-
+    
 
 class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     """

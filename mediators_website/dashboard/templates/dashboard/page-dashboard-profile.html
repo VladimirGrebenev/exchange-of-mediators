@@ -2,12 +2,30 @@
 {% load static %}
 
 {% block dash-sidebar %}
-    {% include 'dashboard/includes/dash-sidebar-list.html' with active_profile='-is-active'  %}
+{% include 'dashboard/includes/dash-sidebar-list.html' with active_profile='-is-active' %}
 {% endblock %}
 
 {% block dash-content %}
 <!-- Dashboard Content -->
+<style>
+    .success-message {
+        font-size: 18px;
+        color: #8a0707;
+    }
+</style>
+<style>
+    .image-container {
+        width: 90px;
+        height: 90px;
+    }
 
+    .image-container img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        /* или object-fit: cover; в зависимости от требуемого поведения */
+    }
+</style>
 <div class="dashboard__content hover-bgc-color">
     <div class="row pb40">
         <div class="col-lg-9">
@@ -17,12 +35,6 @@
             </div>
         </div>
     </div>
-    <style>
-        .success-message {
-            font-size: 18px;
-            color: #8a0707;
-        }
-    </style>
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -44,15 +56,17 @@
                         <div class="profile-box d-sm-flex align-items-center mb30">
                             <div class="profile-img mb20-sm">
                                 {% if user.profile_image %}
-                                <img class="w-100 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="">
+                                <img id="avatar_image" class="image-container" src="{{ user.profile_image.url }}"
+                                    alt="">
                                 {% else %}
-                                <img class="w-100 rounded-circle wa-xs" src="{% static 'images/team/fl-1.png' %}"
+                                <img id="avatar_image" class="image-container w-100"
+                                    src="{% static 'images/apple-touch-icon-72x72.png' %}"
                                     alt="Изображение профиля по умолчанию">
                                 {% endif %}
                             </div>
                             <div class="profile-content ml20 ml0-xs">
                                 <div class="d-flex align-items-center my-3">
-                                    <a href="" class="tag-delt text-thm2"><span
+                                    <a href="" class="tag-delt text-thm2" id="delete-avatar"><span
                                             class="flaticon-delete text-thm2"></span></a>
                                     <label for="profile_image" class="upload-btn ml10">Загрузить фото</label>
                                     <input type="file" id="profile_image" name="profile_image" style="display: none;">
@@ -165,5 +179,35 @@
     </div>
 </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var deleteAvatarIcon = document.getElementById('delete-avatar');
+
+        if (deleteAvatarIcon) {
+            deleteAvatarIcon.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                var url = '{% url "delete_avatar" %}';
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                })
+                    .then(function (response) {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            console.error('Ошибка удаления аватара');
+                        }
+                    })
+                    .catch(function (error) {
+                        console.error('Ошибка удаления аватара:', error);
+                    });
+            });
+        }
+    });
+</script>
 <!-- Dashboard Content End -->
 {% endblock dash-content %}

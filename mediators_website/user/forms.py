@@ -18,6 +18,7 @@ class UserForm(UserCreationForm):
 class UserFormProfile(ModelForm):
     password1_field_name = "password1"
     password2_field_name = "password2"
+    
     password1 = CharField(
         widget=PasswordInput(attrs={'class': 'form-control', 'placeholder': '**********'}),
         max_length=128,
@@ -39,8 +40,19 @@ class UserFormProfile(ModelForm):
             'lastname': TextInput(attrs={'class': 'form-control', 'placeholder': 'Фамилия'}),
             'email': EmailInput(attrs={'class': 'form-control', 'placeholder': 'E-mail'}),
             'phone': TextInput(attrs={'class': 'form-control', 'placeholder': 'Номер телефона'}),
-            'birthday': DateInput(attrs={'class': 'form-control', 'placeholder': 'Дата рождения'}),
+            'birthday': DateInput(format='%Y-%m-%d', attrs={'class': 'form-control', 'placeholder': 'Дата рождения', 'type': 'date'}),
         }
+
+    def clean_birthday(self):
+        birthday = self.cleaned_data.get('birthday')
+        print(birthday)
+
+        if birthday:
+            today = datetime.today().date()
+            if birthday > today:
+                raise ValidationError('Дата рождения не может быть в будущем')
+
+        return birthday
 
     def clean(self):
         """
@@ -54,6 +66,7 @@ class UserFormProfile(ModelForm):
 
         if password1 and password2 and password1 != password2:
             self.add_error('password2', _('Пароли не совпадают'))
+
         return cleaned_data
     
     def save(self, *args, **kwargs):
