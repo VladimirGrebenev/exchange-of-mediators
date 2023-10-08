@@ -34,7 +34,7 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-about.html'
     context_object_name = 'mediators_list'
-    paginate_by = 15
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         """
