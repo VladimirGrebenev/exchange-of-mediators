@@ -71,7 +71,7 @@
         <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
           <div class="d-flex justify-content-between bdrb1 pb15 mb20">
             <h5 class="title">Популярные медиаторы</h5>
-            <a class="text-decoration-underline text-thm6" href="{% url 'mediators' %}">Смотреть все</a>
+            <a class="text-decoration-underline text-thm6" href="{% url 'dashboard:list-mediators' %}#top_list">Смотреть все</a>
           </div>
           <div class="dashboard-img-service">
             {% for mediator in user.top3_mediator_list %}
