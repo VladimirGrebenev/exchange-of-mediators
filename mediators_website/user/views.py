@@ -34,7 +34,7 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-about.html'
     context_object_name = 'mediators_list'
-    paginate_by = 5
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         """
@@ -43,7 +43,6 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['objects_mediators'] = Mediator.objects.all().order_by('lastname')
         context['count_mediators'] = len(context['objects_mediators'])
-        # context['objects_mediators'] = Mediator.objects.all()
         return context
     
 

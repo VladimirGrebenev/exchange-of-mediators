@@ -71,13 +71,27 @@
         <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
           <div class="d-flex justify-content-between bdrb1 pb15 mb20">
             <h5 class="title">Популярные медиаторы</h5>
-            <a class="text-decoration-underline text-thm6" href="{% url 'mediators' %}">Смотреть все</a>
+            <a class="text-decoration-underline text-thm6" href="{% url 'dashboard:list-mediators' %}#top_list">Смотреть все</a>
           </div>
           <div class="dashboard-img-service">
             {% for mediator in user.top3_mediator_list %}
               <div class="listing-style1 list-style d-block d-xl-flex align-items-center border-0 mb10">
                 <div class="list-thumb flex-shrink-0 bdrs4">
-                  <img class="w-100 rounded-circle" height="120" width="100"  src="{% static 'images/blog/blog-15.jpg' %}" alt="">
+                  {% if mediator.profile_image %}
+                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                         <img class="rounded-circle mx-auto"
+                              src="{{ mediator.profile_image.url }}" alt="Аватар"
+                         style="width: 80px; height: 80px;"><span
+                            class="online"></span>
+                    </div>
+                    {% else %}
+                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                        <img class="rounded-circle mx-auto"
+                             src="{% static 'images/team/fl-1.png' %}" alt="">
+                        <span class="online"></span>
+                    </div>
+                    {% endif %}
+<!--                  <img class="w-100 rounded-circle" height="120" width="100"  src="{% static 'images/blog/blog-15.jpg' %}" alt="">-->
                 </div>
                 <div class="list-content flex-grow-1 pt10 pb10 pl15 pl0-lg">
                   <h5><a href="{% url 'mediator-detail' mediator.id %}">{{ mediator.lastname }}</a></h5>
