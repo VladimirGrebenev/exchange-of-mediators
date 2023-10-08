@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.views import View
 
-from .models import EmailConfirmation, Mediator, AdditionalInfo, User
+from .models import EmailConfirmation, Mediator, User
 
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect
@@ -47,7 +47,7 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
         context['count_mediators'] = len(context['objects_mediators'])
         # context['objects_mediators'] = Mediator.objects.all()
         return context
-    
+
 @login_required
 def delete_avatar(request):
     if request.method == 'POST':
@@ -61,6 +61,7 @@ def delete_avatar(request):
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False}, status=400)
+    
     
 class DashboardProfileView(View):
     template_name = 'dashboard/page-dashboard-profile.html'
@@ -96,7 +97,7 @@ class DashboardProfileView(View):
             'delete_form': delete_form,
         }
         return render(request, self.template_name, context)
-
+    
 
 class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     """

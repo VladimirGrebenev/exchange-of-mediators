@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block dash-sidebar %}
-    {% include 'dashboard/includes/dash-sidebar-list.html' with active_profile='-is-active'  %}
+{% include 'dashboard/includes/dash-sidebar-list.html' with active_profile='-is-active' %}
 {% endblock %}
 
 {% block dash-content %}
@@ -56,10 +56,11 @@
                         <div class="profile-box d-sm-flex align-items-center mb30">
                             <div class="profile-img mb20-sm">
                                 {% if user.profile_image %}
-                                <img class="image-container w-100 rounded-circle wa-xs"
-                                    src="{{ user.profile_image.url }}" alt="">
+                                <img id="avatar_image" class="image-container" src="{{ user.profile_image.url }}"
+                                    alt="">
                                 {% else %}
-                                <img class="w-100 rounded-circle wa-xs" src="{% static 'images/team/fl-1.png' %}"
+                                <img id="avatar_image" class="image-container w-100"
+                                    src="{% static 'images/apple-touch-icon-72x72.png' %}"
                                     alt="Изображение профиля по умолчанию">
                                 {% endif %}
                             </div>
@@ -196,10 +197,8 @@
                 })
                     .then(function (response) {
                         if (response.ok) {
-                            // Обновить страницу или выполнить другие действия
                             location.reload();
                         } else {
-                            // Обработка ошибки
                             console.error('Ошибка удаления аватара');
                         }
                     })
