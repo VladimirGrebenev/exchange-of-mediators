@@ -94,4 +94,10 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-user-conflict-review.html'),
         name='user-conflict-review'
     ),
+    path(
+        'mediator/conflict-workplace/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-conflict-workplace.html'),
+        name='conflict-workplace'
+    ),
 ]
