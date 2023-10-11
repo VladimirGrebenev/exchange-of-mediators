@@ -1,0 +1,228 @@
+{% extends 'dashboard/base-dashboard.html' %}
+{% load static %}
+
+{% block dash-content %}
+
+    <!-- Conflict Details -->
+    <section class="pt30">
+      <div class="container">
+        <div class="row wrap">
+          <div class="col-lg-8">
+            <div class="column">
+              <div class="service-about">
+                <h3>Название конфликта</h3>
+                  <br>
+                <h5>Описание конфликта</h5>
+                <p class="text mb30">А здесь у нас КРАТКОЕ ОПИСАНИЕ
+                    конфликта at a reader will be distracted by the readable
+                    content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. </p>
+
+                <hr class="opacity-100 mb60 mt60">
+                <h4 class="mb30">Прикреплённые файлы (пока это нетрогаем)</h4>
+                <div class="row">
+                  <div class="col-6 col-lg-3">
+                    <div class="project-attach">
+                      <h6 class="title">Договор</h6>
+                      <p>PDF</p>
+                      <span class="icon flaticon-page"></span>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-3">
+                    <div class="project-attach">
+                      <h6 class="title">Выписка с банка</h6>
+                      <p>PDF</p>
+                      <span class="icon flaticon-page"></span>
+                    </div>
+                  </div>
+                </div>
+                <hr class="opacity-100 mb60 mt30">
+                <h4 class="mb30">Категория конфликта</h4>
+                <div class="mb60">
+                  <a href="" class="tag list-inline-item mb-2 mb-xl-0 mr10">
+                      Корпоративный</a>
+                </div>
+                <hr class="opacity-100 mb60">
+                <h4 class="mb30">Отклики (3)</h4>
+                <div class="row">
+                  <div class="col-md-6 col-lg-12">
+                    <div class="freelancer-style1 bdr1 hover-box-shadow row ms-0 align-items-start">
+                      <div class="col-xl-10 px-0">
+                        <div class="d-lg-flex">
+                          <div class="thumb w90 position-relative rounded-circle mb15-md">
+                            <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">
+                            <span class="online"></span>
+                          </div>
+                          <div class="details ml20 ml0-md mb15-md">
+                            <h5 class="title mb-1">Супер Медиатор Алёша</h5>
+                            <div class="review mb20">
+                              <p
+                                      class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="fas fa-star fz10 review-color pr10"></i> <span class="dark-color">4.9</span> (595 отзывов)</p>
+                              <p
+                                      class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 bdrn-md pl15 pl0-md bdrn-xs"></i> 18.06.2023 14:25</p>
+
+                            </div>
+                            <p class="text mb-0">Я Алёша. Быстро и без боли
+                                решу все ваши конфликты за скромное
+                                вознаграждение.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-2 px-0">
+                        <div class="text-lg-center text-xl-end mt-0 mt-lg-2 mt-xl-0">
+                          <h4>1000 &#x20bd</h4>
+                          <p class="text mb-0">2 недели</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-12">
+                    <div class="freelancer-style1 bdr1 hover-box-shadow row ms-0 align-items-start">
+                      <div class="col-xl-10 px-0">
+                        <div class="d-lg-flex">
+                          <div class="thumb w90 position-relative rounded-circle mb15-md">
+                            <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-5.png' %}" alt="">
+                            <span class="online"></span>
+                          </div>
+                          <div class="details ml20 ml0-md mb15-md">
+                            <h5 class="title mb-1">Leslie Alexander</h5>
+                            <div class="review mb20">
+                              <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="fas fa-star fz10 review-color pr10"></i> <span class="dark-color">4.9</span> (595 reviews)</p>
+                              <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 bdrn-md pl15 pl0-md bdrn-xs"></i> 2 hours ago</p>
+                              <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 bdrn-md pl15 pl0-md bdrn-xs"></i> 1 Received</p>
+                            </div>
+                            <p class="text mb-0">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-2 px-0">
+                        <div class="text-lg-center text-xl-end mt-0 mt-lg-2 mt-xl-0">
+                          <h4>$100 - $150</h4>
+                          <p class="text mb-0">in 100 hours</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-12">
+                    <div class="freelancer-style1 bdr1 hover-box-shadow row ms-0 align-items-start">
+                      <div class="col-xl-10 px-0">
+                        <div class="d-lg-flex">
+                          <div class="thumb w90 position-relative rounded-circle mb15-md">
+                            <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-3.png' %}" alt="">
+                            <span class="online"></span>
+                          </div>
+                          <div class="details ml20 ml0-md mb15-md">
+                            <h5 class="title mb-1">Leslie Alexander</h5>
+                            <div class="review mb20">
+                              <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="fas fa-star fz10 review-color pr10"></i> <span class="dark-color">4.9</span> (595 reviews)</p>
+                              <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 bdrn-md pl15 pl0-md bdrn-xs"></i> 2 hours ago</p>
+                              <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 bdrn-md pl15 pl0-md bdrn-xs"></i> 1 Received</p>
+                            </div>
+                            <p class="text mb-0">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-2 px-0">
+                        <div class="text-lg-center text-xl-end mt-0 mt-lg-2 mt-xl-0">
+                          <h4>$100 - $150</h4>
+                          <p class="text mb-0">in 100 hours</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="send_proposal" class="bsp_reveiw_wrt mt25">
+                  <h4>Отправить заявку на решение конфликта:</h4>
+                  <form class="comments_form mt30 mb30-md">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="mb20">
+                          <label
+                                  class="fw500 ff-heading dark-color mb-2">Ваша цена
+                          </label>
+                          <input type="text" class="form-control"
+                                 placeholder="99 &#x20bd">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="mb20">
+                          <label
+                                  class="fw500 ff-heading dark-color mb-2">Ваши сроки
+                          </label>
+                          <input type="text" class="form-control" placeholder="4">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="mb-4">
+                          <label
+                                  class="fw500 fz16 ff-heading dark-color mb-2">Сопроводительное письмо</label>
+                          <textarea class="pt15" rows="6"
+                                    placeholder="Ваше текст заявки"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="d-grid">
+                          <a href="" class="ud-btn btn-dark">Отправить
+                              заявку<i class="fal fa-arrow-right-long"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="column">
+              <div class="blog-sidebar ms-lg-auto">
+                <div class="price-widget pt25 bdrs8">
+                  <p class="text fz14">Цена клиента:</p>
+                  <h3 class="widget-title">10000 &#x20bd</h3>
+                  <p class="text fz14">Сроки клиента:</p>
+                  <h3 class="widget-title">3 недели</h3>
+                  <div class="d-grid">
+                    <a href="#send_proposal" class="ud-btn btn-dark">
+                        Отправить заявку<i
+                            class="fal fa-arrow-right-long"></i></a>
+                  </div>
+                </div>
+                <div class="freelancer-style1 service-single mb-0 bdrs8">
+                  <h4>О клиенте</h4>
+                  <div class="wrapper d-flex align-items-center mt20">
+                    <div class="thumb position-relative mb25">
+                      <img class="rounded-circle mx-auto" src="{% static 'images/team/client-1.png' %}" alt="">
+                    </div>
+                    <div class="ml20">
+                      <h5 class="title mb-1">Антуан</h5>
+                      <p class="mb-0">Рахметов</p>
+                      <div class="review"><p><i
+                              class="fas fa-star fz10 review-color pr10"></i><span class="dark-color">4.9</span> (5 отзывов)</p></div>
+                    </div>
+                  </div>
+                  <hr class="opacity-100">
+                  <div class="details">
+                    <div class="fl-meta d-flex align-items-center justify-content-between">
+                      <a class="meta fw500 text-start">Город<br><span
+                              class="fz14 fw400">Москва</span></a>
+                      <a class="meta fw500 text-start">Конфликтов<br><span
+                              class="fz14 fw400">6</span></a>
+                      <a class="meta fw500 text-start">На портале с<br><span
+                              class="fz14 fw400">18.04.2019</span></a>
+                    </div>
+                  </div>
+                  <div class="d-grid mt30">
+                    <a href="page-contact.html"
+                       class="ud-btn btn-white2">Написать клиенту
+                        <i class="fal fa-arrow-right-long"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+<!-- Dashboard Content End -->
+{% endblock dash-content %}

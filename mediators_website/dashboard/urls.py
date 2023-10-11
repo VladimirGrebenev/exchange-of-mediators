@@ -82,4 +82,16 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-new-conflicts-list.html'),
         name='new-conflicts-list'
     ),
+    path(
+        'mediator/new-conflict-review/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-new-conflict-review.html'),
+        name='new-conflict-review-mediator'
+    ),
+    path(
+        'user/user-conflict-review/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-user-conflict-review.html'),
+        name='user-conflict-review'
+    ),
 ]
