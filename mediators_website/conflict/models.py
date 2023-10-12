@@ -4,8 +4,7 @@ from uuid import uuid4
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from user.models import User, NULLABLE
-
+from user.models import User, NULLABLE, Mediator
 
 
 def user_directory_path(instance, filename):
@@ -152,3 +151,23 @@ class Document(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class ConflictResponse(models.Model):
+    """
+    Модель для откликов на конфликты
+    """
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    conflict = models.ForeignKey(Conflict,
+                                 on_delete=models.CASCADE,
+                                 related_name='responses',
+                                 )
+    mediator = models.ForeignKey(Mediator,
+                                 on_delete=models.CASCADE,
+                                 related_name='conflicts',
+                                 )
+    response_time = models.DateTimeField(auto_now_add=True,
+                                         editable=False)
+    rate = models.IntegerField(blank=False, null=False)  # Ставка от медиатора
+    comment = models.TextField(blank=True, null=True)  # Комментарий от медиатора
+    time_for_conflict = models.IntegerField(blank=True, null=True)  # Время на решение конфликта
