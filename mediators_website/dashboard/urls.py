@@ -100,4 +100,10 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-conflict-workplace.html'),
         name='conflict-workplace'
     ),
+    path(
+        'user/user-conflict-workplace/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-user-conflict-workplace.html'),
+        name='user-conflict-workplace'
+    ),
 ]
