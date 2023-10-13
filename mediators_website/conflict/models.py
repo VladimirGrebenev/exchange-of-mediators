@@ -171,3 +171,6 @@ class ConflictResponse(models.Model):
     rate = models.IntegerField(blank=False, null=False)  # Ставка от медиатора
     comment = models.TextField(blank=True, null=True)  # Комментарий от медиатора
     time_for_conflict = models.IntegerField(blank=True, null=True)  # Время на решение конфликта
+
+    class Meta:
+        ordering = ['-response_time']
