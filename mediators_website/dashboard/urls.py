@@ -106,4 +106,22 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-user-conflict-workplace.html'),
         name='user-conflict-workplace'
     ),
+    path(
+        'user/user-about/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-user-about.html'),
+        name='user-about'
+    ),
+    path(
+        'mediator/mediator-about/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-mediator-about.html'),
+        name='mediator-about'
+    ),
+    path(
+        'my-messages/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-my-messages.html'),
+        name='my-messages'
+    ),
 ]
