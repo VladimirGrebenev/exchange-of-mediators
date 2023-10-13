@@ -1,6 +1,7 @@
 from django.http import request
 from django.http import HttpRequest
 
+from django.contrib import messages
 from django.urls import reverse_lazy
 import logging
 from django.shortcuts import redirect
@@ -8,6 +9,8 @@ from django.views.generic import FormView, TemplateView, CreateView
 
 from conflict.forms import ConflictForm, DocumentForm
 from conflict.models import Conflict, Document
+
+LEVEL_MESSAGE = 50
 
 
 class ConflictView(TemplateView):
@@ -88,7 +91,13 @@ class ConflictCreateView(CreateView):
         logger.info("Я попал в form_valid ")
         print(form.cleaned_data)
         # Сохраняем форму конфликта
+
         conflict = form.save(commit=True)
+        messages.add_message(
+            self.request, LEVEL_MESSAGE, 
+            f'Вы участник {form.cleaned_data["title"]}', 
+            extra_tags='message_conflict',
+            )
 
         # Логируем данные формы
         logger.info("Данные формы успешно прошли проверку")

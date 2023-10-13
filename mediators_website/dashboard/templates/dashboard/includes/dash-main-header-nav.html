@@ -1,200 +1,15 @@
 {% load static %}
+
+<style>
+  .notification-message {
+    position: fixed;
+    top: 10%;
+    left: 69%;
+    display: none;
+  }
+</style>
+
 <!-- Main Header Nav -->
-<header class="header-nav nav-innerpage-style menu-home4 dashboard_header main-menu">
-  <!-- Ace Responsive Menu -->
-  <nav class="posr">
-    <div class="container-fluid pr30 pr15-xs pl30 posr menu_bdrt1">
-      <div class="row align-items-center justify-content-between">
-        <div class="col-6 col-lg-auto">
-          <div class="text-center text-lg-start d-flex align-items-center">
-            <div class="dashboard_header_logo position-relative me-2 me-xl-5">
-              <a href="index.html" class="logo"><img src="{% static 'images/header-logo-dark.svg' %}" alt=""></a>
-            </div>
-            <div class="fz20 ml90">
-              <a href="#" class="dashboard_sidebar_toggle_icon vam"><img
-                  src="{% static 'images/dashboard-navicon.svg' %}" alt=""></a>
-            </div>
-            <a class="login-info d-block d-xl-none ml40 vam" data-bs-toggle="modal" href="#exampleModalToggle"
-              role="button"><span class="flaticon-loupe"></span></a>
-            <div class="ml40 d-none d-xl-block">
-              <div class="search_area dashboard-style">
-                <input type="text" class="form-control border-0" placeholder="Давай попробуем что-то отыскать?">
-                <label><span class="flaticon-loupe"></span></label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-lg-auto">
-          <div class="text-center text-lg-end header_right_widgets">
-            <ul
-              class="dashboard_dd_menu_list d-flex align-items-center justify-content-center justify-content-sm-end mb-0 p-0">
-              <li class="d-none d-sm-block">
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href=""><span class="flaticon-notification"></span></a>
-                <div class="dropdown-menu">
-                  <div class="dboard_notific_dd px30 pt10 pb15">
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-1.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Ваш профиль</p>
-                        <p class="text mb-0">обновлён!</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-2.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы изменили</p>
-                        <p class="text mb-0">пароль</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-3.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Ваш аккаунт</p>
-                        <p class="text mb-0">создан успешно</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-4.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы подключились к конфликту </p>
-                        <p class="text mb-0">Название конликта</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center">
-                      <img src="{% static 'images/resource/notif-5.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы подгрузили</p>
-                        <p class="text mb-0">успешно</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="d-none d-sm-block">
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href=""><span class="flaticon-mail"></span></a>
-                <div class="dropdown-menu">
-                  <div class="dboard_notific_dd px30 pt20 pb15">
-                    <div class="notif_list d-flex align-items-start bdrb1 pb25 mb10">
-                      <img class="img-2" src="{% static 'images/testimonials/testi-1.png' %}" alt="">
-                      <div class="details ml15">
-                        <p class="dark-color fw500 mb-2">Иван Иванов</p>
-                        <p class="text mb-2">Хочу решить конфликт.</p>
-                        <p class="mb-0 text-thm">4 часа назад</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-start mb25">
-                      <img class="img-2" src="{% static 'images/testimonials/testi-2.png' %}" alt="">
-                      <div class="details ml15">
-                        <p class="dark-color fw500 mb-2">Фёдор Игнатов</p>
-                        <p class="text mb-2">Нужно решить конфликт.</p>
-                        <p class="mb-0 text-thm">4 часа назад</p>
-                      </div>
-                    </div>
-                    <div class="d-grid">
-                      <a href="page-dashboard-message.html" class="ud-btn btn-thm w-100">Все сообщения<i
-                          class="fal fa-arrow-right-long"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="d-none d-sm-block">
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href=""><span class="flaticon-like"></span></a>
-                <div class="dropdown-menu">
-                  <div class="dboard_notific_dd px30 pt10 pb15">
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-1.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Ваш профиль</p>
-                        <p class="text mb-0">обновлён!</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-2.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы изменили</p>
-                        <p class="text mb-0">пароль</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-3.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Ваш аккаунт</p>
-                        <p class="text mb-0">создан успешно</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-4.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы подключились к конфликту </p>
-                        <p class="text mb-0">Название конликта</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-center">
-                      <img src="{% static 'images/resource/notif-5.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы подгрузили</p>
-                        <p class="text mb-0">успешно</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              <li class="user_setting">
-                <div class="dropdown">
-                  <a class="btn" href="#" data-bs-toggle="dropdown">
-                    <img src="{% static 'images/resource/user.png' %}" alt="user.png">
-                  </a>
-                  <div class="dropdown-menu">
-                    <div class="user_setting_content">
-                      <p class="fz15 fw400 ff-heading mb10 pl30">Тариф
-                        Старт</p>
-                      <a class="dropdown-item active" href="../dashboard/"><i class="flaticon-home mr10"></i>Рабочий
-                        кабинет</a>
-                      <a class="dropdown-item" href="../dashboard-manage-jobs/"><i
-                          class="flaticon-document mr10"></i>Мои
-                        конфликты</a>
-                      <a class="dropdown-item" href="page-dashboard-save.html"><i
-                          class="flaticon-like mr10"></i>Избранное</a>
-                      <a class="dropdown-item" href="../dashboard-message/"><i
-                          class="flaticon-chat mr10"></i>Сообщения</a>
-                      <a class="dropdown-item" href="page-dashboard-reviews.html"><i
-                          class="flaticon-review-1 mr10"></i>Отзывы</a>
-                      <a class="dropdown-item" href="../dashboard-invoice/"><i
-                          class="flaticon-receipt mr10"></i>Счета</a>
-                      <a class="dropdown-item" href="../dashboard-payouts/"><i
-                          class="flaticon-dollar mr10"></i>Платежи</a>
-                      <a class="dropdown-item" href="page-dashboard-statement.html"><i
-                          class="flaticon-web mr10"></i>Обращения</a>
-                      <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами
-                      </p>
-                      <a class="dropdown-item" href="../dashboard-create-project/"><i
-                          class="flaticon-presentation mr10"></i>Создать обращение
-                      </a>
-                      <a class="dropdown-item" href="page-dashboard-manage-jobs.html"><i
-                          class="flaticon-briefcase mr10"></i>Смотреть
-                        медиаторов
-                      </a>
-                      <a class="dropdown-item" href="page-dashboard-favorites.html"><i
-                          class="flaticon-content mr10"></i>Удалить
-                        обращение</a>
-                      <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
-                      <a class="dropdown-item" href="../dashboard-profile/"><i class="flaticon-photo mr10"></i>Мой
-                        профиль</a>
-                      <a class="dropdown-item" href="page-login.html"><i class="flaticon-logout mr10"></i>Выйти</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-</header>
 <header class="header-nav nav-innerpage-style menu-home4 dashboard_header main-menu">
   <!-- Ace Responsive Menu -->
   <nav class="posr">
@@ -226,47 +41,96 @@
             <ul
               class="dashboard_dd_menu_list d-flex align-items-center justify-content-center justify-content-sm-end mb-0 p-0">
               <li class="d-none d-sm-block">
+                {% if messages %}
+                <div id="notification-message" class="notification-message">
+                  {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                  <div class="alert alert-{{ message.tags }}" role="alert" style="background-color: hsl(0, 89%, 78%);">
+                    {{ message }}
+                  </div>
+                  {% else %}
+                  <div class="alert alert-{{ message.tags }}" role="alert"
+                    style="background-color: rgb(158, 248, 193);">
+                    {{ message }}
+                  </div>
+                  {% endif %}
+                  {% endfor %}
+                </div>
+                {% for message in messages %}
+                {% if message.tags == 'error' %}
                 <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href=""><span class="flaticon-notification"></span></a>
+                  href="">
+                  <span class="flaticon-notification" id="notification-icon" style="color: hwb(0 2% 2%);"></span>
+                  <span class="online" id="notification-dot"
+                    style="background-color: rgb(250, 5, 5); width: 12px; height: 12px; border-radius: 50%; display: inline-block; position: absolute; top: 10px; left: 25px;"></span>
+                </a>
+                {% else %}
+                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
+                  href="">
+                  <span class="flaticon-notification" id="notification-icon" style="color: rgb(158, 248, 193);"></span>
+                  <span class="online" id="notification-dot"
+                    style="background-color: rgb(158, 248, 193); width: 12px; height: 12px; border-radius: 50%; display: inline-block; position: absolute; top: 10px; left: 25px;"></span>
+                </a>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
+                  href="">
+                  <span class="flaticon-notification"></span>
+                </a>
+                {% endif %}
+                {% for message in messages %}
                 <div class="dropdown-menu">
                   <div class="dboard_notific_dd px30 pt10 pb15">
+                    {% if message.tags == 'error' %}
+                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
+                      <img src="{% static 'images/close.png' %}" alt="">
+                      <div class="details ml10">
+                        <div style="color: hwb(0 3% 30%);">
+                          {{ message }}
+                        </div>
+                      </div>
+                    </div>
+                    {% elif message.tags == 'message_profile' %}
                     <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
                       <img src="{% static 'images/resource/notif-1.png' %}" alt="">
                       <div class="details ml10">
-                        <p class="text mb-0">Ваш профиль</p>
-                        <p class="text mb-0">обновлён!</p>
+                        <div style="color: hsl(145, 100%, 22%);">
+                          {{ message }}
+                        </div>
                       </div>
                     </div>
+                    {% elif message.tags == 'message_password' %}
                     <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
                       <img src="{% static 'images/resource/notif-2.png' %}" alt="">
                       <div class="details ml10">
-                        <p class="text mb-0">Вы изменили</p>
-                        <p class="text mb-0">пароль</p>
+                        <div style="color: hwb(145 15% 36%);">
+                          {{ message }}
+                        </div>
                       </div>
                     </div>
+                    {% elif message.tags == 'success' %}
                     <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
                       <img src="{% static 'images/resource/notif-3.png' %}" alt="">
                       <div class="details ml10">
-                        <p class="text mb-0">Ваш аккаунт</p>
-                        <p class="text mb-0">создан успешно</p>
+                        <div style="color: hwb(145 15% 36%);">
+                          {{ message }}
+                        </div>
                       </div>
                     </div>
+                    {% elif message.tags == 'message_conflict' %}
                     <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
                       <img src="{% static 'images/resource/notif-4.png' %}" alt="">
                       <div class="details ml10">
-                        <p class="text mb-0">Вы подключились к конфликту </p>
-                        <p class="text mb-0">Название конликта</p>
+                        <div style="color: hwb(145 15% 36%);">
+                          {{ message }}
+                        </div>
                       </div>
                     </div>
-                    <div class="notif_list d-flex align-items-center">
-                      <img src="{% static 'images/resource/notif-5.png' %}" alt="">
-                      <div class="details ml10">
-                        <p class="text mb-0">Вы подгрузили</p>
-                        <p class="text mb-0">успешно</p>
-                      </div>
-                    </div>
+                    {% endif %}
                   </div>
                 </div>
+                {% endfor %}
               </li>
               <li class="d-none d-sm-block">
                 <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
@@ -344,18 +208,17 @@
                   <a class="btn" href="#" data-bs-toggle="dropdown">
                     <p class="fz18 fw400 ff-heading mb10 pl30">
                       {{ request.user.firstname }} >
-                    {% if user.profile_image %}
-                     <img class="w-40 rounded-circle wa-xs"
-                          src="{{ user.profile_image.url }}" alt="Аватар"
-                          style="width: 50px; height: 50px; margin-right: 10px;">
-                    {% endif %}
+                      {% if user.profile_image %}
+                      <img class="w-40 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="Аватар"
+                        style="width: 50px; height: 50px; margin-right: 10px;">
+                      {% endif %}
                     </p>
                   </a>
-<!--                  <a class="btn" href="#" data-bs-toggle="dropdown">-->
-<!--                    {% if user.profile_image %}-->
-<!--                     <img class="w-40 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="Аватар" style="width: 50px; height: 50px;">-->
-<!--                    {% endif %}-->
-<!--                  </a>-->
+                  <!--                  <a class="btn" href="#" data-bs-toggle="dropdown">-->
+                  <!--                    {% if user.profile_image %}-->
+                  <!--                     <img class="w-40 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="Аватар" style="width: 50px; height: 50px;">-->
+                  <!--                    {% endif %}-->
+                  <!--                  </a>-->
                   {% if user.groups.first.name == 'mediator' %}
                   <div class="dropdown-menu">
                     <div class="user_setting_content">
@@ -367,86 +230,87 @@
                       <a class="dropdown-item" href="{% url 'dashboard:jobs-mediator' %}"><i
                           class="flaticon-document mr10"></i>Мои
                         конфликты</a>
-<!--                      <a class="dropdown-item" href="page-dashboard-save.html">-->
-                        <!--                          <i-->
-                        <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="../dashboard-message/"><i-->
-                        <!--                                class="flaticon-chat mr10"></i>Сообщения</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="page-dashboard-reviews.html"><i-->
-                        <!--                                class="flaticon-review-1 mr10"></i>Отзывы</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="../dashboard-invoice/"><i-->
-                        <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="../dashboard-payouts/"><i-->
-                        <!--                                class="flaticon-dollar mr10"></i>Платежи</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="page-dashboard-statement.html"><i-->
-                        <!--                                class="flaticon-web mr10"></i>Обращения</a>-->
-<!--                        <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами-->
-<!--                        </p>-->
-<!--                        <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i-->
-<!--                            class="flaticon-presentation mr10"></i>Создать обращение-->
-<!--                        </a>-->
-<!--                        <a class="dropdown-item" href="#"><i class="flaticon-briefcase mr10"></i>Смотреть-->
-<!--                          медиаторов-->
-<!--                        </a>-->
-<!--                        <a class="dropdown-item" href="#"><i class="flaticon-content mr10"></i>Удалить-->
-<!--                          обращение</a>-->
+                      <!--                      <a class="dropdown-item" href="page-dashboard-save.html">-->
+                      <!--                          <i-->
+                      <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
+                      <!--                        <a class="dropdown-item"-->
+                      <!--                           href="../dashboard-message/"><i-->
+                      <!--                                class="flaticon-chat mr10"></i>Сообщения</a>-->
+                      <!--                        <a class="dropdown-item"-->
+                      <!--                           href="page-dashboard-reviews.html"><i-->
+                      <!--                                class="flaticon-review-1 mr10"></i>Отзывы</a>-->
+                      <!--                        <a class="dropdown-item"-->
+                      <!--                           href="../dashboard-invoice/"><i-->
+                      <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->
+                      <!--                        <a class="dropdown-item"-->
+                      <!--                           href="../dashboard-payouts/"><i-->
+                      <!--                                class="flaticon-dollar mr10"></i>Платежи</a>-->
+                      <!--                        <a class="dropdown-item"-->
+                      <!--                           href="page-dashboard-statement.html"><i-->
+                      <!--                                class="flaticon-web mr10"></i>Обращения</a>-->
+                      <!--                        <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами-->
+                      <!--                        </p>-->
+                      <!--                        <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i-->
+                      <!--                            class="flaticon-presentation mr10"></i>Создать обращение-->
+                      <!--                        </a>-->
+                      <!--                        <a class="dropdown-item" href="#"><i class="flaticon-briefcase mr10"></i>Смотреть-->
+                      <!--                          медиаторов-->
+                      <!--                        </a>-->
+                      <!--                        <a class="dropdown-item" href="#"><i class="flaticon-content mr10"></i>Удалить-->
+                      <!--                          обращение</a>-->
                       <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
-                        <a class="dropdown-item" href="{% url 'dashboard:profile' %}"><i
-                            class="flaticon-photo mr10"></i>Мой профиль</a>
-                        <a class="dropdown-item" href="{% url 'signing:logout' %}"><i
-                            class="flaticon-logout mr10"></i>Выйти</a>
+                      <a class="dropdown-item" href="{% url 'dashboard:profile' %}"><i
+                          class="flaticon-photo mr10"></i>Мой профиль</a>
+                      <a class="dropdown-item" href="{% url 'signing:logout' %}"><i
+                          class="flaticon-logout mr10"></i>Выйти</a>
                     </div>
                     {% else %}
-                                      <div class="dropdown-menu">
-                    <div class="user_setting_content">
-                      <p class="fz15 fw400 ff-heading mb10 pl30">Тариф
-                        Старт</p>
-                      <a class="dropdown-item active" href="{% url 'dashboard:dashboard' %}"><i
-                          class="flaticon-home mr10"></i>Рабочий
-                        кабинет</a>
-                      <a class="dropdown-item" href="{% url 'dashboard:jobs' %}"><i
-                          class="flaticon-document mr10"></i>Мои
-                        конфликты</a>
-                      <a class="dropdown-item" href="page-dashboard-save.html">
-                        <!--                          <i-->
-                        <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="../dashboard-message/"><i-->
-                        <!--                                class="flaticon-chat mr10"></i>Сообщения</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="page-dashboard-reviews.html"><i-->
-                        <!--                                class="flaticon-review-1 mr10"></i>Отзывы</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="../dashboard-invoice/"><i-->
-                        <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="../dashboard-payouts/"><i-->
-                        <!--                                class="flaticon-dollar mr10"></i>Платежи</a>-->
-                        <!--                        <a class="dropdown-item"-->
-                        <!--                           href="page-dashboard-statement.html"><i-->
-                        <!--                                class="flaticon-web mr10"></i>Обращения</a>-->
-                        <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами
-                        </p>
-                        <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i
-                            class="flaticon-presentation mr10"></i>Создать обращение
-                        </a>
-                        <a class="dropdown-item" href="{% url 'dashboard:list-mediators' %}"><i class="flaticon-briefcase mr10"></i>Смотреть
-                          медиаторов
-                        </a>
-                        <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
-                        <a class="dropdown-item" href="{% url 'dashboard:profile' %}"><i
-                            class="flaticon-photo mr10"></i>Мой профиль</a>
-                        <a class="dropdown-item" href="{% url 'signing:logout' %}"><i
-                            class="flaticon-logout mr10"></i>Выйти</a>
+                    <div class="dropdown-menu">
+                      <div class="user_setting_content">
+                        <p class="fz15 fw400 ff-heading mb10 pl30">Тариф
+                          Старт</p>
+                        <a class="dropdown-item active" href="{% url 'dashboard:dashboard' %}"><i
+                            class="flaticon-home mr10"></i>Рабочий
+                          кабинет</a>
+                        <a class="dropdown-item" href="{% url 'dashboard:jobs' %}"><i
+                            class="flaticon-document mr10"></i>Мои
+                          конфликты</a>
+                        <a class="dropdown-item" href="page-dashboard-save.html">
+                          <!--                          <i-->
+                          <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
+                          <!--                        <a class="dropdown-item"-->
+                          <!--                           href="../dashboard-message/"><i-->
+                          <!--                                class="flaticon-chat mr10"></i>Сообщения</a>-->
+                          <!--                        <a class="dropdown-item"-->
+                          <!--                           href="page-dashboard-reviews.html"><i-->
+                          <!--                                class="flaticon-review-1 mr10"></i>Отзывы</a>-->
+                          <!--                        <a class="dropdown-item"-->
+                          <!--                           href="../dashboard-invoice/"><i-->
+                          <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->
+                          <!--                        <a class="dropdown-item"-->
+                          <!--                           href="../dashboard-payouts/"><i-->
+                          <!--                                class="flaticon-dollar mr10"></i>Платежи</a>-->
+                          <!--                        <a class="dropdown-item"-->
+                          <!--                           href="page-dashboard-statement.html"><i-->
+                          <!--                                class="flaticon-web mr10"></i>Обращения</a>-->
+                          <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами
+                          </p>
+                          <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i
+                              class="flaticon-presentation mr10"></i>Создать обращение
+                          </a>
+                          <a class="dropdown-item" href="{% url 'dashboard:list-mediators' %}"><i
+                              class="flaticon-briefcase mr10"></i>Смотреть
+                            медиаторов
+                          </a>
+                          <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
+                          <a class="dropdown-item" href="{% url 'dashboard:profile' %}"><i
+                              class="flaticon-photo mr10"></i>Мой профиль</a>
+                          <a class="dropdown-item" href="{% url 'signing:logout' %}"><i
+                              class="flaticon-logout mr10"></i>Выйти</a>
+                      </div>
+                      {% endif %}
                     </div>
-                    {% endif %}
                   </div>
-                </div>
               </li>
             </ul>
           </div>
@@ -455,3 +319,26 @@
     </div>
   </nav>
 </header>
+
+<!-- скрипт для всплывающего сообщения -->
+<script>
+  const notificationMessage = document.getElementById('notification-message');
+
+  if (notificationMessage) {
+    notificationMessage.style.display = 'block';
+    setTimeout(function () {
+      notificationMessage.style.display = 'none';
+    }, 3000);
+  }
+</script>
+
+<!-- скрипт для изменения цвета иконки оповещения при нажатии -->
+<script>
+  const notificationIcon = document.getElementById('notification-icon');
+  const notificationDot = document.getElementById('notification-dot');
+
+  notificationIcon.addEventListener('click', function () {
+    notificationIcon.style.color = '';
+    notificationDot.style.display = 'none';
+  });
+</script>
