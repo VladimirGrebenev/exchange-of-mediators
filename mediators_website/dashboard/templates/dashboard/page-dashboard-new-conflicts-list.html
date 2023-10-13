@@ -1,0 +1,466 @@
+{% extends 'dashboard/base-dashboard.html' %}
+{% load static %}
+
+{% block dash-content %}
+
+<!-- Listings All Lists -->
+    <section class="pt30 pb90">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="list-sidebar-style1 d-none d-lg-block">
+              <div class="accordion" id="accordionExample">
+                <div class="card mb20 pb10 mt-0 bg-transparent">
+                  <div class="card-header active" id="heading0">
+                    <h4>
+                      <button class="btn btn-link ps-0 pt-0" type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapse0"
+                              aria-expanded="true"
+                              aria-controls="collapse0">Категории</button>
+                    </h4>
+                  </div>
+                  <div id="collapse0" class="collapse show" aria-labelledby="heading0" data-parent="#accordionExample">
+                    <div class="card-body card-body px-0 pt-0">
+                      <div class="checkbox-style1 mb15">
+                        <label class="custom_checkbox">Семейный
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(1,945)</span>
+                        </label>
+                        <label class="custom_checkbox">Корпоративный
+                          <input type="checkbox" checked="checked">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(8,136)</span>
+                        </label>
+                        <label class="custom_checkbox">Бизнес
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(917)</span>
+                        </label>
+                        <label class="custom_checkbox">Наследство
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(240)</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb20 pb0 bg-transparent">
+                  <div class="card-header active" id="heading1">
+                    <h4>
+                      <button class="btn btn-link ps-0" type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapse1"
+                              aria-expanded="true"
+                              aria-controls="collapse1">Цена</button>
+                    </h4>
+                  </div>
+                  <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordionExample">
+                    <div class="card-body card-body px-0 pt-0">
+                      <!-- Range Slider Desktop Version -->
+                      <div class="range-slider-style1">
+                        <div class="range-wrapper">
+                          <div class="slider-range mb10 mt15"></div>
+                          <div class="text-center">
+                            <input type="text" class="amount"
+                                   placeholder="20 &#x20bd"><span class="fa-sharp fa-solid fa-minus mx-2 dark-color"></span>
+                            <input type="text" class="amount2"
+                                   placeholder="70987 &#x20bd">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card mb20 pb5 bg-transparent">
+                  <div class="card-header active" id="heading2">
+                    <h4>
+                      <button class="btn btn-link ps-0" type="button"
+                              data-bs-toggle="collapse"
+                              data-bs-target="#collapse2"
+                              aria-expanded="true"
+                              aria-controls="collapse2">Место</button>
+                    </h4>
+                  </div>
+                  <div id="collapse2" class="collapse show" aria-labelledby="heading2" data-parent="#accordionExample">
+                    <div class="card-body card-body px-0 pt-0">
+                      <div class="search_area mb15">
+                        <input type="text" class="form-control"
+                               placeholder="Где ищем конфликт?">
+                        <label><span class="flaticon-loupe"></span></label>
+                      </div>
+                      <div class="checkbox-style1 mb15">
+                        <label class="custom_checkbox">Россия
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(1945)</span>
+                        </label>
+                        <label class="custom_checkbox">Белоруссия
+                          <input type="checkbox" checked="checked">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(8136)</span>
+                        </label>
+                        <label class="custom_checkbox">Москва
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(917)</span>
+                        </label>
+                        <label class="custom_checkbox">Минск
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(240)</span>
+                        </label>
+                        <label class="custom_checkbox">Санкт-Петербург
+                          <input type="checkbox">
+                          <span class="checkmark"></span>
+                          <span class="right-tags">(26)</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-9">
+            <div class="row align-items-center mb20">
+              <div class="col-md-6">
+                <div class="text-center text-md-start">
+                  <p class="text mb-0 mb10-sm"><span class="fw500">5512
+                  </span> конфликтов открыто</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="page_control_shorting d-md-flex align-items-center justify-content-center justify-content-md-end">
+                  <div class="dropdown-lists d-block d-lg-none me-2 mb10-sm">
+                    <ul class="p-0 mb-0 text-center text-md-start">
+                      <li>
+                        <!-- Advance Features modal trigger -->
+                        <button type="button" class="open-btn filter-btn-left"> <img class="me-2" src="{% static 'images/icon/all-filter-icon.svg' %}" alt=""> All Filter</button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                          class="pcs_dropdown dark-color pr10 text-center text-md-end"><span>Сортировать</span>
+                    <select class="selectpicker show-tick">
+                      <option>Сначало новые</option>
+                      <option>Сначало недорогие</option>
+                      <option>Сначало дорогие</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-1.png' %}" alt="">
+                        <span class="online-badge2"></span>
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Конкликт название</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i
+                                class="flaticon-place fz16 vam text-thm2 me-1"></i> Москва, Россия</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i
+                                class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 28.10.2023 18:45</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i
+                                class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 5 откликов</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Этот конфликт шмофликт очень
+                      тяжёлый и поэтому здесь написано его КРАТКОЕ ОПИСАНИЕ
+                      вот это да да да да да лорем ипсум as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Корпоративный</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>1000 &#x20bd</h4>
+                        <p class="text">цена</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html"
+                           class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Решить<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-2.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Swift / SwiftUI Developer for B2B iOS apps</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-place fz16 vam text-thm2 me-1"></i> London, UK</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-3.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">English content writer for Fintech</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-place fz16 vam text-thm2 me-1"></i> London, UK</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-4.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Full-stack Developer to help us to build our</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-place fz16 vam text-thm2 me-1"></i> London, UK</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-5.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Looking for team members for web agency</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-place fz16 vam text-thm2 me-1"></i> London, UK</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-6.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Video animator to bring some illustrations to life</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-place fz16 vam text-thm2 me-1"></i> London, UK</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-7.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Конфлит название</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i
+                                class="flaticon-place fz16 vam text-thm2 me-1"></i> Москва, Россия</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-12">
+                <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+                  <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+                    <div class="d-lg-flex">
+                      <div class="thumb w60 position-relative rounded-circle mb15-md">
+                        <img class="rounded-circle mx-auto" src="{% static 'images/team/client-8.png' %}" alt="">
+                      </div>
+                      <div class="details ml15 ml0-md mb15-md">
+                        <h5 class="title mb-3">Food Delviery Mobile App</h5>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-place fz16 vam text-thm2 me-1"></i> London, UK</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 2 hours ago</p>
+                        <p class="mb-0 fz14 list-inline-item mb5-sm"><i class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> 1 Received</p>
+                      </div>
+                    </div>
+                    <p class="text mt10">Many desktop publishing packages and web page editors now use Lorem Ipsum <br class="d-none d-lg-block"> as their default model text.</p>
+                    <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                      <span class="tag">Figma</span>
+                      <span class="tag mx10">Sketch</span>
+                      <span class="tag">HTML5</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+                    <div class="details">
+                      <div class="text-lg-end">
+                        <h4>$100 - $150</h4>
+                        <p class="text">Hourly Rate</p>
+                      </div>
+                      <div class="d-grid mt15">
+                        <a href="page-freelancer-single.html" class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Send Proposal<i class="fal fa-arrow-right-long"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="mbp_pagination dark-style mt30 text-center">
+                <ul class="page_navigation">
+                  <li class="page-item bg-white">
+                    <a class="page-link" href="#"> <span class="fas fa-angle-left"></span></a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                  <li class="page-item d-inline-block d-sm-none"><a class="page-link" href="#">...</a></li>
+                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                  <li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#">...</a></li>
+                  <li class="page-item d-none d-sm-inline-block"><a class="page-link" href="#">20</a></li>
+                  <li class="page-item bg-white">
+                    <a class="page-link" href="#"><span class="fas fa-angle-right"></span></a>
+                  </li>
+                </ul>
+                <p class="mt10 mb-0 pagination_page_count text-center">1 – 20 of 300+ property available</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!-- Dashboard Content End -->
+{% endblock dash-content %}

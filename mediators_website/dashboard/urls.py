@@ -76,4 +76,34 @@ urlpatterns = [
         DashboardProfileView.as_view(
             template_name='dashboard/page-dashboard-profile.html'),
         name='profile'),
+    path(
+        'mediator/new-conflicts-list/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-new-conflicts-list.html'),
+        name='new-conflicts-list'
+    ),
+    path(
+        'mediator/new-conflict-review/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-new-conflict-review.html'),
+        name='new-conflict-review-mediator'
+    ),
+    path(
+        'user/user-conflict-review/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-user-conflict-review.html'),
+        name='user-conflict-review'
+    ),
+    path(
+        'mediator/conflict-workplace/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-conflict-workplace.html'),
+        name='conflict-workplace'
+    ),
+    path(
+        'user/user-conflict-workplace/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-user-conflict-workplace.html'),
+        name='user-conflict-workplace'
+    ),
 ]
