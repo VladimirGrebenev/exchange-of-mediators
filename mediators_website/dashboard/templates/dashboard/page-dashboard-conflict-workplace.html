@@ -59,7 +59,8 @@
                 </div>
                 <button type="button" class="ud-btn btn-gray me-2"
                         data-bs-toggle="tooltip" data-bs-placement="right"
-                        title="Tooltip on right">Добавить документ</button>
+                        title="Tooltip on right">Добавить документ
+                </button>
             </div>
         </div>
     </div>
@@ -82,7 +83,8 @@
                     <!--begin::Text-->
                     <div class="ra_pcontent pl10"><span
                             class="title">Создано обращение на портале
-                    </span><span class="text-thm6 fw500">Иванов Иван</span></div>
+                    </span><span class="text-thm6 fw500">Иванов Иван</span>
+                    </div>
                     <!--end::Text-->
                 </div>
             </div>
@@ -98,8 +100,8 @@
                     <!--end::Badge-->
                     <!--begin::Text-->
                     <div class="ra_pcontent pl10">
-                <span class="title">Назначен медиатор </span><span
-                        class="text-thm6 fw500">Антуан Мелихов</span>
+                        <span class="title">Назначен медиатор </span><span
+                            class="text-thm6 fw500">Антуан Мелихов</span>
                     </div>
                     <!--end::Text-->
                 </div>
@@ -164,7 +166,7 @@
 </div>
 <div class="row mb40">
     <div class="col-lg-6 col-xl-5 col-xxl-4">
-        <h5>Стороны конфликта:</h5>
+        <h5>Стороны конфликта (добавить/удалить): </h5>
         <div class="message_container">
             <div class="inbox_user_list">
                 <div class="iu_heading pr35">
@@ -183,17 +185,22 @@
                         <a href="#">
                             <div class="d-flex align-items-center position-relative">
                                 <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}" alt="ms1.png">
+                                     src="{% static 'images/inbox/ms1.png' %}"
+                                     alt="ms1.png">
                                 <div class="d-sm-flex">
                                     <div class="d-inline-block">
                                         <div class="fz15 fw500 dark-color ff-heading mb-0">
                                             Darlene Robertson
                                         </div>
-                                        <p class="preview">Head of
-                                            Development</p>
                                     </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
+                                    <div class="switch-style1">
+                                        <div
+                                                class="form-check form-switch ml20 mb20">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   id="flexSwitchCheckDefault1"
+                                                   checked="checked">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -203,186 +210,28 @@
                         <a href="#">
                             <div class="d-flex align-items-center position-relative">
                                 <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                     src="{% static 'images/inbox/ms5.png' %}"
+                                     alt="ms5.png">
                                 <div class="d-sm-flex">
                                     <div class="d-inline-block">
                                         <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jane Cooper
+                                            Лора Пилигримм
                                         </div>
-                                        <p class="preview">Head of
-                                            Development</p>
                                     </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif">2</div>
+                                    <div class="switch-style1">
+                                        <div
+                                                class="form-check form-switch ml20 mb20">
+                                            <input class="form-check-input"
+                                                   type="checkbox"
+                                                   id="flexSwitchCheckDefault2"
+                                                   checked="checked">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Arlene McCoy
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif online">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms4.png' %}" alt="ms4.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Albert Flores
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Cameron Williamson
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif away">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms6.png' %}" alt="ms6.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Kristin Watson
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms7.png' %}" alt="ms7.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Annette Black
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif busy">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms8.png' %}" alt="ms8.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jacob Jones
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}" alt="ms1.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Vincent Porter
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jacob Brown
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -392,7 +241,8 @@
         <div class="message_container mt30-md">
             <div class="user_heading px-0 mx30">
                 <div class="wrap">
-                    <img class="img-fluid mr10" src="{% static 'images/inbox/ms3.png' %}"
+                    <img class="img-fluid mr10"
+                         src="{% static 'images/inbox/ms3.png' %}"
                          alt="ms3.png">
                     <div class="meta d-sm-flex justify-content-sm-between align-items-center">
                         <div class="authors">
@@ -407,7 +257,8 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms4.png' %}" alt="ms4.png">
+                                 src="{% static 'images/inbox/ms4.png' %}"
+                                 alt="ms4.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -420,7 +271,8 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
+                                 src="{% static 'images/inbox/ms5.png' %}"
+                                 alt="ms5.png">
                         </div>
                         <p>Hey there, we’re just writing to let you know that
                             you’ve been subscribed to a repository on
@@ -429,7 +281,8 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms5.png" alt="ms5.png' %}">
+                                 src="{% static 'images/inbox/ms5.png"
+                                 alt="ms5.png' %}">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -441,14 +294,16 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
+                                 src="{% static 'images/inbox/ms5.png' %}"
+                                 alt="ms5.png">
                         </div>
                         <p>The project finally complete! Let's go to!.</p>
                     </li>
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -457,7 +312,8 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -467,7 +323,8 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -479,7 +336,8 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
                         </div>
                         <p>simply dummy text of the printing and typesetting
                             industry. Lorem Ipsum has been the industry's</p>
@@ -490,7 +348,8 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
                         </div>
                         <p>Are we meeting today?</p>
                     </li>
@@ -500,14 +359,16 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
                         </div>
                         <p>The project finally complete! Let's go to!</p>
                     </li>
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -516,7 +377,8 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -529,7 +391,8 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
                         </div>
                         <p>Are we meeting today?</p>
                     </li>
@@ -539,14 +402,16 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
                         </div>
                         <p>The project finally complete! Let's go to!</p>
                     </li>
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -555,7 +420,8 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
