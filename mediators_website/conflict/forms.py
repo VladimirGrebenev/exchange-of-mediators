@@ -3,7 +3,7 @@ import datetime
 from django import forms
 from django.forms import TextInput, Textarea
 
-from conflict.models import Document, Conflict
+from conflict.models import Document, Conflict, ConflictResponse
 from user.models import User
 from django.db.models import Q
 
@@ -118,4 +118,30 @@ class DocumentForm(forms.ModelForm):
         )
         widgets = {
             "user": forms.HiddenInput,
+        }
+
+
+class ResponseForm(forms.ModelForm):
+    class Meta:
+        model = ConflictResponse
+        fields = [
+            "conflict",
+            "mediator",
+            "rate",
+            "time_for_conflict",
+            "comment"
+        ]
+        widgets = {
+            "conflict": forms.HiddenInput,
+            "mediator": forms.HiddenInput,
+            "rate": forms.NumberInput(attrs={"placeholder": f"Цена не ниже заявленной", "class": "form-control"}),
+            "time_for_conflict": forms.NumberInput(attrs={"placeholder": "Количество дней", "class": "form-control"}),
+            "comment": forms.Textarea(
+                attrs={
+                    "rows": 6,
+                    "style": "height: 100%",
+                    "placeholder": "Пара слов заявителю...",
+                    "class": "form-control",
+                }
+            ),
         }

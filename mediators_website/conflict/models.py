@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from user.models import User, NULLABLE, Mediator
+from utils.common import pluralize_word
 
 
 def user_directory_path(instance, filename):
@@ -174,3 +175,14 @@ class ConflictResponse(models.Model):
 
     class Meta:
         ordering = ['-response_time']
+
+    def time_on_resolved(self) -> str:
+        if self.time_for_conflict is None:
+            return ''
+
+        return (f"{self.time_for_conflict} "
+                f"{pluralize_word(self.time_for_conflict, 'день', 'дня', 'дней')}")
+
+    def count_reviews(self) -> str:
+        return (f"{self.mediator.reviews.count()} "
+                f"{pluralize_word(self.mediator.reviews.count(), 'отзыв', 'отзыва', 'отзывов')}")
