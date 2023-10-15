@@ -9,6 +9,10 @@
           </div>
           {% if user.groups.first.name == 'mediator' %}
           <div class="sidebar_list_item">
+            <a href="{% url 'dashboard:new-conflicts-list' %}" class="items-center {{ active_conflicts }}"><i
+                    class="flaticon-document mr15"></i>Новые конфликты</a>
+          </div>
+          <div class="sidebar_list_item">
             <a href="{% url 'dashboard:jobs-mediator' %}" class="items-center {{ active_conflicts }}"><i
                     class="flaticon-document mr15"></i>Мои конфликты</a>
           </div>
