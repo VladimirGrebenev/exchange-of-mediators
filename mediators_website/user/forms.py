@@ -45,7 +45,6 @@ class UserFormProfile(ModelForm):
 
     def clean_birthday(self):
         birthday = self.cleaned_data.get('birthday')
-        print(birthday)
 
         if birthday:
             today = datetime.today().date()
@@ -66,6 +65,8 @@ class UserFormProfile(ModelForm):
 
         if password1 and password2 and password1 != password2:
             self.add_error('password2', _('Пароли не совпадают'))
+        elif password1 and not password2 or password2 and not password1:
+            self.add_error('password2', _('Заполните оба поля'))
 
         return cleaned_data
     

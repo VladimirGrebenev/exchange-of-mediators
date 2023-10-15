@@ -5,6 +5,7 @@ from django.contrib.auth import login as auth_login, authenticate
 from signing.forms import UserRegisterForm
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 class SignupView(FormView):
@@ -24,6 +25,8 @@ class SignupView(FormView):
         user.groups.set([new_group])
         user.save()
         auth_login(self.request, user)
+        messages.success(self.request, 'Аккаунт успешно создан')
+
         return response
 
 
