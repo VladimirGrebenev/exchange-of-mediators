@@ -153,7 +153,7 @@
                   <div class="wrapper d-flex align-items-center mt20">
                     <div class="thumb position-relative mb25">
                       {% if conflict.creator.profile_image %}
-                      <img class="rounded-circle mx-auto" src="{{ conflict.creator.profile_image.url }}" alt="">
+                      <img class="rounded-circle mx-auto" src="{{ conflict.creator.profile_image.url }}" style="width: 80px; height: 80px"  alt="">
                       {% else %}
                       <img class="rounded-circle mx-auto" src="{% static 'images/team/client-2.png' %}" alt="">
                       {% endif %}
