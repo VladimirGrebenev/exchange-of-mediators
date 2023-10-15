@@ -145,3 +145,20 @@ class ResponseForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class ResponseUserForm(forms.ModelForm):
+    class Meta:
+        model = Conflict
+        fields = [
+            "category",
+            "mediator",
+            "fixed_price",
+            "decide_time",
+        ]
+        widgets = {
+            "category": forms.HiddenInput,
+            "mediator": forms.HiddenInput,
+            "fixed_price": forms.HiddenInput,
+            "decide_time": forms.HiddenInput,
+        }
