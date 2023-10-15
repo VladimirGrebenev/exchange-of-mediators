@@ -15,6 +15,8 @@ from .forms import UserFormProfile, DeleteProfileForm
 from conflict.models import Conflict
 from reviews.forms import ReviewForm
 
+LEVEL_MESSAGE = 50
+
 
 class EmailConfirmView(View):
     def get(self, request, code):
@@ -85,11 +87,17 @@ class DashboardProfileView(View):
             return redirect('/signing/signout/')
 
         if profile_form.is_valid():
+
+            if 'password1' in request.POST and request.POST['password1'] != '' and request.POST['password2'] != '':
+                messages.add_message(request, LEVEL_MESSAGE, 'Пароль успешно изменен.', extra_tags='message_password')
+            else:
+                messages.add_message(request, LEVEL_MESSAGE, 'Данные профиля успешно изменены.', extra_tags='message_profile')
+
             profile_form.save()
             update_session_auth_hash(request, user)
-            return redirect('/dashboard/profile/')
 
-        messages.add_message(request, messages.ERROR, 'Введены некорректные данные.')
+        else:
+            messages.error(request, 'Введены некорректные данные.')
 
         context = {
             'profile_form': profile_form,

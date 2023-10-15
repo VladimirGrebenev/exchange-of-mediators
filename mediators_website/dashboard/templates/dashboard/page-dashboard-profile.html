@@ -35,15 +35,6 @@
             </div>
         </div>
     </div>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        {% if message.tags == 'error' %}
-        <li class="success-message">{{ message }}</li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-    {% endif %}
     <div class="row">
         <div class="col-xl-12">
             <form method="post" class="form-style1" enctype="multipart/form-data">
