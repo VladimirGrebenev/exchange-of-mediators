@@ -1,9 +1,11 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group
+
+from conflict.models import Conflict
+from conflict.forms import ConflictForm, ResponseForm
 from user.models import User, BasicUser, Mediator
 
 from signing.forms import UserRegisterForm
-from conflict.forms import ConflictForm
 from reviews.forms import ReviewForm
 
 from random import randint
@@ -93,6 +95,25 @@ class Command(BaseCommand):
             form.save()
             print(f'Отзыв написан пользователем {data.get("from_user").firstname}')
 
+    def create_response(self):
+        conflict = fake.random_choices(elements=Conflict.objects.all(), length=1)[0]
+        mediator = fake.random_choices(elements=Mediator.objects.all(), length=1)[0]
+        rate = fake.random_number(digits=4)
+        time_for_conflict = fake.random_number(digits=1)
+        comment = fake.text(150)
+
+        data = {
+            'conflict': conflict,
+            'mediator': mediator,
+            'rate': rate,
+            'time_for_conflict': time_for_conflict,
+            'comment': comment,
+        }
+        form = ResponseForm(data=data)
+        if form.is_valid():
+            form.save()
+            print(f'Отклик на конфликт {data.get("conflict").title[:10]}... создан медиатором {data.get("mediator").firstname}')
+
     def handle(self, *args, **options):
         total = options.get('total') or 1
         count = User.objects.count() + 1
@@ -118,3 +139,8 @@ class Command(BaseCommand):
         print(green + 'Create reviews'.center(100, '=') + default)
         for i in range(total):
             self.create_review()
+
+        print()
+        print(green + 'Create responses'.center(100, '=') + default)
+        for i in range(total):
+            self.create_response()

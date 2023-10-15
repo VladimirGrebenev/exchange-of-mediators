@@ -1,4 +1,4 @@
-from utils.sample_objects import sample_queryset
+from utils.common import sample_queryset
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
