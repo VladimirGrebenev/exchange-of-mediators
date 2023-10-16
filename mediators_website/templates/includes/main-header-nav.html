@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="col-auto pe-0 pe-xl-3">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" style="padding-top: 12px">
                         <!-- Responsive Menu Structure-->
                         <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
                             <li class="visible_list"><a class="list-item" href="{% url 'index' %}"><span class="title">Главная
@@ -35,7 +35,7 @@
                                     </span></a>
                                 </li>
                             {% endif %}
-                            <li><a class="list-item pe-0" href="{% url 'contacts' %}">Контакты
+                            <li class="visible_list"><a class="list-item pe-0" href="{% url 'contacts' %}">Контакты
                             </a></li>
                         </ul>
                         {% if request.user.is_authenticated %}

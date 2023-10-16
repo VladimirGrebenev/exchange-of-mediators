@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 import dashboard.views as views
-from conflict.views import ConflictFormView, ConflictView, ConflictCreateView, ConflictDetailView, AddRespondentView
+from conflict.views import ConflictFormView, ConflictView, ConflictCreateView, ConflictDetailView
 
 from user.views import DashboardProfileView, TopMediatorsList
 
@@ -78,20 +78,18 @@ urlpatterns = [
         name='profile'),
     path(
         'mediator/new-conflicts-list/',
-        TemplateView.as_view(
+        views.MediatorsDashboardNewConflictsView.as_view(
             template_name='dashboard/page-dashboard-new-conflicts-list.html'),
         name='new-conflicts-list'
     ),
     path(
-        'mediator/new-conflict-review/',
-        TemplateView.as_view(
-            template_name='dashboard/page-dashboard-new-conflict-review.html'),
+        'mediator/new-conflict-review/<str:pk>/',
+        views.MediatorConflictDetail.as_view(),
         name='new-conflict-review-mediator'
     ),
     path(
-        'user/user-conflict-review/',
-        TemplateView.as_view(
-            template_name='dashboard/page-dashboard-user-conflict-review.html'),
+        'user/user-conflict-review/<str:pk>/',
+        views.UserConflictDetail.as_view(),
         name='user-conflict-review'
     ),
     path(
@@ -104,5 +102,23 @@ urlpatterns = [
         'user/user-conflict-workplace/<uuid:pk>/',
         ConflictDetailView.as_view(),
         name='user-conflict-workplace'
+    ),
+    path(
+        'user/user-about/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-user-about.html'),
+        name='user-about'
+    ),
+    path(
+        'mediator/mediator-about/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-mediator-about.html'),
+        name='mediator-about'
+    ),
+    path(
+        'my-messages/',
+        TemplateView.as_view(
+            template_name='dashboard/page-dashboard-my-messages.html'),
+        name='my-messages'
     ),
 ]

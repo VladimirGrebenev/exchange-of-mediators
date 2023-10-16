@@ -4,8 +4,8 @@ from uuid import uuid4
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from user.models import User, NULLABLE
-
+from user.models import User, NULLABLE, Mediator
+from utils.common import pluralize_word
 
 
 def user_directory_path(instance, filename):
@@ -152,3 +152,37 @@ class Document(models.Model):
 
     def __str__(self):
         return f'{self.id}'
+
+
+class ConflictResponse(models.Model):
+    """
+    Модель для откликов на конфликты
+    """
+    id = models.UUIDField(primary_key=True, default=uuid4)
+    conflict = models.ForeignKey(Conflict,
+                                 on_delete=models.CASCADE,
+                                 related_name='responses',
+                                 )
+    mediator = models.ForeignKey(Mediator,
+                                 on_delete=models.CASCADE,
+                                 related_name='conflicts',
+                                 )
+    response_time = models.DateTimeField(auto_now_add=True,
+                                         editable=False)
+    rate = models.IntegerField(blank=False, null=False)  # Ставка от медиатора
+    comment = models.TextField(blank=True, null=True)  # Комментарий от медиатора
+    time_for_conflict = models.IntegerField(blank=True, null=True)  # Время на решение конфликта
+
+    class Meta:
+        ordering = ['-response_time']
+
+    def time_on_resolved(self) -> str:
+        if self.time_for_conflict is None:
+            return ''
+
+        return (f"{self.time_for_conflict} "
+                f"{pluralize_word(self.time_for_conflict, 'день', 'дня', 'дней')}")
+
+    def count_reviews(self) -> str:
+        return (f"{self.mediator.reviews.count()} "
+                f"{pluralize_word(self.mediator.reviews.count(), 'отзыв', 'отзыва', 'отзывов')}")
