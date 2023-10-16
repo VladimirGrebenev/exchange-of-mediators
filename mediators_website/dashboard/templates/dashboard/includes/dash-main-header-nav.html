@@ -233,6 +233,10 @@
                       <a class="dropdown-item" href="{% url 'dashboard:jobs-mediator' %}"><i
                           class="flaticon-document mr10"></i>Мои
                         конфликты</a>
+                      <a class="dropdown-item"
+                           href="{% url 'dashboard:my-messages' %}"><i class="flaticon-chat mr10"></i>Сообщения</a>
+                      <a class="dropdown-item"
+                           href="{% url 'reviews:list_review' %}"><i class="flaticon-review-1 mr10"></i>Отзывы</a>
                       <!--                      <a class="dropdown-item" href="page-dashboard-save.html">-->
                       <!--                          <i-->
                       <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
@@ -281,12 +285,10 @@
                         <a class="dropdown-item" href="page-dashboard-save.html">
                           <!--                          <i-->
                           <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
-                          <!--                        <a class="dropdown-item"-->
-                          <!--                           href="../dashboard-message/"><i-->
-                          <!--                                class="flaticon-chat mr10"></i>Сообщения</a>-->
-                          <!--                        <a class="dropdown-item"-->
-                          <!--                           href="page-dashboard-reviews.html"><i-->
-                          <!--                                class="flaticon-review-1 mr10"></i>Отзывы</a>-->
+                        <a class="dropdown-item"
+                           href="{% url 'dashboard:my-messages' %}"><i class="flaticon-chat mr10"></i>Сообщения</a>
+                        <a class="dropdown-item"
+                           href="{% url 'reviews:list_review' %}"><i class="flaticon-review-1 mr10"></i>Отзывы</a>
                           <!--                        <a class="dropdown-item"-->
                           <!--                           href="../dashboard-invoice/"><i-->
                           <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->

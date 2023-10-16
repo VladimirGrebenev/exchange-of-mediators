@@ -43,7 +43,12 @@
                                     <div class="d-lg-flex align-items-lg-center">
                                         <div class="details ml15 ml0-md mb15-md">
                                             <h5 class="title mb-2">
+                                                {% if conflict.mediator == NULL %}
                                                 <a href="{% url 'dashboard:user-conflict-review' conflict.id %}">{{ conflict.title }}</a></h5>
+                                                {% else %}
+                                                <a href="{% url 'dashboard:user-conflict-workplace' %}">{{ conflict.title }}</a>
+                                                {% endif %}
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
