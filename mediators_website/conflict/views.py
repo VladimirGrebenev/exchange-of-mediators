@@ -1,10 +1,10 @@
 from django.http import request
 from django.http import HttpRequest
+from django.shortcuts import get_object_or_404
 
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 import logging
-from django.shortcuts import redirect
-from django.views.generic import FormView, TemplateView, CreateView
+from django.views.generic import FormView, TemplateView, CreateView, DetailView
 
 from conflict.forms import ConflictForm, DocumentForm
 from conflict.models import Conflict, Document
@@ -39,21 +39,21 @@ class ConflictFormView(FormView):
 
 
 # class DocumentFormView(FormView):
-    # """
-    #     Returned document form
-    # """
-    # template_name = "conflict/document_form.html"
-    # form_class = DocumentForm
-    #
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     if pk := self.request.GET.get('pk'):
-    #         try:
-    #             document = Document.objects.get(pk=pk)
-    #             kwargs['instance'] = document
-    #         except Document.DoesNotExist:
-    #             pass
-    #     return kwargs | {"user": self.request.user}
+# """
+#     Returned document form
+# """
+# template_name = "conflict/document_form.html"
+# form_class = DocumentForm
+#
+# def get_form_kwargs(self):
+#     kwargs = super().get_form_kwargs()
+#     if pk := self.request.GET.get('pk'):
+#         try:
+#             document = Document.objects.get(pk=pk)
+#             kwargs['instance'] = document
+#         except Document.DoesNotExist:
+#             pass
+#     return kwargs | {"user": self.request.user}
 
 class DocumentFormView(FormView):
     """
@@ -82,7 +82,6 @@ class ConflictCreateView(CreateView):
     form_class = ConflictForm
     success_url = "/dashboard/create-project/"
 
-
     def form_valid(self, form):
         form.instance.creator = self.request.user
         logger.info("Я попал в form_valid ")
@@ -102,3 +101,34 @@ class ConflictCreateView(CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['user'] = self.request.user  # Передаем текущего пользователя в форму
         return kwargs
+
+
+class ConflictDetailView(DetailView):
+    """Получение отдельного конфликта"""
+    model = Conflict
+    template_name = 'dashboard/page-dashboard-user-conflict-workplace.html'
+    context_object_name = 'conflict'
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['form'] = AddRespondentForm()
+#         return context
+#
+#
+# class AddRespondentView(FormView):
+#     form_class = RespondentForm
+#
+#     def form_valid(self, form):
+#         respondent = form.cleaned_data['respondent']
+#         conflict = get_object_or_404(Conflict, pk=self.kwargs['pk'])
+#         conflict.respondents.add(respondent)
+#         return super().form_valid(form)
+#
+#     def get_success_url(self):
+#         return reverse('conflict-detail', kwargs={'pk': self.kwargs['pk']})
+
+
+
+
+
+
+

@@ -23,30 +23,34 @@
     <div class="col-lg-8 p60">
         <div class="column">
             <div class="service-about">
-                <h3>Название конфликта</h3>
+                <h3>{{ conflict.title }} (Создатель: {{ conflict.creator.firstname }}) </h3>
                 <br>
-                <h5>Описание конфликта</h5>
-                <p class="text mb30">А здесь у нас КРАТКОЕ ОПИСАНИЕ
-                    конфликта at a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of
-                    using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here,
-                    content here', making it look like readable English. </p>
+                <h5>Описание конфликта:</h5>
+                <p class="text mb30">{{ conflict.description }}</p>
 
                 <hr class="opacity-100 mb30 mt30">
                 <h5 class="mb30">Медиатор:</h5>
+
                 <div class="user_heading px-0 mx30">
-                <div class="wrap">
-                    <img class="img-fluid mr10" src="{% static 'images/inbox/ms3.png' %}"
-                         alt="ms3.png">
-                    <div class="meta d-sm-flex justify-content-sm-between align-items-center">
-                        <div class="authors">
-                            <h6 class="name mb-0">Антонио Саморанчес</h6>
-                            <p class="preview">Медиатор</p>
+                {% if conflict.mediator.profile_image %}
+                    <div class="wrap">
+                        <img class="img-fluid mr10" src="{{ conflict.mediator.profile_image.url }}"
+                             alt="No foto">
+                        <div class="meta d-sm-flex justify-content-sm-between align-items-center">
+                            <div class="authors">
+                                <h6 class="name mb-0">{{ conflict.mediator.firstname }}</h6>
+                                <p class="preview">Медиатор</p>
+                            </div>
                         </div>
-                    </div>
                 </div>
-            </div>
+                {% else %}
+                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                        <img class="rounded-circle mx-auto"
+                             src="{% static 'images/team/fl-1.png' %}" alt="">
+                        <span class="online"></span>
+                    </div>
+                {% endif %}
+                </div>
 
                 <hr class="opacity-100 mb60 mt30">
                 <h4 class="mb30">Прикреплённые файлы (пока это нетрогаем)</h4>
@@ -187,200 +191,18 @@
                         </form>
                     </div>
                 </div>
+                {% if conflict.respondents.all %}
+                {% for respondent in conflict.respondents.all %}
                 <div class="chat-member-list pr20">
                     <div class="list-item pt5">
                         <a href="#">
                             <div class="d-flex align-items-center position-relative">
                                 <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}" alt="ms1.png">
+                                     src="{{ respondent.profile_image.url }}">
                                 <div class="d-sm-flex">
                                     <div class="d-inline-block">
                                         <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Darlene Robertson
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jane Cooper
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Arlene McCoy
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif online">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms4.png' %}" alt="ms4.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Albert Flores
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Cameron Williamson
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif away">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms6.png' %}" alt="ms6.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Kristin Watson
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms7.png' %}" alt="ms7.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Annette Black
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                        <div class="m_notif busy">2</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms8.png' %}" alt="ms8.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jacob Jones
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}" alt="ms1.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Vincent Porter
-                                        </div>
-                                        <p class="preview">Head of
-                                            Development</p>
-                                    </div>
-                                    <div class="iul_notific">
-                                        <small>35 mins</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jacob Brown
+                                            {{ respondent.firstname }}
                                         </div>
                                         <p class="preview">Head of
                                             Development</p>
@@ -393,6 +215,19 @@
                         </a>
                     </div>
                 </div>
+                {% endfor %}
+                {% else %}
+                <div class="chat-member-list pr20">
+                    <div class="fz15 fw500 dark-color ff-heading mb-0">
+                        Участников пока нет
+                    </div>
+                </div>
+                {% endif %}
+<!--                <form method="post" action="{% url 'add-respondent' conflict.pk %}">-->
+<!--                    {% csrf_token %}-->
+<!--                        {{ form }}-->
+<!--                    <button type="submit">Add Respondent</button>-->
+<!--                </form>-->
             </div>
         </div>
     </div>
