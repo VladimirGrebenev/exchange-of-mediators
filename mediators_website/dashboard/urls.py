@@ -78,7 +78,7 @@ urlpatterns = [
         name='profile'),
     path(
         'mediator/new-conflicts-list/',
-        views.MediatorsDashboardNewConflictsView.as_view(
+        views.MediatorsDashboardNewConflictsListView.as_view(
             template_name='dashboard/page-dashboard-new-conflicts-list.html'),
         name='new-conflicts-list'
     ),

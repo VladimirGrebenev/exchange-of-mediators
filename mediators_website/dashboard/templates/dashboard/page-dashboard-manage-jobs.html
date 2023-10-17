@@ -2,13 +2,15 @@
 {% load static %}
 
 {% block dash-title %}
+<h1>Список конфликтов</h1>
 {% endblock dash-title %}
 
 {% block dash-description %}
+<p>Самое время разрешить конфликты</p>
 {% endblock dash-description %}
 
 {% block dash-sidebar %}
-    {% include 'dashboard/includes/dash-sidebar-list.html' with active_conflicts='-is-active'  %}
+    {% include 'dashboard/includes/dash-sidebar-list.html' with active_conflicts='-is-active' %}
 {% endblock %}
 
 {% block dash-content %}

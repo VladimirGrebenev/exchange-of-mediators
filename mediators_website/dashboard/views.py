@@ -137,7 +137,7 @@ class UserDashboardListConflictStatusCompleted(UserDashboardListConflictsView):
         return context
 
       
-class MediatorsDashboardNewConflictsView(LoginRequiredMixin,
+class MediatorsDashboardNewConflictsListView(LoginRequiredMixin,
                                          PermissionByGroupMixin, View):
     """
     Список новых конфликтов для медиатора
