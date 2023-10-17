@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
 from utils.views_mixins import TopFiveMediatorsMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -64,7 +65,7 @@ def delete_avatar(request):
     return JsonResponse({'success': False}, status=400)
     
     
-class DashboardProfileView(View):
+class DashboardProfileView(LoginRequiredMixin, View):
     template_name = 'dashboard/page-dashboard-profile.html'
 
     def get(self, request):
@@ -115,7 +116,7 @@ class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     context_object_name = 'mediators_list'
 
 
-class MediatorDetailView(DetailView):
+class MediatorDetailView(LoginRequiredMixin, DetailView):
     model = Mediator
     template_name = 'user/page-mediator-detail.html'
 

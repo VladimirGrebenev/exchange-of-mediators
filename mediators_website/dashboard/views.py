@@ -33,13 +33,16 @@ class DashboardDispatcherView(LoginRequiredMixin, View):
     """
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
         if "mediator" in self.request.user.permission_groups:
             return HttpResponseRedirect(
                 reverse('dashboard:mediator_dashboard'))
         return HttpResponseRedirect(reverse('dashboard:user_dashboard'))
 
     def handle_no_permission(self):
-        return redirect(reverse('index'))
+        return redirect(reverse('signing:login'))
 
 
 class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
