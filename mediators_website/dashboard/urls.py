@@ -5,6 +5,7 @@ import dashboard.views as views
 from conflict.views import ConflictFormView, ConflictView, ConflictCreateView
 
 from user.views import DashboardProfileView, TopMediatorsList
+from .views import filter_conflicts
 
 app_name = "dashboard"
 
@@ -78,7 +79,7 @@ urlpatterns = [
         name='profile'),
     path(
         'mediator/new-conflicts-list/',
-        views.MediatorsDashboardNewConflictsView.as_view(
+        views.MediatorsDashboardNewConflictsListView.as_view(
             template_name='dashboard/page-dashboard-new-conflicts-list.html'),
         name='new-conflicts-list'
     ),
@@ -122,4 +123,5 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-my-messages.html'),
         name='my-messages'
     ),
+    path('mediator/new-conflicts-list/filter-conflicts/', filter_conflicts, name='filter_conflicts'),
 ]

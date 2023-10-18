@@ -1,17 +1,21 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% block dash-title %}
+<h1>Мои сообщения</h1>
+{% endblock dash-title %}
+
+{% block dash-description %}
+<p>Жи Ши пиши с буквой И</p>
+{% endblock dash-description %}
+
+{% block dash-sidebar %}
+    {% include 'dashboard/includes/dash-sidebar-list.html' with active_messages='-is-active' %}
+{% endblock %}
+
 {% block dash-content %}
 <!-- Dashboard Content -->
 
-<div class="row pb40">
-    <div class="col-lg-12">
-        <div class="dashboard_title_area">
-            <h2>Мои сообщения</h2>
-            <p class="text">Жи Ши пиши с буквой И</p>
-        </div>
-    </div>
-</div>
 <div class="row mb40">
     <div class="col-lg-6 col-xl-5 col-xxl-4">
         <div class="message_container">

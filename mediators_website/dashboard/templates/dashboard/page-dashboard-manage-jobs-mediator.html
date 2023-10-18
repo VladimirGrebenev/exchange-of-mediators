@@ -1,21 +1,26 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% block dash-title %}
+<h1>Список конфликтов</h1>
+{% endblock dash-title %}
+
+{% block dash-description %}
+<p>Самое время разрешить конфликты</p>
+{% endblock dash-description %}
+
+{% block dash-sidebar %}
+    {% include 'dashboard/includes/dash-sidebar-list.html' with active_conflicts='-is-active' %}
+{% endblock %}
+
 {% block dash-content %}
 <!-- Dashboard Content -->
 
-    <div class="row pb40">
-        <div class="col-lg-12">
-            <div class="dashboard_title_area">
-                <h3>Мои конфликты</h3>
-                <p class="text">Вообще я не очень конфликтный, но ...</p>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <div class="col-xl-12">
             <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
                 <div class="packages_table table-responsive">
+
                     <table class="table-style3 table at-savesearch">
                         <thead class="t-head">
                         <tr>

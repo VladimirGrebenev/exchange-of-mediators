@@ -9,20 +9,20 @@
           </div>
           {% if user.groups.first.name == 'mediator' %}
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:new-conflicts-list' %}" class="items-center {{ active_conflicts }}"><i
-                    class="flaticon-document mr15"></i>Новые конфликты</a>
+            <a href="{% url 'dashboard:new-conflicts-list' %}"
+               class="items-center {{ new_conflicts }}"><i class="flaticon-document mr15"></i>Новые конфликты</a>
           </div>
           <div class="sidebar_list_item">
-            <a href="{% url 'dashboard:jobs-mediator' %}" class="items-center {{ active_conflicts }}"><i
-                    class="flaticon-document mr15"></i>Мои конфликты</a>
+            <a href="{% url 'dashboard:jobs-mediator' %}"
+               class="items-center {{ active_conflicts }}"><i class="flaticon-document mr15"></i>Мои конфликты</a>
           </div>
 <!--          <div class="sidebar_list_item">-->
 <!--            <a href="#" class="items-center"><i-->
 <!--                    class="flaticon-like mr15"></i>Избранное</a>-->
 <!--          </div>-->
           <div class="sidebar_list_item ">
-            <a href="{% url 'dashboard:my-messages' %}" class="items-center"><i
-                    class="flaticon-chat mr15"></i>Сообщения</a>
+            <a href="{% url 'dashboard:my-messages' %}"
+               class="items-center {{ active_messages }}"><i class="flaticon-chat mr15"></i>Сообщения</a>
           </div>
           <div class="sidebar_list_item ">
             <a href="{% url 'reviews:list_review' %}" class="items-center"><i
