@@ -23,7 +23,7 @@ class ConflictForm(forms.ModelForm):
         model = Conflict
         fields = (
             "title",
-            # "status",
+            "status",
             "category",
             # "mediators_level",
             # "prise",
@@ -33,7 +33,7 @@ class ConflictForm(forms.ModelForm):
             "city",
             # "language",
             # "language_level",
-            # "mediator",
+            "mediator",
             # "respondents",
             "creator",
             "description",
@@ -41,9 +41,10 @@ class ConflictForm(forms.ModelForm):
         )
         widgets = {
             'creator': forms.HiddenInput(),
-            # "status": forms.Select({
-            #     'class': "selectpicker",
-            # }),
+            'mediator': forms.HiddenInput(),
+            "status": forms.Select({
+                'class': "selectpicker",
+            }),
             "title": TextInput(attrs={
                 'class': "form-control",
                 'placeholder': "Текст заголовка",
