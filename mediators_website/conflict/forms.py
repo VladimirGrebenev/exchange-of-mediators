@@ -2,6 +2,7 @@ import datetime
 
 from django import forms
 from django.forms import TextInput, Textarea
+from django.shortcuts import redirect
 
 from conflict.models import Document, Conflict, ConflictResponse
 from user.models import User
@@ -161,4 +162,14 @@ class ResponseUserForm(forms.ModelForm):
             "mediator": forms.HiddenInput,
             "fixed_price": forms.HiddenInput,
             "decide_time": forms.HiddenInput,
+        }
+
+
+class RespondentsForm(forms.ModelForm):
+    class Meta:
+        model = Conflict
+        fields = ['respondents']
+        widgets = {
+            "respondents": forms.SelectMultiple(
+                attrs={"placeholder": "Выберите пользователей", "class": "selectpicker"})
         }

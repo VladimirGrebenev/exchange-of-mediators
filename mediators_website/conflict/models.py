@@ -105,7 +105,7 @@ class Conflict(models.Model):
     respondents = models.ManyToManyField(
         User,
         related_name='conflicts_as_respondent',
-        verbose_name=_('Остальные участники'),
+        verbose_name=_('Остальные пользователи'),
         **NULLABLE,
     )
     description = models.TextField(blank=True, null=True,

@@ -48,7 +48,7 @@
                                                 {% if conflict.mediator == NULL %}
                                                 <a href="{% url 'dashboard:user-conflict-review' conflict.id %}">{{ conflict.title }}</a></h5>
                                                 {% else %}
-                                                <a href="{% url 'dashboard:user-conflict-workplace' %}">{{ conflict.title }}</a>
+                                                <a href="{% url 'dashboard:user-conflict-workplace' conflict.id %}">{{ conflict.title }}</a>
                                                 {% endif %}
                                             </h5>
                                         </div>
