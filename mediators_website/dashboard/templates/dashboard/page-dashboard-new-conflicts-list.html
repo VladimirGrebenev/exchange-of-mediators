@@ -37,40 +37,40 @@
                       <div class="checkbox-style1 mb15">
                         <form id="category-filter-form" data-ajax-form="true">
                             <label class="custom_checkbox">Все
-                                <input type="checkbox" id="allConflict" name="all" value="all" class="category-checkbox" checked>
+                                <input type="checkbox" id="allConflict" name="all" value="all" class="category-checkbox">
                                 <span class="checkmark"></span>
                             </label>
                             <label class="custom_checkbox">Корпоративный
                             <input type="checkbox" name="corporate"
-                                   value="corporate" class="category-checkbox">
+                                   value="корпоративный" class="category-checkbox">
                             <span class="checkmark"></span>
-                            <span class="right-tags">(8,136)</span>
+                            <span class="right-tags">(???5)</span>
                           </label>
                           <label class="custom_checkbox">Бизнес
                               <input type="checkbox" name="business"
-                                     value="business"
+                                     value="бизнес"
                                      class="category-checkbox">
                               <span class="checkmark"></span>
                               <span class="right-tags">(917)</span>
                           </label>
                           <label class="custom_checkbox">Семейный
                             <input type="checkbox" name="family"
-                                   value="family" class="category-checkbox">
+                                   value="семейный" class="category-checkbox">
                             <span class="checkmark"></span>
                             <span class="right-tags">(1,945)</span>
                           </label>
                           <label class="custom_checkbox">Недвижимость
-                            <input type="checkbox" name="realestate" value="realestate" class="category-checkbox">
+                            <input type="checkbox" name="realestate" value="недвижимость" class="category-checkbox">
                             <span class="checkmark"></span>
                             <span class="right-tags">(1,945)</span>
                           </label>
                           <label class="custom_checkbox">Наследство
-                              <input type="checkbox" name="heritage" value="heritage" class="category-checkbox">
+                              <input type="checkbox" name="heritage" value="наследство" class="category-checkbox">
                               <span class="checkmark"></span>
                               <span class="right-tags">(240)</span>
                           </label>
                           <label class="custom_checkbox">Личный
-                              <input type="checkbox" name="personal" value="personal" class="category-checkbox">
+                              <input type="checkbox" name="personal" value="личный" class="category-checkbox">
                               <span class="checkmark"></span>
                               <span class="right-tags">(240)</span>
                           </label>
@@ -216,7 +216,7 @@
                         <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i
                                 class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> {{ new_conflict.created }} </p>
                         <p class="mb-0 fz14 list-inline-item mb5-sm"><i
-                                class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> ???? 5 откликов</p>
+                                class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> откликов: {{ new_conflict.responses.count }}</p>
                       </div>
                     </div>
                     <p class="text mt10">{{ new_conflict.description }}</p>
@@ -227,7 +227,7 @@
                   <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
                     <div class="details">
                       <div class="text-lg-end">
-                        <h4>{{ new_conflict.fixed_price }}</h4>
+                        <h4>{{ new_conflict.fixed_price }} &#x20bd</h4>
                         <p class="text">цена</p>
                       </div>
                       <div class="d-grid mt15">
@@ -255,6 +255,8 @@
                           <li class="page-item {% if new_conflicts.number == i %}active{% endif %}">
                               <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                           </li>
+                      {% empty %}
+                          <p>Ничего не найдено. Попробуйте изменить фильтры.</p>
                       {% endfor %}
                       {% if new_conflicts.has_next %}
                           <li class="page-item">
@@ -273,6 +275,34 @@
         </div>
       </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  var checkboxes = document.querySelectorAll("#category-filter-form input[type='checkbox']");
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener("change", function() {
+      var selectedCategories = [];
+
+      checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked) {
+          selectedCategories.push(checkbox.value);
+        }
+      });
+
+      // Send an AJAX request to the server with the selected categories
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "filter-conflicts/?categories=" +
+      selectedCategories.join(","), true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+          // Update the conflicts list with the response from the server
+          document.getElementById("conflicts-container").innerHTML = xhr.responseText;
+        }
+      };
+      xhr.send();
+    });
+  });
+</script>
 
 
 <!-- Dashboard Content End -->
