@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 import dashboard.views as views
-from conflict.views import ConflictFormView, ConflictView, ConflictCreateView, ConflictDetailView
+from conflict.views import ConflictFormView, ConflictView, ConflictCreateView, UserConflictWorkplacelView, MediatorConflictWorkplacelView
 
 from user.views import DashboardProfileView, TopMediatorsList
 
@@ -93,14 +93,14 @@ urlpatterns = [
         name='user-conflict-review'
     ),
     path(
-        'mediator/conflict-workplace/',
-        TemplateView.as_view(
+        'mediator/conflict-workplace/<uuid:pk>/',
+        MediatorConflictWorkplacelView.as_view(
             template_name='dashboard/page-dashboard-conflict-workplace.html'),
         name='conflict-workplace'
     ),
     path(
         'user/user-conflict-workplace/<uuid:pk>/',
-        ConflictDetailView.as_view(),
+        UserConflictWorkplacelView.as_view(),
         name='user-conflict-workplace'
     ),
     path(

@@ -158,8 +158,18 @@ class ResponseUserForm(forms.ModelForm):
             "decide_time",
         ]
         widgets = {
-                      "category": forms.HiddenInput,
-                      "mediator": forms.HiddenInput,
-                      "fixed_price": forms.HiddenInput,
-                      "decide_time": forms.HiddenInput,
+            "category": forms.HiddenInput,
+            "mediator": forms.HiddenInput,
+            "fixed_price": forms.HiddenInput,
+            "decide_time": forms.HiddenInput,
+        }
+
+
+class RespondentsForm(forms.ModelForm):
+    class Meta:
+        model = Conflict
+        fields = ['respondents']
+        widgets = {
+            "respondents": forms.SelectMultiple(
+                attrs={"placeholder": "Выберите пользователей", "class": "selectpicker"})
         }

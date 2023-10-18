@@ -23,15 +23,23 @@
     <div class="col-lg-8 p60">
         <div class="column">
             <div class="service-about">
-                <h3>Название конфликта</h3>
+                <h3>{{ conflict.title }} <p class="preview">
+                    <a href=""
+                       class="btn ud-btn btn-thm">Создатель конфликта: {{ conflict.creator.firstname }}
+                                {% if conflict.creator.profile_image %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{{ conflict.creator.profile_image.url }}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{% static 'images/team/fl-1.png' %}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                                {% endif %}</a></p></h3>
                 <br>
-                <h5>Описание конфликта</h5>
-                <p class="text mb30">А здесь у нас КРАТКОЕ ОПИСАНИЕ
-                    конфликта at a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of
-                    using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here,
-                    content here', making it look like readable English. </p>
+                <h5>Описание конфликта:</h5>
+                <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
+                <p class="text mb30">{{ conflict.description }}</p>
+                </div>
 
                 <hr class="opacity-100 mb30 mt30">
                 <h5 class="mb30">Пригласить в конфликт:</h5>
@@ -181,16 +189,24 @@
                     </div>
                 </div>
                 <div class="chat-member-list pr20">
+                    {% if conflict.respondents.all %}
+                    {% for respondent in conflict.respondents.all %}
                     <div class="list-item pt5">
                         <a href="#">
                             <div class="d-flex align-items-center position-relative">
+                                {% if respondent.profile_image %}
                                 <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}"
-                                     alt="ms1.png">
+                                     src="{{ respondent.profile_image.url }}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{% static 'images/team/fl-1.png' %}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                                {% endif %}
                                 <div class="d-sm-flex">
                                     <div class="d-inline-block">
                                         <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Darlene Robertson
+                                            {{ respondent.firstname }}
                                         </div>
                                     </div>
                                     <div class="switch-style1">
@@ -206,33 +222,28 @@
                             </div>
                         </a>
                     </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms5.png' %}"
-                                     alt="ms5.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Лора Пилигримм
-                                        </div>
-                                    </div>
-                                    <div class="switch-style1">
-                                        <div
-                                                class="form-check form-switch ml20 mb20">
-                                            <input class="form-check-input"
-                                                   type="checkbox"
-                                                   id="flexSwitchCheckDefault2"
-                                                   checked="checked">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                    {% endfor %}
+                    {% else %}
+                    <div class="chat-member-list pr20">
+                        <div class="fz15 fw500 dark-color ff-heading mb-0">
+                            Участников пока нет
+                        </div>
                     </div>
-
+                    {% endif %}
                 </div>
+                <div class="iu_heading pr35">
+                <center><form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form.respondents }}
+                    <div class="col-md-12">
+                        <div class="text-start">
+                            <center><button class="ud-btn btn-thm" type="submit">Добавить участников
+                                <i class="fal fa-arrow-right-long"></i>
+                            </button></center>
+                        </div>
+                    </div>
+                </form></center>
+            </div>
             </div>
         </div>
     </div>
