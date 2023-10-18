@@ -148,12 +148,26 @@ class MediatorsDashboardNewConflictsListView(LoginRequiredMixin,
 def filter_conflicts(request):
     try:
         categories = request.GET.get('categories').split(",")
+        sorting = request.GET.get('sorting')
+        print(sorting)
+
         if 'all' in categories:
-            conflicts = Conflict.objects.filter(status="Новый", deleted=False)
+            conflicts = Conflict.objects.filter(status="Новый",
+                                                deleted=False)
         else:
             conflicts = Conflict.objects.filter(category__in=categories,
                                                 status="Новый",
                                                         deleted=False)
+
+        if sorting == 'Сначала новые':
+            conflicts = conflicts.order_by('-created')
+        elif sorting == 'Сначала старые':
+            conflicts = conflicts.order_by('created')
+        elif sorting == 'Сначала недорогие':
+            conflicts = conflicts.order_by('-fixed_price')
+        else:
+            conflicts = conflicts.order_by('fixed_price')
+
         context = {'conflicts': conflicts}
         return render(request, 'dashboard/conflict_list.html', context)
     except Exception as e:

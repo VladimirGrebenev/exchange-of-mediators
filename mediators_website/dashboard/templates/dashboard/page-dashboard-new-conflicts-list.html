@@ -176,10 +176,11 @@
                   </div>
                   <div
                           class="pcs_dropdown dark-color pr10 text-center text-md-end"><span>Сортировать</span>
-                    <select class="selectpicker show-tick">
-                      <option>Сначало новые</option>
-                      <option>Сначало недорогие</option>
-                      <option>Сначало дорогие</option>
+                    <select class="selectpicker show-tick" id="sorting-select">
+                      <option>Сначала новые</option>
+                      <option>Сначала старые</option>
+                      <option>Сначала недорогие</option>
+                      <option>Сначала дорогие</option>
                     </select>
                   </div>
                 </div>
@@ -278,30 +279,58 @@
 
 <script>
   var checkboxes = document.querySelectorAll("#category-filter-form input[type='checkbox']");
+  var sortingSelect = document.getElementById('sorting-select');
 
+  // Add event listener to handle checkbox change
   checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener("change", function() {
-      var selectedCategories = [];
-
-      checkboxes.forEach(function(checkbox) {
-        if (checkbox.checked) {
-          selectedCategories.push(checkbox.value);
-        }
-      });
-
-      // Send an AJAX request to the server with the selected categories
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", "filter-conflicts/?categories=" +
-      selectedCategories.join(","), true);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-          // Update the conflicts list with the response from the server
-          document.getElementById("conflicts-container").innerHTML = xhr.responseText;
-        }
-      };
-      xhr.send();
-    });
+    checkbox.addEventListener("change", handleCheckboxChange);
   });
+
+  // Add event listener to handle sorting change
+  sortingSelect.addEventListener('change', handleSortingChange);
+
+  // Function to handle checkbox change
+  function handleCheckboxChange() {
+    var selectedCategories = [];
+
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        selectedCategories.push(checkbox.value);
+      }
+    });
+
+    // Send an AJAX request to the server with the selected categories and sorting option
+    sendAjaxRequest(selectedCategories);
+  }
+
+  // Function to handle sorting change
+  function handleSortingChange() {
+    var selectedCategories = [];
+
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        selectedCategories.push(checkbox.value);
+      }
+    });
+
+    // Send an AJAX request to the server with the selected categories and sorting option
+    sendAjaxRequest(selectedCategories);
+  }
+
+  // Function to send AJAX request
+  function sendAjaxRequest(selectedCategories) {
+    var sortingOption = sortingSelect.value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "filter-conflicts/?categories=" + selectedCategories.join(",") + "&sorting=" + sortingOption, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        // Update the conflicts list with the response from the server
+        document.getElementById("conflicts-container").innerHTML = xhr.responseText;
+      }
+    };
+    xhr.send();
+  }
 </script>
 
 
