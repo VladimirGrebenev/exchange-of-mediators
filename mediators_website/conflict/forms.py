@@ -1,5 +1,4 @@
 import datetime
-
 from django import forms
 from django.forms import TextInput, Textarea
 
@@ -122,6 +121,14 @@ class DocumentForm(forms.ModelForm):
 
 
 class ResponseForm(forms.ModelForm):
+
+    def clean_rate(self):
+        rate = self.cleaned_data.get('rate')
+        fixed_price = self.cleaned_data.get('conflict').fixed_price
+        if rate < fixed_price:
+            raise forms.ValidationError('Цена должна быть не ниже заявленной')
+        return rate
+
     class Meta:
         model = ConflictResponse
         fields = [

@@ -215,6 +215,7 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
             initial={
                 'conflict': conflict.id,
                 'mediator': self.request.user.id,
+                'rate': conflict.fixed_price,
             }
         )
         context['form'] = form
@@ -226,12 +227,28 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
 
     def post(self, request, *args, **kwargs):
         form = ResponseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(self.get_success_url())
-
         conflict = Conflict.objects.get(pk=kwargs.get('pk'))
         mediator = request.user
+
+        if form.is_valid():
+            # Если отклик был, скажем до свидания
+            if conflict.responses.filter(mediator=mediator).count() > 0:
+                messages.info(request, 'Вы уже оставляли отклик', extra_tags='adsdf')
+                return redirect(self.get_success_url())
+
+            form.save()
+            messages.add_message(
+                self.request, 50,
+                f'Ваш отклик опубликован',
+                extra_tags='success',
+            )
+            return redirect(self.get_success_url())
+
+        messages.add_message(
+            self.request, 50,
+            f'Исправьте ошибки заполнения формы',
+            extra_tags='error',
+        )
         context = {
             'conflict': conflict,
             'mediator': mediator,
