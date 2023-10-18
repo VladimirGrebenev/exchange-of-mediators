@@ -100,20 +100,29 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
 
 
 class MediatorDashboardListConflictsView(LoginRequiredMixin,
-                                         PermissionByGroupMixin, TemplateView):
+                                         PermissionByGroupMixin, ListView):
     """
         Mediators dashboard / conflicts list
     """
     allowed_groups = ('mediator',)
     template_name = 'dashboard/page-dashboard-manage-job-mediator.html'
+    model = Conflict
+    context_object_name = 'conflicts'
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        # Filter conflicts created by the user and not deleted
-        conflicts = Conflict.objects.filter(mediator=user, deleted=False)
-        context['conflicts'] = conflicts
-        return context
+    def get_queryset(self):
+        work_conflicts = Conflict.objects.filter(mediator=self.request.user, deleted=False)
+        new_conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
+        conflicts = list(new_conflicts) + list(work_conflicts)
+        return conflicts
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user = self.request.user
+    #     # Filter conflicts created by the user and not deleted
+    #     conflicts = Conflict.objects.filter(mediator=user, deleted=False)
+    #     context['conflicts'] = conflicts
+    #     return context
 
 
 class UserDashboardListConflictStatusNew(UserDashboardListConflictsView):
