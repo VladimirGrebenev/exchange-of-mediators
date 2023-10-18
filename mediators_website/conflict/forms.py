@@ -24,7 +24,7 @@ class ConflictForm(forms.ModelForm):
         model = Conflict
         fields = (
             "title",
-            # "status",
+            "status",
             "category",
             # "mediators_level",
             # "prise",
