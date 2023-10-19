@@ -17,17 +17,17 @@
                         <div class="list-meta d-sm-flex align-items-center">
                           <a class="position-relative freelancer-single-style" href="">
                             <span class="online"></span>
-                            <img class="rounded-circle w-100 wa-sm mb15-sm" src="{% static 'images/team/fl-1.png' %}" alt="Freelancer Photo">
+                            <img class="rounded-circle mx-auto" src="{{ mediator.profile_image.url }}" alt="Freelancer Photo" style="width: 80px; height: 80px;">
                           </a>
                           <div class="ml20 ml0-xs">
-                            <h5 class="title mb-1">Антоша Левченко</h5>
+                            <h5 class="title mb-1">{{ mediator.lastname }} {{ mediator.firstname }}</h5>
                             <p class="mb-0">Медиатор</p>
                             <p
                                     class="mb-0 dark-color fz15 fw500 list-inline-item mb5-sm"><i class="fas fa-star vam fz10 review-color me-2"></i> 4.82 94 отзыва</p>
                             <p
                                     class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-place vam fz20 me-2"></i> Москва, Россия</p>
                             <p
-                                    class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-30-days vam fz20 me-2"></i> На портале с 25 февраля 2022</p>
+                                    class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-30-days vam fz20 me-2"></i> {{ mediator.create_at }} </p>
                           </div>
                         </div>
                       </div>
@@ -41,7 +41,7 @@
                       <div class="icon flex-shrink-0"><span class="flaticon-target"></span></div>
                       <div class="details">
                         <h5 class="title">Решено конфликтов</h5>
-                        <p class="mb-0 text">98</p>
+                        <p class="mb-0 text"> {{ completed_conflicts }} </p>
                       </div>
                     </div>
                   </div>
@@ -50,7 +50,7 @@
                       <div class="icon flex-shrink-0"><span class="flaticon-goal"></span></div>
                       <div class="details">
                         <h5 class="title">Всего конфликтов</h5>
-                        <p class="mb-0 text">102</p>
+                        <p class="mb-0 text"> {{ total_conflicts }} </p>
                       </div>
                     </div>
                   </div>
@@ -202,18 +202,18 @@
               <div class="blog-sidebar ms-lg-auto">
                 <div class="price-widget pt25 bdrs12 default-box-shadow1s">
                   <div class="category-list mt20">
-                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
+                    {% comment %} <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
                       <span class="text"><i
                               class="flaticon-place text-thm2 pe-2 vam"></i>
                         Место:</span> <span class="">Москва, Россия</span>
+                    </a> {% endcomment %}
+                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
+                      <span class="text"><i
+                              class="flaticon-30-days text-thm2 pe-2 vam"></i>На портале с </span> <span class=""> {{ mediator.create_at }} </span>
                     </a>
                     <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
                       <span class="text"><i
-                              class="flaticon-30-days text-thm2 pe-2 vam"></i>На портале с </span> <span class="">25.02.2022</span>
-                    </a>
-                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
-                      <span class="text"><i
-                              class="flaticon-calendar text-thm2 pe-2 vam"></i>Последняя авторизация</span> <span class="">13.10.2023</span>
+                              class="flaticon-calendar text-thm2 pe-2 vam"></i>Последняя авторизация</span> <span class=""> {{mediator.last_login }} </span>
                     </a>
                   </div>
                   <div class="d-grid">

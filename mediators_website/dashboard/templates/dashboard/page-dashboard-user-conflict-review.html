@@ -65,7 +65,7 @@
                                                 <span class="online"></span>
                                             </div>
                                             <div class="details ml20 ml0-md mb15-md">
-                                                <h5 class="title mb-1">{{ response.mediator.lastname }} {{ response.mediator.firstname }}</h5>
+                                                <h5 class="title mb-1"><a href="{% url 'mediator-about' response.mediator.id %}">{{ response.mediator.lastname }} {{ response.mediator.firstname }}</h5>
                                                 <div class="review mb20">
                                                     <p
                                                             class="mb-0 fz14 list-inline-item mb5-sm pe-1">

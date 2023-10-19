@@ -4,16 +4,13 @@ from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
 
-from user.views import TopMediatorsList, ContactTopMediatorsList, MediatorDetailView, delete_avatar
+from user.views import TopMediatorsList, ContactTopMediatorsList,  MediatorAboutView, ClientAboutView, delete_avatar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    # path(
-    #     'mediators/',
-    #     TemplateView.as_view(
-    #         template_name='page-about.html'),
-    #     name='mediators'),
+
     path(
         'contacts/',
         ContactTopMediatorsList.as_view(
@@ -39,13 +36,21 @@ urlpatterns = [
         TopMediatorsList.as_view(
             template_name='page-about.html'),
         name='mediators'
-    ),
+    ), 
+
     path('delete-avatar/', delete_avatar, name='delete_avatar'),
+
     path(
-        "mediator/<str:pk>",
-        MediatorDetailView.as_view(),
-        name='mediator-detail',
+        'mediator-about/<str:pk>',
+        MediatorAboutView.as_view(),
+        name='mediator-about'
     ),
+    path(
+        'user-about/<str:pk>',
+        ClientAboutView.as_view(),
+        name='user-about'
+    ),
+
     path("user/", include("user.urls", namespace="user")),
     path("signing/", include("signing.urls", namespace="signing")),
     # path("conflict/", include("conflict.urls", namespace="conflict")),

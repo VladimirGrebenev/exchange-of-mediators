@@ -94,7 +94,7 @@
 <!--                  <img class="w-100 rounded-circle" height="120" width="100"  src="{% static 'images/blog/blog-15.jpg' %}" alt="">-->
                 </div>
                 <div class="list-content flex-grow-1 pt10 pb10 pl15 pl0-lg">
-                  <h5><a href="{% url 'mediator-detail' mediator.id %}">{{ mediator.lastname }}</a></h5>
+                  <h5><a href="{% url 'mediator-about' mediator.id %}">{{ mediator.lastname }} {{ mediator.firstname }}</a></h5>
                   <h6 class="list-title mb-2">{{ mediator.get_info.description }}</h6>
                   <div class="list-meta d-flex justify-content-between align-items-center">
                     <div class="review-meta d-flex align-items-center">

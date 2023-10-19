@@ -24,7 +24,7 @@
                         <div class="item">
                         <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">
                           <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
-                            <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">
+                            <img class="rounded-circle mx-auto" src="{{ top_mediator.profile_image.url }}" alt="">
                             <span class="online"></span>
                           </div>
                           <div class="details">
@@ -41,7 +41,7 @@
                                       class="fz14 fw400">%{{ top_mediator.additionalinfo.successful_cases_procentage }}</span></a>
                             </div>
                             <div class="d-grid mt15">
-                              <a href="page-freelancer-single.html"
+                              <a href="{% url 'mediator-about' top_mediator.id %}"
                                  class="ud-btn btn-white2 bdrs90">Подробнее<i
                                       class="fal fa-arrow-right-long"></i></a>
                             </div>
