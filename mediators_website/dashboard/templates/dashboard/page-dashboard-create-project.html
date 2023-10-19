@@ -1,6 +1,12 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% load custom_filters %}
+
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with active_create_project='active' %}
+{% endblock dash-main-header-nav %}
+
 {% block dash-sidebar %}
     {% include 'dashboard/includes/dash-sidebar-list.html' with active_create_project='-is-active'  %}
 {% endblock %}
@@ -29,7 +35,8 @@
                 <h5 class="list-title">Первичная информация</h5>
             </div>
             <div class="col-xl-8">
-                <form class="form-style1"
+<!--                <form class="form-style1"-->
+                <form class="comments_form mt30 mb30-md"
                       action=""
                       method="post"
                 >
@@ -39,9 +46,14 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="mb20">
-                                <label
-                                        class="heading-color ff-heading fw500 mb10">Заголовок обращения</label>
-                                {{ form.title }}
+                                <label class="fw500 fz16 ff-heading dark-color mb-2">Заголовок обращения</label>
+<!--                                <label class="heading-color ff-heading fw500 mb10">Заголовок обращения</label>-->
+                                {% if form.title.errors %}
+                                    {{ form.title|input_error }}
+                                    {{ form.title.errors|feedback_error }}
+                                {% else %}
+                                    {{ form.title }}
+                                {% endif %}
                             </div>
                         </div>
 <!--                        <div class="col-md-12">-->
@@ -97,9 +109,13 @@
 <!--                        </div>-->
                         <div class="col-sm-6">
                             <div class="mb20">
-                                <label
-                                        class="heading-color ff-heading fw500 mb10">Цена</label>
-                                {{ form.fixed_price }}
+                                <label class="heading-color ff-heading fw500 mb10">Цена</label>
+                                {% if form.fixed_price.errors %}
+                                    {{ form.fixed_price|input_error }}
+                                    {{ form.fixed_price.errors|feedback_error }}
+                                {% else %}
+                                    {{ form.fixed_price }}
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -118,7 +134,12 @@
                                 <div class="form-style1">
                                     <label class="heading-color ff-heading fw500 mb10">Страна</label>
                                     <div class="bootselect-multiselect">
-                                        {{ form.country }}
+                                        {% if form.country.errors %}
+                                            {{ form.country|input_error }}
+                                            {{ form.country.errors|feedback_error }}
+                                        {% else %}
+                                            {{ form.country }}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +149,12 @@
                                 <div class="form-style1">
                                     <label class="heading-color ff-heading fw500 mb10">Город</label>
                                     <div class="bootselect-multiselect">
-                                        {{ form.city }}
+                                        {% if form.city.errors %}
+                                            {{ form.city|input_error }}
+                                            {{ form.city.errors|feedback_error }}
+                                        {% else %}
+                                            {{ form.city }}
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -156,8 +182,7 @@
 <!--                        </div>-->
                         <div class="col-md-12">
                             <div class="mb10">
-                                <label
-                                        class="heading-color ff-heading fw500 mb10">Описание сути конфликта</label>
+                                <label class="heading-color ff-heading fw500 mb10">Описание сути конфликта</label>
                                 {{ form.description }}
                             </div>
                         </div>
