@@ -110,11 +110,12 @@ class ConflictCreateView(CreateView):
         # Redirect to the success URL
         # return redirect(self.get_success_url())
 
-    def get_form_kwargs(self):
-        logger.info("get_form_kwargs ")
-        kwargs = super().get_form_kwargs()
-        kwargs['user'] = self.request.user  # Передаем текущего пользователя в форму
-        return kwargs
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        form = ConflictForm(initial={'creator': self.request.user})
+        context['form'] = form
+        return context
+
 
 
 class UserConflictWorkplacelView(LoginRequiredMixin, DetailView):
