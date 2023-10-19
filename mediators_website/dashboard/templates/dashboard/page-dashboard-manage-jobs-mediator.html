@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block dash-title %}
+
 <h1>Список конфликтов</h1>
 {% endblock dash-title %}
 
@@ -12,6 +13,7 @@
 {% block dash-sidebar %}
     {% include 'dashboard/includes/dash-sidebar-list.html' with active_conflicts='-is-active' %}
 {% endblock %}
+
 
 {% block dash-content %}
 <!-- Dashboard Content -->
@@ -44,56 +46,63 @@
                                         </div>
                                         <div class="details ml15 ml0-md mb15-md">
                                             <h5 class="title mb-2">
-                                                <a href="{% url 'dashboard:conflict-workplace' conflict.id%}">{{ conflict.title }}</a>
+                                                {% if conflict.status == 'Новый' %}
+                                                    <a href="{% url 'dashboard:new-conflict-review-mediator' conflict.id %}">{{ conflict.title }}</a>
+                                                {% else %}
+                                                    <a href="{% url 'dashboard:conflict-workplace' %}">{{ conflict.title }}</a>
+                                                {% endif %}
                                             </h5>
                                         </div>
                                     </div>
                                 </div>
                             </th>
-                            <td class="vam"><span
-                                    class="fz15 fw400">{{ conflict.creator }}</span></td>
+                            <td class="vam">
+                                <a href="{% url 'dashboard:user-about' %}"><span class="fz15 fw400">{{ conflict.creator }}</span></a></td>
                             <td class="vam">
                                 <span>{{ conflict.created }} //
                                 </span><br><span
                                     class="fz14 fw400">{{ conflict.updated }}</span>
                             </td>
-                            <td class="vam"><span
-                                    class="pending-style style6">{{ conflict.status }}</span>
+                            <td class="vam">
+                                {% if conflict.status == 'Новый' %}
+                                    <span class="pending-style style6">В ожидании</span>
+                                {% else %}
+                                    <span class="pending-style style6">{{ conflict.status }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    <div class="mbp_pagination dark-style text-center mt30">
-                        <ul class="page_navigation">
-                            <li class="page-item">
-                                <a class="page-link" href="#"> <span
-                                        class="fas fa-angle-left"></span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="#">1</a></li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">2 <span
-                                        class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="#">3</a></li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="#">4</a></li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="#">5</a></li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="#">...</a></li>
-                            <li class="page-item"><a class="page-link"
-                                                     href="#">20</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#"><span
-                                        class="fas fa-angle-right"></span></a>
-                            </li>
-                        </ul>
-                        <p class="mt10 mb-0 pagination_page_count text-center">
-                            1 – 20 из 300+ конфликтов</p>
-                    </div>
+                    <div class="row">
+                        <div class="mbp_pagination dark-style mt30 text-center">
+                            {% if is_paginated %}
+                                <ul class="page_navigation">
+                                    {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="?page={{ page_obj.previous_page_number }}#top_list"><span
+                                                class="fas fa-angle-left"></span></a>
+                                    </li>
+                                    {% endif %}
+
+                                    {% for item in page_obj.paginator.page_range %}
+                                    <li class="page-item
+                            {% if item == page_obj.number %}active{% endif %}">
+                                        <a class="page-link" href="?page={{ item }}#top_list">{{ item }}<span class="sr-only"></span></a>
+                                    </li>
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link"
+                                                             href="?page={{ page_obj.next_page_number }}#top_list"><span
+                                            class="fas fa-angle-right"></span></a></li>
+                                    {% endif %}
+                                </ul>
+                                {{ page_obj.number }} из {{ page_obj.paginator.count }}
+                            {% endif %}
+                        </div>
+                 </div>
                 </div>
             </div>
         </div>

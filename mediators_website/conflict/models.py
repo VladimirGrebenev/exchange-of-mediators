@@ -85,7 +85,7 @@ class Conflict(models.Model):
     # prise = models.TextField(choices=PriseChoices.choices,
     #                          default=PriseChoices.CHOOSE,
     #                          verbose_name=_("Цена"))
-    fixed_price = models.CharField(max_length=256, null=True, verbose_name=_("Цена"))
+    fixed_price = models.FloatField(verbose_name=_("Цена"))
     decide_time = models.TextField(choices=DecidedTime.choices,
                                    default=DecidedTime.CHOOSE,
                                    verbose_name=_("Время на решение"))
@@ -105,8 +105,8 @@ class Conflict(models.Model):
     respondents = models.ManyToManyField(
         User,
         related_name='conflicts_as_respondent',
-        verbose_name=_('Остальные пользователи'),
-        **NULLABLE,
+        verbose_name=_('Остальные участники'),
+        blank=True,
     )
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_("Описание"))
@@ -170,8 +170,14 @@ class ConflictResponse(models.Model):
     response_time = models.DateTimeField(auto_now_add=True,
                                          editable=False)
     rate = models.IntegerField(blank=False, null=False)  # Ставка от медиатора
-    comment = models.TextField(blank=True, null=True)  # Комментарий от медиатора
-    time_for_conflict = models.IntegerField(blank=True, null=True)  # Время на решение конфликта
+    comment = models.TextField(
+        max_length=500,
+        error_messages={
+            'required': 'Пожалуйста, заполните это поле.',
+            'invalid': 'Оставьте комментарий к конфликту.',
+        }
+    )  # Комментарий от медиатора
+    time_for_conflict = models.IntegerField(blank=False, null=False)  # Время на решение конфликта
 
     class Meta:
         ordering = ['-response_time']

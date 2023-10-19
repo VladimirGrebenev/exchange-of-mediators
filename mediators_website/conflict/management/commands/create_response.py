@@ -3,6 +3,7 @@ from conflict.forms import ResponseForm
 from user.models import Mediator
 from conflict.models import Conflict
 from faker import Faker
+from random import choice
 import logging
 
 
@@ -11,21 +12,23 @@ logging.getLogger('faker.factory').setLevel(logging.ERROR)
 fake = Faker('ru-Ru')
 
 
-class Command(BaseCommand):
-    help = """
-        Создание откликов на конфликты.
-            -t, --total     Количество создаваемых откликов
-    """
+class CreateResponse:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.container = {}
+        conflicts = Conflict.objects.all()
+        mediators = Mediator.objects.all()
 
-    def add_arguments(self, parser):
-        parser.add_argument('-t', '--total', type=int, help=u'Количество создаваемых откликов')
+        if not (conflicts and mediators):
+            raise ValueError('В базе данных нет конфликтов или медиаторов')
+
+        for c in conflicts:
+            responded_mediators = [r.mediator.id for r in c.responses.all()]
+            for m in Mediator.objects.exclude(id__in=responded_mediators):
+                self.container[m] = c
 
     def get_random_data(self):
-        try:
-            conflict = fake.random_choices(elements=Conflict.objects.all(), length=1)[0]
-            mediator = fake.random_choices(elements=Mediator.objects.all(), length=1)[0]
-        except IndexError:
-            raise ValueError('В базе нет конфликтов или медиаторов. Выполни команды: "python manage.py create_conflict" или "python manage.py create_user -m"')
+        mediator, conflict = choice(list(self.container.items()))
         rate = fake.random_number(digits=4)
         time_for_conflict = fake.random_number(digits=1)
         comment = fake.text(150)
@@ -38,14 +41,29 @@ class Command(BaseCommand):
             'comment': comment,
         }
 
-    def handle(self, *args, **options):
-        total = options.get('total') or 1
-
-        for i in range(total):
+    def create(self):
+        try:
             data = self.get_random_data()
             form = ResponseForm(data=data)
             if form.is_valid():
                 form.save()
-                print(f'Отклик на конфликт {data.get("conflict").title[:10]}... создан медиатором {data.get("mediator").firstname}')
-            else:
-                print(form.errors)
+                print(f'Отклик на конфликт {data.get("conflict").title[:10]}... '
+                      f'создан медиатором {data.get("mediator").lastname} {data.get("mediator").firstname}')
+        except IndexError:
+            pass
+
+
+class Command(BaseCommand):
+    help = """
+        Создание откликов медиаторов на конфликты.
+    """
+
+    def add_arguments(self, parser):
+        parser.add_argument('-t', '--total', type=int, help=u'Количество создаваемых откликов')
+
+    def handle(self, *args, **options):
+        total = options.get('total') or 1
+
+        for i in range(total):
+            response = CreateResponse()
+            response.create()

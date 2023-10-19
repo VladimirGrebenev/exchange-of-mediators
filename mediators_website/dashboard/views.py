@@ -29,13 +29,16 @@ class DashboardDispatcherView(LoginRequiredMixin, View):
     """
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
         if "mediator" in self.request.user.permission_groups:
             return HttpResponseRedirect(
                 reverse('dashboard:mediator_dashboard'))
         return HttpResponseRedirect(reverse('dashboard:user_dashboard'))
 
     def handle_no_permission(self):
-        return redirect(reverse('index'))
+        return redirect(reverse('signing:login'))
 
 
 class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
@@ -93,20 +96,29 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
 
 
 class MediatorDashboardListConflictsView(LoginRequiredMixin,
-                                         PermissionByGroupMixin, TemplateView):
+                                         PermissionByGroupMixin, ListView):
     """
         Mediators dashboard / conflicts list
     """
     allowed_groups = ('mediator',)
     template_name = 'dashboard/page-dashboard-manage-job-mediator.html'
+    model = Conflict
+    context_object_name = 'conflicts'
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        # Filter conflicts created by the user and not deleted
-        conflicts = Conflict.objects.filter(mediator=user, deleted=False)
-        context['conflicts'] = conflicts
-        return context
+    def get_queryset(self):
+        work_conflicts = Conflict.objects.filter(mediator=self.request.user, deleted=False)
+        new_conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
+        conflicts = list(new_conflicts) + list(work_conflicts)
+        return conflicts
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user = self.request.user
+    #     # Filter conflicts created by the user and not deleted
+    #     conflicts = Conflict.objects.filter(mediator=user, deleted=False)
+    #     context['conflicts'] = conflicts
+    #     return context
 
 
 class MediatorsDashboardNewConflictsListView(LoginRequiredMixin,
@@ -213,6 +225,7 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
             initial={
                 'conflict': conflict.id,
                 'mediator': self.request.user.id,
+                'rate': conflict.fixed_price,
             }
         )
         context['form'] = form
@@ -224,12 +237,28 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
 
     def post(self, request, *args, **kwargs):
         form = ResponseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(self.get_success_url())
-
         conflict = Conflict.objects.get(pk=kwargs.get('pk'))
         mediator = request.user
+
+        if form.is_valid():
+            # Если отклик был, скажем до свидания
+            if conflict.responses.filter(mediator=mediator).count() > 0:
+                messages.info(request, 'Вы уже оставляли отклик', extra_tags='adsdf')
+                return redirect(self.get_success_url())
+
+            form.save()
+            messages.add_message(
+                self.request, 50,
+                f'Ваш отклик опубликован',
+                extra_tags='success',
+            )
+            return redirect(self.get_success_url())
+
+        messages.add_message(
+            self.request, 50,
+            f'Исправьте ошибки заполнения формы',
+            extra_tags='error',
+        )
         context = {
             'conflict': conflict,
             'mediator': mediator,
