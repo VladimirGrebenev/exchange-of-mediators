@@ -9,22 +9,15 @@ from django.db.models import Q
 
 
 class ConflictForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
-        super(ConflictForm, self).__init__(*args, **kwargs)
-
-        if user:
-            self.fields['creator'].initial = user
-            # self.fields['mediator'].queryset = User.objects.exclude(
-            #     pk=user.pk)
-            # self.fields['respondents'].queryset = User.objects.exclude(
-            #     pk=user.pk)
 
     class Meta:
         model = Conflict
         fields = (
-            "title",
             "status",
+            "creator",
+            "mediator",
+
+            "title",
             "category",
             # "mediators_level",
             # "prise",
@@ -34,18 +27,15 @@ class ConflictForm(forms.ModelForm):
             "city",
             # "language",
             # "language_level",
-            "mediator",
             # "respondents",
-            "creator",
             "description",
             # "is_all_visible",
         )
         widgets = {
+            "status": forms.HiddenInput(),
             'creator': forms.HiddenInput(),
             'mediator': forms.HiddenInput(),
-            "status": forms.Select({
-                'class': "selectpicker",
-            }),
+
             "title": TextInput(attrs={
                 'class': "form-control",
                 'placeholder': "Текст заголовка",
