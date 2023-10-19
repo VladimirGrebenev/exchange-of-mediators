@@ -85,7 +85,7 @@ class Conflict(models.Model):
     # prise = models.TextField(choices=PriseChoices.choices,
     #                          default=PriseChoices.CHOOSE,
     #                          verbose_name=_("Цена"))
-    fixed_price = models.FloatField(verbose_name=_("Цена"))
+    fixed_price = models.PositiveIntegerField(verbose_name=_("Цена"))
     decide_time = models.TextField(choices=DecidedTime.choices,
                                    default=DecidedTime.CHOOSE,
                                    verbose_name=_("Время на решение"))
