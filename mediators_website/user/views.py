@@ -80,7 +80,6 @@ class DashboardProfileView(LoginRequiredMixin, View):
 
     def post(self, request):
         user: User = request.user
-        print(user)
         profile_form = UserFormProfile(request.POST,request.FILES, instance=user)
         delete_form = DeleteProfileForm(request.POST, instance=user)
 

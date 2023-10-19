@@ -15,10 +15,20 @@
                     <div class="col-xl-12">
                       <div class="position-relative">
                         <div class="list-meta d-sm-flex align-items-center">
-                          <a class="position-relative freelancer-single-style" href="">
-                            <span class="online"></span>
-                            <img class="rounded-circle mx-auto" src="{{ mediator.profile_image.url }}" alt="Freelancer Photo" style="width: 80px; height: 80px;">
-                          </a>
+                          {% if mediator.profile_image %}
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                              <img class="rounded-circle mx-auto"
+                                    src="{{ mediator.profile_image.url }}" alt="Аватар"
+                              style="width: 80px; height: 80px;"><span
+                                  class="online"></span>
+                          </div>
+                          {% else %}
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                              <img class="rounded-circle mx-auto"
+                                  src="{% static 'images/team/fl-1.png' %}" alt="">
+                              <span class="online"></span>
+                          </div>
+                          {% endif %}
                           <div class="ml20 ml0-xs">
                             <h5 class="title mb-1">{{ mediator.lastname }} {{ mediator.firstname }}</h5>
                             <p class="mb-0">Медиатор</p>
