@@ -1,19 +1,12 @@
-from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-# from conflict.forms import ConflictForm
-# from conflict.views import ConflictCreateView
 from django.core.paginator import Paginator
-from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, ListView
-
-# from utils.sample_objects import sample_queryset
-from django.views.generic import TemplateView, CreateView, ListView, DetailView
+from django.http import HttpResponseServerError
+from django.views.generic import TemplateView, ListView, DetailView
 from django.db.models import Q
 
 from user.models import Mediator, BasicUser
@@ -23,6 +16,9 @@ from utils.common import sample_queryset
 
 from conflict.models import Conflict
 from conflict.forms import ResponseForm, ResponseUserForm
+
+import logging
+
 # from conflict.forms import ConflictForm
 # from conflict.views import ConflictCreateView
 
@@ -33,13 +29,16 @@ class DashboardDispatcherView(LoginRequiredMixin, View):
     """
 
     def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+
         if "mediator" in self.request.user.permission_groups:
             return HttpResponseRedirect(
                 reverse('dashboard:mediator_dashboard'))
         return HttpResponseRedirect(reverse('dashboard:user_dashboard'))
 
     def handle_no_permission(self):
-        return redirect(reverse('index'))
+        return redirect(reverse('signing:login'))
 
 
 class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
@@ -97,20 +96,96 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
 
 
 class MediatorDashboardListConflictsView(LoginRequiredMixin,
-                                         PermissionByGroupMixin, TemplateView):
+                                         PermissionByGroupMixin, ListView):
     """
         Mediators dashboard / conflicts list
     """
     allowed_groups = ('mediator',)
     template_name = 'dashboard/page-dashboard-manage-job-mediator.html'
+    model = Conflict
+    context_object_name = 'conflicts'
+    paginate_by = 10
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        # Filter conflicts created by the user and not deleted
-        conflicts = Conflict.objects.filter(mediator=user, deleted=False)
-        context['conflicts'] = conflicts
-        return context
+    def get_queryset(self):
+        work_conflicts = Conflict.objects.filter(mediator=self.request.user, deleted=False)
+        new_conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
+        conflicts = list(new_conflicts) + list(work_conflicts)
+        return conflicts
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user = self.request.user
+    #     # Filter conflicts created by the user and not deleted
+    #     conflicts = Conflict.objects.filter(mediator=user, deleted=False)
+    #     context['conflicts'] = conflicts
+    #     return context
+
+
+class MediatorsDashboardNewConflictsListView(LoginRequiredMixin,
+                                         PermissionByGroupMixin, View):
+    """
+    Список новых конфликтов для медиатора
+    """
+    allowed_groups = ('mediator',)
+    template_name = 'dashboard/page-dashboard-new-conflicts-list.html'
+    model = Mediator
+    context_object_name = 'conflicts'
+    paginate_by = 10  # Количество конфликтов на одной странице
+
+    def get(self, request, *args, **kwargs):
+        mediator = self.request.user
+        category = request.GET.get('category',
+                                   'all')  # Получаем значение категории из запроса
+
+
+        new_conflicts = Conflict.objects.filter(status="Новый",
+                                                    deleted=False)
+
+
+        # Создаем пагинатор только для new_conflicts
+        paginator = Paginator(new_conflicts, self.paginate_by)
+        page = request.GET.get(
+            'page')  # Получаем текущий номер страницы из запроса
+        conflicts_page = paginator.get_page(
+            page)  # Получаем конфликты для текущей страницы
+
+        context = {
+            'mediator': mediator,
+            'new_conflicts': conflicts_page,
+            'all_conflicts': new_conflicts,
+            'selected_categories': category,
+        }
+        return render(request, self.template_name, context)
+
+def filter_conflicts(request):
+    try:
+        categories = request.GET.get('categories').split(",")
+        sorting = request.GET.get('sorting')
+        print(sorting)
+
+        if 'all' in categories:
+            conflicts = Conflict.objects.filter(status="Новый",
+                                                deleted=False)
+        else:
+            conflicts = Conflict.objects.filter(category__in=categories,
+                                                status="Новый",
+                                                        deleted=False)
+
+        if sorting == 'Сначала новые':
+            conflicts = conflicts.order_by('-created')
+        elif sorting == 'Сначала старые':
+            conflicts = conflicts.order_by('created')
+        elif sorting == 'Сначала недорогие':
+            conflicts = conflicts.order_by('-fixed_price')
+        else:
+            conflicts = conflicts.order_by('fixed_price')
+
+        context = {'conflicts': conflicts}
+        return render(request, 'dashboard/conflict_list.html', context)
+    except Exception as e:
+        logging.error(str(e))
+        # Handle the exception or return an appropriate response
+        return HttpResponseServerError("An error occurred while filtering conflicts.")
 
 
 class UserDashboardListConflictStatusNew(UserDashboardListConflictsView):
@@ -136,68 +211,6 @@ class UserDashboardListConflictStatusCompleted(UserDashboardListConflictsView):
             status='Завершен').all()
         return context
 
-      
-class MediatorsDashboardNewConflictsView(LoginRequiredMixin,
-                                         PermissionByGroupMixin, View):
-    """
-    Список новых конфликтов для медиатора
-    """
-    allowed_groups = ('mediator',)
-    template_name = 'dashboard/page-dashboard-new-conflicts-list.html'
-    model = Mediator
-    context_object_name = 'conflicts'
-    paginate_by = 10  # Количество конфликтов на одной странице
-
-    @csrf_exempt
-    def get(self, request, *args, **kwargs):
-        mediator = self.request.user
-        category = request.GET.get('category',
-                                   'all')  # Получаем значение категории из запроса
-
-        if 'all' in category:
-            new_conflicts = Conflict.objects.filter(status="Новый",
-                                                    deleted=False)
-        elif category:
-            categories = category.split(',')
-            new_conflicts = Conflict.objects.filter(status="Новый",
-                                                    deleted=False,
-                                                    category__in=categories)
-        else:
-            new_conflicts = Conflict.objects.filter(status="Новый",
-                                                    deleted=False)
-
-        # Создаем пагинатор только для new_conflicts
-        paginator = Paginator(new_conflicts, self.paginate_by)
-        page = request.GET.get(
-            'page')  # Получаем текущий номер страницы из запроса
-        conflicts_page = paginator.get_page(
-            page)  # Получаем конфликты для текущей страницы
-
-        # Если это AJAX-запрос
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            conflicts_list = [
-                {
-                    'category': conflict.category,
-                    'title': conflict.title,
-                    'description': conflict.description,
-                    'fixed_price': conflict.fixed_price,
-                    'city': conflict.city,
-                    'country': conflict.country,
-                    'created': conflict.created,
-                    # поля, которые передаютсяь в AJAX ответе
-                }
-                for conflict in conflicts_page
-            ]
-            print(conflicts_list)
-            return JsonResponse(conflicts_list, safe=False) # Однако, передается в ответ  HTML
-
-        context = {
-            'mediator': mediator,
-            'new_conflicts': conflicts_page,
-            'all_conflicts': new_conflicts,
-            'selected_categories': category,
-        }
-        return render(request, self.template_name, context)
 
       
 class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailView):
@@ -212,6 +225,7 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
             initial={
                 'conflict': conflict.id,
                 'mediator': self.request.user.id,
+                'rate': conflict.fixed_price,
             }
         )
         context['form'] = form
@@ -223,12 +237,28 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
 
     def post(self, request, *args, **kwargs):
         form = ResponseForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(self.get_success_url())
-
         conflict = Conflict.objects.get(pk=kwargs.get('pk'))
         mediator = request.user
+
+        if form.is_valid():
+            # Если отклик был, скажем до свидания
+            if conflict.responses.filter(mediator=mediator).count() > 0:
+                messages.info(request, 'Вы уже оставляли отклик', extra_tags='adsdf')
+                return redirect(self.get_success_url())
+
+            form.save()
+            messages.add_message(
+                self.request, 50,
+                f'Ваш отклик опубликован',
+                extra_tags='success',
+            )
+            return redirect(self.get_success_url())
+
+        messages.add_message(
+            self.request, 50,
+            f'Исправьте ошибки заполнения формы',
+            extra_tags='error',
+        )
         context = {
             'conflict': conflict,
             'mediator': mediator,

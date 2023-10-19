@@ -1,0 +1,63 @@
+{% load static %}
+{% for conflict in conflicts %}
+<div class="col-md-6 col-lg-12">
+    <div class="freelancer-style1 bdr1 bdrs12 hover-box-shadow row ms-0 align-items-lg-center">
+        <div class="col-lg-8 ps-0 bdrr1 bdrn-xl">
+            <div class="d-lg-flex">
+<!--                <div class="thumb w60 position-relative rounded-circle mb15-md">-->
+<!--                    <img class="rounded-circle mx-auto"-->
+<!--                         src="images/team/client-1.png" alt="">-->
+<!--                    <span class="online-badge2"></span>-->
+<!--                </div>-->
+                <div class="thumb w60 position-relative rounded-circle mb15-md">
+
+                        {% if conflict.creator.profile_image %}
+                        <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                            <img class="rounded-circle mx-auto"
+                                src="{{ conflict.creator.profile_image.url }}"
+                                alt="Аватар"
+                                style="width: 60px; height: 60px;">
+                        </div>
+                        {% else %}
+                        <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                            <img class="rounded-circle mx-auto"
+                                src="{% static 'images/team/fl-1.png' %}" alt=""
+                                style="width: 60px; height: 60px;">
+                        </div>
+                        {% endif %}
+                        <span class="online-badge2"></span>
+                      </div>
+                <div class="details ml15 ml0-md mb15-md">
+                    <h5 class="title mb-3">{{ conflict.title }}</h5>
+                    <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i
+                            class="flaticon-place fz16 vam text-thm2 me-1"></i>
+                        {{ conflict.city }}, {{ conflict.country }}</p>
+                    <p class="mb-0 fz14 list-inline-item mb5-sm pe-1"><i
+                            class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i>{{ conflict.created }}</p>
+                    <p class="mb-0 fz14 list-inline-item mb5-sm"><i
+                            class="flaticon-contract fz16 vam text-thm2 me-1 bdrl1 pl15 pl0-xs bdrn-xs"></i> откликов: {{ conflict.responses.count }}</p>
+                </div>
+            </div>
+            <p class="text mt10">{{ conflict.description|truncatewords:15}}</p>
+            <div class="skill-tags d-flex align-items-center justify-content-start mb20-md">
+                <span class="tag">{{ conflict.category }}</span>
+            </div>
+        </div>
+        <div class="col-lg-4 ps-0 ps-xl-3 pe-0">
+            <div class="details">
+                <div class="text-lg-end">
+                    <h4>{{ conflict.fixed_price }} &#x20bd</h4>
+                    <p class="text">цена</p>
+                </div>
+                <div class="d-grid mt15">
+                    <a href="{% url 'dashboard:new-conflict-review-mediator' conflict.id %}"
+                       class="ud-btn btn-white2 bdrs12 hover-default-box-shadow1">Подробнее<i class="fal fa-arrow-right-long"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>Выберите фильтр</p>
+{% endfor %}
+
