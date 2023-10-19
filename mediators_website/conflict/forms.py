@@ -1,5 +1,4 @@
 import datetime
-
 from django import forms
 from django.forms import TextInput, Textarea
 from django.shortcuts import redirect
@@ -25,7 +24,7 @@ class ConflictForm(forms.ModelForm):
         model = Conflict
         fields = (
             "title",
-            # "status",
+            "status",
             "category",
             # "mediators_level",
             # "prise",
@@ -35,7 +34,7 @@ class ConflictForm(forms.ModelForm):
             "city",
             # "language",
             # "language_level",
-            # "mediator",
+            "mediator",
             # "respondents",
             "creator",
             "description",
@@ -43,9 +42,10 @@ class ConflictForm(forms.ModelForm):
         )
         widgets = {
             'creator': forms.HiddenInput(),
-            # "status": forms.Select({
-            #     'class': "selectpicker",
-            # }),
+            'mediator': forms.HiddenInput(),
+            "status": forms.Select({
+                'class': "selectpicker",
+            }),
             "title": TextInput(attrs={
                 'class': "form-control",
                 'placeholder': "Текст заголовка",
@@ -123,6 +123,14 @@ class DocumentForm(forms.ModelForm):
 
 
 class ResponseForm(forms.ModelForm):
+
+    def clean_rate(self):
+        rate = self.cleaned_data.get('rate')
+        fixed_price = self.cleaned_data.get('conflict').fixed_price
+        if rate < fixed_price:
+            raise forms.ValidationError('Цена должна быть не ниже заявленной')
+        return rate
+
     class Meta:
         model = ConflictResponse
         fields = [

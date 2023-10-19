@@ -9,11 +9,6 @@ from user.views import TopMediatorsList, ContactTopMediatorsList, MediatorDetail
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    # path(
-    #     'mediators/',
-    #     TemplateView.as_view(
-    #         template_name='page-about.html'),
-    #     name='mediators'),
     path(
         'contacts/',
         ContactTopMediatorsList.as_view(
