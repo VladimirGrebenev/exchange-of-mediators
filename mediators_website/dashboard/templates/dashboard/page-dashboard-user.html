@@ -81,14 +81,14 @@
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                          <img class="rounded-circle mx-auto"
                               src="{{ mediator.profile_image.url }}" alt="Аватар"
-                         style="width: 80px; height: 80px;"><span
-                            class="online"></span>
+                         style="width: 80px; height: 80px;">
+                         {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% else %}
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                         <img class="rounded-circle mx-auto"
-                             src="{% static 'images/team/fl-1.png' %}" alt="">
-                        <span class="online"></span>
+                             src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                        {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% endif %}
 <!--                  <img class="w-100 rounded-circle" height="120" width="100"  src="{% static 'images/blog/blog-15.jpg' %}" alt="">-->

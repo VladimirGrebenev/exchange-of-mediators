@@ -8,6 +8,7 @@ from django.views import View
 from django.http import HttpResponseServerError
 from django.views.generic import TemplateView, ListView, DetailView
 from django.db.models import Q
+from django.contrib import messages
 
 from user.models import Mediator, BasicUser
 

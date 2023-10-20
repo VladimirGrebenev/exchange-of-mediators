@@ -3,6 +3,9 @@
 
 {% block dash-content %}
 
+{% include 'reviews/includes/rating/rating-styles-mini.html' %}
+{% include 'reviews/includes/rating/rating-styles.html' %}
+
 <!-- Mediator About Details -->
     <section class="pt0 pb90 pb30-md">
       <div class="container">
@@ -19,14 +22,14 @@
                           <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                               <img class="rounded-circle mx-auto"
                                     src="{{ mediator.profile_image.url }}" alt="Аватар"
-                              style="width: 80px; height: 80px;"><span
-                                  class="online"></span>
+                              style="width: 80px; height: 80px;">
+                              {% comment %} <span class="online"></span> {% endcomment %}
                           </div>
                           {% else %}
                           <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                               <img class="rounded-circle mx-auto"
-                                  src="{% static 'images/team/fl-1.png' %}" alt="">
-                              <span class="online"></span>
+                                  src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                              {% comment %} <span class="online"></span> {% endcomment %}
                           </div>
                           {% endif %}
                           <div class="ml20 ml0-xs">
@@ -34,8 +37,8 @@
                             <p class="mb-0">Медиатор</p>
                             <p
                                     class="mb-0 dark-color fz15 fw500 list-inline-item mb5-sm"><i class="fas fa-star vam fz10 review-color me-2"></i> 4.82 94 отзыва</p>
-                            <p
-                                    class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-place vam fz20 me-2"></i> Москва, Россия</p>
+                            {% comment %} <p
+                                    class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-place vam fz20 me-2"></i> Москва, Россия</p> {% endcomment %}
                             <p
                                     class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-30-days vam fz20 me-2"></i> {{ mediator.create_at }} </p>
                           </div>
@@ -87,6 +90,7 @@
                   </form>
                 </div>
               </div>
+              
               <div class="service-about">
                 <div class="product_single_content mb30 p30 mb30 bg-white bdrs12 wow fadeInUp bdr1">
                   <div class="mbp_pagination_comments">
@@ -142,7 +146,46 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-12">
+                      <div class="container">
+                        <div class="row">
+                            <ul class="timeline">
+                                {% for review in reviews %}
+                                <li>
+                                    <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                          {% if review.from_user.profile_image %}
+                                                <img class="rounded-circle mx-auto"
+                                                      src="{{ review.from_user.profile_image.url }}" alt="Аватар"
+                                                style="width: 80px; height: 80px;">
+                                          {% else %}
+                                                <img class="rounded-circle mx-auto"
+                                                  src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                                          {% endif %}
+                                            <h4 class="timeline-title"> <a href="{% url 'user-about' review.from_user.pk %}"> {{ review.from_user.lastname }} {{ review.from_user.firstname }}</h4></a>
+                                            <div>
+                                              {% comment %} review.from_user.profile_image.url {% endcomment %}
+                                              <span class="fz14">{{ review.created_at }}</span>
+                                                <div class="rating-mini">
+                                                    {% comment %} Строка нужной длины {% endcomment %}
+                                                    {% for item in ''|ljust:review.rating %}
+                                                        <span class="active"></span>
+                                                    {% endfor %}
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p class="text mt20 mb20">{{ review.text }}</p>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                      </div>
+                      {% comment %} <div class="col-md-12">
                         <div class="mbp_first position-relative d-flex align-items-center justify-content-start mb30-sm">
                           <img src="{% static 'images/blog/comments-2.png' %}" class="mr-3" alt="comments-2.png">
                           <div class="ml20">
@@ -154,8 +197,8 @@
                           потому что он такой душка
                           of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
 
-                      </div>
-                      <div class="col-md-12">
+                      </div> {% endcomment %}
+                      {% comment %} <div class="col-md-12">
                         <div class="mbp_first position-relative d-flex align-items-center justify-content-start mt30 mb30-sm">
                           <img src="{% static 'images/blog/comments-2.png' %}"
                                class="mr-3' %}" alt="comments-2.png">
@@ -171,37 +214,69 @@
                           believable. If you are going to use a passage of
                           Lorem Ipsum, you need to be sure there isn't
                           anything embarrassing hidden in the middle of text.</p>
-                      </div>
+                      </div> {% endcomment %}
                     </div>
                   </div>
                 </div>
                 <div class="bsp_reveiw_wrt p30 mb30 bg-white bdrs12 wow fadeInUp bdr1">
                   <h6 class="fz17" id="send_mediator_review">Добавить
                     отзыв</h6>
-                  <h6>Оцените медиатора</h6>
-                  <div class="d-flex">
+                  <h6>Оцените медиатора по пятибальной шкале</h6>
+                  {% comment %} <div class="d-flex">
                     <i class="fas fa-star review-color"></i>
                     <i class="far fa-star review-color ms-2"></i>
                     <i class="far fa-star review-color ms-2"></i>
                     <i class="far fa-star review-color ms-2"></i>
                     <i class="far fa-star review-color ms-2"></i>
-                  </div>
-                  <form class="comments_form mt30 mb30-md">
+                  </div> {% endcomment %}
+                  <form class="form-style1" method="post" action="/reviews/create/">
+                    {% csrf_token %}
+                    {{ form.from_user }}
+                    <div class="row">
+                        {% comment %} <div class="col-sm-6 left">
+                            <label class="heading-color ff-heading fw500 mb10">К пользователю</label> {% endcomment %}
+                            {{ form.to_user }}
+                            {{ form.to_user.errors }}
+                        {% comment %} </div> {% endcomment %}
+                        <div class="col-sm-4">
+                            <div class="mb20">
+                                <label class="heading-color ff-heading fw500 mb10">Оценка</label>
+                                {% include 'reviews/includes/rating/rating-stars.html' %}
+                                {{ form.rating.errors }}
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="mb10">
+                                <label class="heading-color ff-heading fw500 mb10">Отзыв</label>
+                                {{ form.text }}
+                            </div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="text-start">
+                                <button class="ud-btn btn-thm" type="submit">Отправить
+                                    <i class="fal fa-arrow-right-long"></i>
+                                </button>
+            
+                            </div>
+                        </div>
+                    </div>
+                  </form>
+                  {% comment %} <form class="comments_form mt30 mb30-md" method='post' action="/reviews/create/">
+                    {% csrf_token %}
                     <div class="row">
                       <div class="col-md-12">
                         <div class="mb-4">
-                          <label
-                                  class="fw500 fz16 ff-heading dark-color mb-2">Отзыв</label>
-                          <textarea class="pt15" rows="6"
-                                    placeholder="Ваш отзыв"></textarea>
+                          <label class="fw500 fz16 ff-heading dark-color mb-2">Отзыв</label>
+                          {{ form.text }}
                         </div>
                       </div>
                       <div class="col-md-12">
-                        <a href="" class="ud-btn btn-dark">Отправить<i
-                                class="fal fa-arrow-right-long"></i></a>
+                        <button class="ud-btn btn-thm" type="submit">Отправить
+                          <i class="fal fa-arrow-right-long"></i>
+                      </button>
                       </div>
                     </div>
-                  </form>
+                  </form> {% endcomment %}
                 </div>
               </div>
 

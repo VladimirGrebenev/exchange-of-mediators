@@ -2,6 +2,7 @@ from django.conf import settings
 from django.views import View
 
 from .models import EmailConfirmation, Mediator, User
+from reviews.models import Review
 
 from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import render, redirect
@@ -124,6 +125,7 @@ class MediatorAboutView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = ReviewForm(initial={'to_user': kwargs['object'].id, 'from_user': self.request.user.id})
         mediator = kwargs['object']
+        reviews = Review.objects.all()
         conflicts = Conflict.objects.filter(mediator=mediator)
         completed_conflicts = conflicts.filter(status='Завершен').count()
         total_conflicts = conflicts.filter(mediator_id=mediator).count()
@@ -131,6 +133,7 @@ class MediatorAboutView(DetailView):
         context['completed_conflicts'] = completed_conflicts
         context['active_conflicts'] = active_conflicts
         context['total_conflicts'] = total_conflicts
+        context['reviews'] = reviews
         return context
     
 

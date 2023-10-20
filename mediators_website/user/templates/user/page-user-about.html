@@ -16,10 +16,20 @@
                     <div class="col-xl-12">
                       <div class="position-relative">
                         <div class="list-meta d-sm-flex align-items-center">
-                          <a class="position-relative freelancer-single-style" href="">
-                            <span class="online"></span>
-                            <img class="rounded-circle w-100 wa-sm mb15-sm" src="{{ client.profile_image.url }}" alt="Freelancer Photo" style="width: 80px; height: 80px;">
-                          </a>
+                          {% if client.profile_image %}
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                              <img class="rounded-circle mx-auto"
+                                    src="{{ client.profile_image.url }}" alt="Аватар"
+                              style="width: 80px; height: 80px;"><span
+                                  class="online"></span>
+                          </div>
+                          {% else %}
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                              <img class="rounded-circle mx-auto"
+                                src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                              <span class="online"></span>
+                          </div>
+                          {% endif %}
                           <div class="ml20 ml0-xs">
                             <h5 class="title mb-1">{{client.firstname}} {{client.lastname}}</h5>
                             <p class="mb-0">Пользователь</p>
@@ -64,10 +74,10 @@
               <div class="blog-sidebar ms-lg-auto">
                 <div class="price-widget pt25 bdrs12 default-box-shadow1s">
                   <div class="category-list mt20">
-                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
+                    {% comment %} <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
                       <span class="text"><i
                               class="flaticon-place text-thm2 pe-2 vam"></i>Место:</span> <span class="">Москва, Россия</span>
-                    </a>
+                    </a> {% endcomment %}
                     <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
                       <span class="text"><i
                               class="flaticon-30-days text-thm2 pe-2 vam"></i>На портале с </span> <span class="">{{client.create_at}}</span>
