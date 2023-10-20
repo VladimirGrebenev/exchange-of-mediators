@@ -21,6 +21,6 @@ class ReviewForm(forms.ModelForm):
                 'class': 'form-control',
                 'rows': 5,
                 'style': 'height: 100%',
-                'placeholder': 'Ваш комментарий...'
+                'placeholder': 'Ваш отзыв...'
             })
         }

@@ -23,8 +23,8 @@
     <div class="col-lg-8 p60">
         <div class="column">
             <div class="service-about">
-                <                <h3>{{ conflict.title }} <p class="preview">
-                    <a href=""
+                <h3>{{ conflict.title }} <p class="preview">
+                    <a href="{% url 'mediator-about' conflict.mediator.id %}"
                        class="btn ud-btn btn-thm">Медиатор: {{ conflict.mediator.firstname }}
                                 {% if conflict.mediator.profile_image %}
                                 <img class="img-fluid float-start rounded-circle mr10"

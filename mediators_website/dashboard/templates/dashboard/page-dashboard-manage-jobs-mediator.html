@@ -61,7 +61,7 @@
                                     </div>
                                 </th>
                                 <td class="vam">
-                                    <a href="{% url 'dashboard:user-about' %}"><span class="fz15 fw400">{{ conflict.creator }}</span></a></td>
+                                    <a href="{% url 'user-about' conflict.creator.id %}"><span class="fz15 fw400">{{ conflict.creator }}</span></a></td>
                                 <td class="vam">
                                     <span>{{ conflict.created }} //
                                     </span><br><span

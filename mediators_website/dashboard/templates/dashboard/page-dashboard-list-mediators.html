@@ -137,15 +137,15 @@
                          <img class="rounded-circle mx-auto"
                               src="{{ mediator.profile_image.url }}"
                               alt="Аватар"
-                         style="width: 80px; height: 80px;"><span
-                            class="online"></span>
+                         style="width: 80px; height: 80px;">
+                         {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% else %}
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                         <!--                Next row must be changed-->
                         <img class="rounded-circle mx-auto"
                              src="{% static 'images/team/fl-1.png' %}" alt="">
-                        <span class="online"></span>
+                        {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% endif %}
                     <div class="details">
@@ -166,7 +166,7 @@
                                     class="fz14 fw400">%{{ mediator.average_rating }}</span></a>
                         </div>
                         <div class="d-grid mt15">
-                            <a href="{% url 'mediator-detail' mediator.id %}"
+                            <a href="{% url 'mediator-about' mediator.id %}"
                                class="ud-btn btn-white2 bdrs90">Подробнее<i
                                     class="fal fa-arrow-right-long"></i></a>
                         </div>

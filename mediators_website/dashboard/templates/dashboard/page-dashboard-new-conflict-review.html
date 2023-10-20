@@ -170,17 +170,12 @@
                       {% if conflict.creator.profile_image %}
                       <img class="rounded-circle mx-auto" src="{{ conflict.creator.profile_image.url }}" style="width: 80px; height: 80px"  alt="">
                       {% else %}
-                      <img class="rounded-circle mx-auto" src="{% static 'images/team/client-2.png' %}" alt="">
+                      <img class="rounded-circle mx-auto" src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
                       {% endif %}
 
                     </div>
                     <div class="ml20">
-                      <h5 class="title mb-1">{{ conflict.creator.firstname }}</h5>
-                      <p class="mb-0">{{ conflict.creator.lastname }}</p>
-                      <p>{{ conflict.creator.email }}</p>
-                      {% if conflict.creator.phone %}
-                      <p>{{ conflict.creator.phone }}</p>
-                      {% endif %}
+                      <h5 class="title mb-1"><a href="{% url 'user-about' conflict.creator.id %}"> {{ conflict.creator.firstname }} {{ conflict.creator.lastname }}</a></h5>
                     </div>
                   </div>
                   <hr class="opacity-100">
@@ -195,7 +190,7 @@
                     </div>
                   </div>
                   <div class="d-grid mt30">
-                    <a href="{% url 'dashboard:user-about' %}"
+                    <a href="#"
                        class="ud-btn btn-white2">Написать клиенту
                         <i class="fal fa-arrow-right-long"></i></a>
                   </div>

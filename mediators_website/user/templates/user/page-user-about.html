@@ -16,15 +16,29 @@
                     <div class="col-xl-12">
                       <div class="position-relative">
                         <div class="list-meta d-sm-flex align-items-center">
-                          <a class="position-relative freelancer-single-style" href="">
-                            <span class="online"></span>
-                            <img class="rounded-circle w-100 wa-sm mb15-sm" src="{% static 'images/team/fl-1.png' %}" alt="Freelancer Photo">
-                          </a>
+                          {% if client.profile_image %}
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                              <img class="rounded-circle mx-auto"
+                                    src="{{ client.profile_image.url }}" alt="Аватар"
+                              style="width: 80px; height: 80px;"><span
+                                  class="online"></span>
+                          </div>
+                          {% else %}
+                          <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
+                              <img class="rounded-circle mx-auto"
+                                src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                              <span class="online"></span>
+                          </div>
+                          {% endif %}
                           <div class="ml20 ml0-xs">
-                            <h5 class="title mb-1">Дарья Островская</h5>
+                            <h5 class="title mb-1">{{client.firstname}} {{client.lastname}}</h5>
                             <p class="mb-0">Пользователь</p>
-                            <p
-                                    class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-30-days vam fz20 me-2"></i> На портале с 10 апреля 2023</p>
+                            <p> Email: {{ client.email }}</p>
+                            {% if client.phone %}
+                            <p> Телефон: {{ client.phone }}</p>
+                            {% endif %}
+                            {% comment %} <p
+                                    class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-30-days vam fz20 me-2"></i> На портале c {{user.create_at}}</p> {% endcomment %}
                           </div>
                         </div>
                       </div>
@@ -60,17 +74,17 @@
               <div class="blog-sidebar ms-lg-auto">
                 <div class="price-widget pt25 bdrs12 default-box-shadow1s">
                   <div class="category-list mt20">
-                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
+                    {% comment %} <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
                       <span class="text"><i
                               class="flaticon-place text-thm2 pe-2 vam"></i>Место:</span> <span class="">Москва, Россия</span>
+                    </a> {% endcomment %}
+                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
+                      <span class="text"><i
+                              class="flaticon-30-days text-thm2 pe-2 vam"></i>На портале с </span> <span class="">{{client.create_at}}</span>
                     </a>
                     <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
                       <span class="text"><i
-                              class="flaticon-30-days text-thm2 pe-2 vam"></i>На портале с </span> <span class="">10.04.2023</span>
-                    </a>
-                    <a class="d-flex align-items-center justify-content-between bdrb1 pb-2" href="">
-                      <span class="text"><i
-                              class="flaticon-calendar text-thm2 pe-2 vam"></i>Последняя авторизация </span> <span class="">12.10.2023</span>
+                              class="flaticon-calendar text-thm2 pe-2 vam"></i>Последняя авторизация </span> <span class="">{{client.last_login}}</span>
                     </a>
                   </div>
                 </div>
