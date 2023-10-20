@@ -1,9 +1,12 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with active_start='active' %}
+{% endblock dash-main-header-nav %}
 
 {% block dash-sidebar %}
-  {% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
+{% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
 {% endblock %}
 
 
