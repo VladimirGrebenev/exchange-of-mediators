@@ -185,9 +185,9 @@ def filter_conflicts(request):
         elif sorting == 'Сначала старые':
             conflicts = conflicts.order_by('created')
         elif sorting == 'Сначала недорогие':
-            conflicts = conflicts.order_by('-fixed_price')
-        else:
             conflicts = conflicts.order_by('fixed_price')
+        else:
+            conflicts = conflicts.order_by('-fixed_price')
 
         context = {'conflicts': conflicts}
         return render(request, 'dashboard/conflict_list.html', context)
