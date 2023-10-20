@@ -9,6 +9,10 @@
 <p>Самое время заработать</p>
 {% endblock dash-description %}
 
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with new_conflicts='active' %}
+{% endblock dash-main-header-nav %}
+
 {% block dash-sidebar %}
     {% include 'dashboard/includes/dash-sidebar-list.html' with new_conflicts='-is-active' %}
 {% endblock %}

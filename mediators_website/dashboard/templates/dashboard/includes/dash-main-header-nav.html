@@ -214,108 +214,71 @@
                       {% endif %}
                     </p>
                   </a>
-                  <!--                  <a class="btn" href="#" data-bs-toggle="dropdown">-->
-                  <!--                    {% if user.profile_image %}-->
-                  <!--                     <img class="w-40 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="Аватар" style="width: 50px; height: 50px;">-->
-                  <!--                    {% endif %}-->
-                  <!--                  </a>-->
-                  {% if user.groups.first.name == 'mediator' %}
-                  <div class="dropdown-menu">
+                  <div class="dropdown-menu" style="height: 80vh; overflow-y: auto;">
                     <div class="user_setting_content">
-                      <p class="fz15 fw400 ff-heading mb10 pl30">Тариф
-                        Старт</p>
-                      <a class="dropdown-item active" href="{% url 'dashboard:dashboard' %}"><i
-                          class="flaticon-home mr10"></i>Рабочий
-                        кабинет</a>
-                      <a class="dropdown-item" href="{% url 'dashboard:new-conflicts-list' %}"><i
-                          class="flaticon-document mr10"></i>Новые
-                        конфликты</a>
-                      <a class="dropdown-item" href="{% url 'dashboard:jobs-mediator' %}"><i
-                          class="flaticon-document mr10"></i>Мои
-                        конфликты</a>
-                      <a class="dropdown-item"
-                           href="{% url 'dashboard:my-messages' %}"><i class="flaticon-chat mr10"></i>Сообщения</a>
-                      <a class="dropdown-item"
-                           href="{% url 'reviews:list_review' %}"><i class="flaticon-review-1 mr10"></i>Отзывы</a>
-                      <!--                      <a class="dropdown-item" href="page-dashboard-save.html">-->
-                      <!--                          <i-->
-                      <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
-                      <!--                        <a class="dropdown-item"-->
-                      <!--                           href="../dashboard-message/"><i-->
-                      <!--                                class="flaticon-chat mr10"></i>Сообщения</a>-->
-                      <!--                        <a class="dropdown-item"-->
-                      <!--                           href="page-dashboard-reviews.html"><i-->
-                      <!--                                class="flaticon-review-1 mr10"></i>Отзывы</a>-->
-                      <!--                        <a class="dropdown-item"-->
-                      <!--                           href="../dashboard-invoice/"><i-->
-                      <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->
-                      <!--                        <a class="dropdown-item"-->
-                      <!--                           href="../dashboard-payouts/"><i-->
-                      <!--                                class="flaticon-dollar mr10"></i>Платежи</a>-->
-                      <!--                        <a class="dropdown-item"-->
-                      <!--                           href="page-dashboard-statement.html"><i-->
-                      <!--                                class="flaticon-web mr10"></i>Обращения</a>-->
-                      <!--                        <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами-->
-                      <!--                        </p>-->
-                      <!--                        <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i-->
-                      <!--                            class="flaticon-presentation mr10"></i>Создать обращение-->
-                      <!--                        </a>-->
-                      <!--                        <a class="dropdown-item" href="#"><i class="flaticon-briefcase mr10"></i>Смотреть-->
-                      <!--                          медиаторов-->
-                      <!--                        </a>-->
-                      <!--                        <a class="dropdown-item" href="#"><i class="flaticon-content mr10"></i>Удалить-->
-                      <!--                          обращение</a>-->
-                      <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
-                      <a class="dropdown-item" href="{% url 'dashboard:profile' %}"><i
-                          class="flaticon-photo mr10"></i>Мой профиль</a>
-                      <a class="dropdown-item" href="{% url 'signing:logout' %}"><i
-                          class="flaticon-logout mr10"></i>Выйти</a>
-                    </div>
-                    {% else %}
-                    <div class="dropdown-menu">
-                      <div class="user_setting_content">
-                        <p class="fz15 fw400 ff-heading mb10 pl30">Тариф
-                          Старт</p>
-                        <a class="dropdown-item active" href="{% url 'dashboard:dashboard' %}"><i
-                            class="flaticon-home mr10"></i>Рабочий
-                          кабинет</a>
-                        <a class="dropdown-item" href="{% url 'dashboard:jobs' %}"><i
-                            class="flaticon-document mr10"></i>Мои
-                          конфликты</a>
-                        <a class="dropdown-item" href="page-dashboard-save.html">
-                          <!--                          <i-->
-                          <!--                                class="flaticon-like mr10"></i>Избранное</a>-->
-                        <a class="dropdown-item"
-                           href="{% url 'dashboard:my-messages' %}"><i class="flaticon-chat mr10"></i>Сообщения</a>
-                        <a class="dropdown-item"
-                           href="{% url 'reviews:list_review' %}"><i class="flaticon-review-1 mr10"></i>Отзывы</a>
-                          <!--                        <a class="dropdown-item"-->
-                          <!--                           href="../dashboard-invoice/"><i-->
-                          <!--                                class="flaticon-receipt mr10"></i>Счета</a>-->
-                          <!--                        <a class="dropdown-item"-->
-                          <!--                           href="../dashboard-payouts/"><i-->
-                          <!--                                class="flaticon-dollar mr10"></i>Платежи</a>-->
-                          <!--                        <a class="dropdown-item"-->
-                          <!--                           href="page-dashboard-statement.html"><i-->
-                          <!--                                class="flaticon-web mr10"></i>Обращения</a>-->
-                          <p class="fz15 fw400 ff-heading mt30 pl30">Управление конфликтами
-                          </p>
-                          <a class="dropdown-item" href="{% url 'dashboard:create-project' %}"><i
-                              class="flaticon-presentation mr10"></i>Создать обращение
-                          </a>
-                          <a class="dropdown-item" href="{% url 'dashboard:list-mediators' %}"><i
-                              class="flaticon-briefcase mr10"></i>Смотреть
-                            медиаторов
-                          </a>
-                          <p class="fz15 fw400 ff-heading mt30 pl30">Аккаунт</p>
-                          <a class="dropdown-item" href="{% url 'dashboard:profile' %}"><i
-                              class="flaticon-photo mr10"></i>Мой профиль</a>
-                          <a class="dropdown-item" href="{% url 'signing:logout' %}"><i
-                              class="flaticon-logout mr10"></i>Выйти</a>
-                      </div>
+                      <p class="fz15 fw400 ff-heading mb10 pl30">Тариф Старт</p>
+                      <a class="dropdown-item {{ active_start }}" href="{% url 'dashboard:dashboard' %}">
+                          <i class="flaticon-home mr10"></i>
+                          Рабочий кабинет
+                        </a>
+                      <hr class="opacity-100">
+
+                      {% if user.groups.first.name == 'mediator' %}
+
+                        <a class="dropdown-item {{ new_conflicts }}" href="{% url 'dashboard:new-conflicts-list' %}">
+                          <i class="flaticon-document mr10"></i>
+                          Новые конфликты
+                        </a>
+                        <a class="dropdown-item {{ active_conflicts }}" href="{% url 'dashboard:jobs-mediator' %}">
+                          <i class="flaticon-document mr10"></i>
+                          Мои конфликты
+                        </a>
+                        <a class="dropdown-item {{ active_messages }}" href="{% url 'dashboard:my-messages' %}">
+                          <i class="flaticon-chat mr10"></i>
+                          Сообщения
+                        </a>
+                        <a class="dropdown-item {{ active_list_review }}" href="{% url 'reviews:list_review' %}">
+                          <i class="flaticon-review-1 mr10"></i>
+                          Отзывы
+                        </a>
+
+                      {% else %}
+
+                        <a class="dropdown-item {{ active_create_project }}" href="{% url 'dashboard:create-project' %}">
+                          <i class="flaticon-presentation mr10"></i>
+                          Создать обращение
+                        </a>
+                        <a class="dropdown-item {{ active_list_mediators }}" href="{% url 'dashboard:list-mediators' %}">
+                          <i class="flaticon-briefcase mr10"></i>
+                          Смотреть медиаторов
+                        </a>
+                        <a class="dropdown-item {{ active_conflicts }}" href="{% url 'dashboard:jobs' %}">
+                          <i class="flaticon-document mr10"></i>
+                          Мои конфликты
+                        </a>
+                        <a class="dropdown-item {{ active_messages }}" href="{% url 'dashboard:my-messages' %}">
+                          <i class="flaticon-chat mr10"></i>
+                          Сообщения
+                        </a>
+                        <a class="dropdown-item {{ active_list_review }}" href="{% url 'reviews:list_review' %}">
+                          <i class="flaticon-review-1 mr10"></i>
+                          Отзывы
+                        </a>
+
                       {% endif %}
+
+                      <hr class="opacity-100">
+                      <a class="dropdown-item {{ active_profile }}" href="{% url 'dashboard:profile' %}">
+                        <i class="flaticon-photo mr10"></i>
+                        Мой профиль
+                      </a>
+                      <a class="dropdown-item" href="{% url 'signing:logout' %}">
+                          <i class="flaticon-logout mr10"></i>
+                          Выйти
+                        </a>
                     </div>
                   </div>
+                </div>
               </li>
             </ul>
           </div>

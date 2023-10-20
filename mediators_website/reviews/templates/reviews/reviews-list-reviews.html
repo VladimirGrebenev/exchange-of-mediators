@@ -1,8 +1,17 @@
 {% extends 'dashboard/base-dashboard.html' %}
 
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with active_list_review='active' %}
+{% endblock dash-main-header-nav %}
+
+{% block dash-sidebar %}
+{% include 'dashboard/includes/dash-sidebar-list.html' with active_list_review='-is-active' %}
+{% endblock %}
+
 {% block reviews-list-reviews %}
 
 {% include 'reviews/includes/rating/rating-styles-mini.html' %}
+
 
 <div class="container">
     <div class="row">

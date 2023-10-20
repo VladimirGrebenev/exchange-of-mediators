@@ -49,9 +49,8 @@ class ConflictForm(forms.ModelForm):
             # "prise": forms.Select({
             #     'class': "selectpicker",
             # }),
-            "fixed_price": TextInput(attrs={
+            "fixed_price": forms.NumberInput(attrs={
                 'class': "form-control",
-                'placeholder': "$",
             }),
             "decide_time": forms.Select({
                 'class': "selectpicker",
