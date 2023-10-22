@@ -59,6 +59,42 @@
                                             </div>
                                         </div>
                                     </div>
+
+<!--                     <!-- Pagination --> -->
+<!-- {% if conflicts.paginator.num_pages > 1 %} -->
+<!-- <div class="row"> -->
+<!--     <div class="mbp_pagination dark-style mt30 text-center"> -->
+<!--         <ul class="page_navigation"> -->
+<!--             {% if conflicts.has_previous %} -->
+<!--             <li class="page-item"> -->
+<!--                 <a class="page-link" href="?page=1"><span class="fas fa-angle-double-left"></span></a> -->
+<!--             </li> -->
+<!--             <li class="page-item"> -->
+<!--                 <a class="page-link" href="?page={{ conflicts.previous_page_number }}"><span class="fas fa-angle-left"></span></a> -->
+<!--             </li> -->
+<!--             {% endif %} -->
+<!--             {% for i in conflicts.paginator.page_range %} -->
+<!--             <li class="page-item {% if conflicts.number == i %}active{% endif %}"> -->
+<!--                 <a class="page-link" href="?page={{ i }}">{{ i }}</a> -->
+<!--             </li> -->
+<!--             {% endfor %} -->
+<!--             {% if conflicts.has_next %} -->
+<!--             <li class="page-item"> -->
+<!--                 <a class="page-link" href="?page={{ conflicts.next_page_number }}"><span class="fas fa-angle-right"></span></a> -->
+<!--             </li> -->
+<!--             <li class="page-item"> -->
+<!--                 <a class="page-link" href="?page={{ conflicts.paginator.num_pages }}"><span class="fas fa-angle-double-right"></span></a> -->
+<!--             </li> -->
+<!--             {% endif %} -->
+<!--         </ul> -->
+<!--         <p class="mt10 mb-0 pagination_page_count text-center"> -->
+<!--             страница {{ conflicts.number }} из {{ conflicts.paginator.num_pages }} -->
+<!--         </p> -->
+<!--     </div> -->
+<!-- </div> -->
+<!-- {% endif %} -->
+<!--                     <!-- Pagination --> -->
+
                                 </th>
                                 <td class="vam">
                                     <a href="{% url 'user-about' conflict.creator.id %}"><span class="fz15 fw400">{{ conflict.creator }}</span></a></td>
