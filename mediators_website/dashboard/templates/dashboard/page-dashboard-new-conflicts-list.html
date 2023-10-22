@@ -228,6 +228,8 @@
                 </div>
               </div>
               {% endfor %}
+              <!-- Pagination -->
+              {% if new_conflicts.paginator.num_pages > 1 %}
               <div class="row">
                 <div class="mbp_pagination dark-style mt30 text-center">
                   <ul class="page_navigation">
@@ -258,6 +260,8 @@
                   </p>
                 </div>
               </div>
+              {% endif %}
+              <!-- Pagination -->
             </div>
           </div>
         </div>

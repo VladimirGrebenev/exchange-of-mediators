@@ -85,7 +85,6 @@ class ConflictCreateView(CreateView):
     form_class = ConflictForm
     success_url = "/dashboard/create-project/"
 
-
     def form_valid(self, form):
         form.instance.creator = self.request.user
         logger.info("Я попал в form_valid ")

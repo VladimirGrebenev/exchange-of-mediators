@@ -17,53 +17,122 @@
                         способ разрешения разногласий
                         <br class="d-none d-lg-block">путем выработки решения,
                         отвечающего интересам всех сторон.</p>
-                    <div class="d-sm-flex align-items-center mt30 animate-up-3">
+<!--                    <div class="d-sm-flex align-items-center mt30 animate-up-3">-->
 
-                        <a href="#" id="redirectLink" class="ud-btn btn-1 me-3 bdrs120 btn-1">
-                            Решить конфликт</a>
-<!--                        <a href="#" id="mediatorLink" class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать медиатором</a>-->
-                        <noscript>
-                            <p> Для корректной работы этой страницы необходимо включить JavaScript.
-                                <br>
-                                Кнопка решить конфликт не работает.
-                                <br>
-                                Для подачи обращения
-                                <br>
-                                нажмите Вход.
-                                <a href="/signing/signin/" class="ud-btn me-3 bdrs120 btn-1"> Вход </a>
-                            </p>
-                        </noscript>
-                        <script>
-                            document.getElementById("redirectLink").addEventListener("click", function(event) {
-                                event.preventDefault();
-                                var isUserLoggedIn = false;
-                                {% if user.is_authenticated %}
-                                    isUserLoggedIn = true;
-                                {% endif %}
-                                if (isUserLoggedIn) {
-                                    window.location.href = "/dashboard/create-project/";
-                                } else {
-                                    window.location.href = "/signing/signin/";
-                                }
-                            });
-<!--                            document.getElementById("mediatorLink").addEventListener("click", function(event) {-->
+<!--                        <a href="#" id="redirectLink" class="ud-btn btn-1 me-3 bdrs120 btn-1">-->
+<!--                            Решить конфликт</a>-->
+<!--&lt;!&ndash;                        <a href="#" id="mediatorLink" class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать медиатором</a>&ndash;&gt;-->
+<!--                        <noscript>-->
+<!--                            <p> Для корректной работы этой страницы необходимо включить JavaScript.-->
+<!--                                <br>-->
+<!--                                Кнопка решить конфликт не работает.-->
+<!--                                <br>-->
+<!--                                Для подачи обращения-->
+<!--                                <br>-->
+<!--                                нажмите Вход.-->
+<!--                                <a href="/signing/signin/" class="ud-btn me-3 bdrs120 btn-1"> Вход </a>-->
+<!--                            </p>-->
+<!--                        </noscript>-->
+<!--                        <script>-->
+<!--                            document.getElementById("redirectLink").addEventListener("click", function(event) {-->
 <!--                                event.preventDefault();-->
-<!--                                var isMediator = false;-->
-<!--                                {% if user.is_ %}-->
-<!--                                    isMediator = true;-->
+<!--                                var isUserLoggedIn = false;-->
+<!--                                {% if user.is_authenticated %}-->
+<!--                                    isUserLoggedIn = true;-->
 <!--                                {% endif %}-->
-<!--                                if (isMediator) {-->
-<!--                                    window.location.href = "/signing/signup/";-->
+<!--                                if (isUserLoggedIn) {-->
+<!--                                    window.location.href = "/dashboard/create-project/";-->
 <!--                                } else {-->
-<!--                                    window.location.href = "/signing/signup/";-->
+<!--                                    window.location.href = "/signing/signin/";-->
 <!--                                }-->
 <!--                            });-->
-                        </script>
-                        <a href="/signing/signup/"
-                           class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать
-                            медиатором</a>
+<!--                            document.getElementById("adminLink").addEventListener("click", function(event) {-->
+<!--                                // Получить кнопку "Администратор"-->
+<!--                                var adminButton = document.querySelector(".admin-button");-->
 
-                    </div>
+<!--                                // Проверить, является ли пользователь суперпользователем-->
+<!--                                var isSuperuser = false;-->
+<!--                                {% if user.is_superuser %}-->
+<!--                                    isSuperuser = true;-->
+<!--                                    document.querySelector(".admin-button").style.display = "block";-->
+<!--                                {% endif %}-->
+
+<!--                                // Проверить, является ли пользователь аутентифицированным-->
+<!--                                var isAuthenticated = false;-->
+<!--                                {% if user.is_authenticated %}-->
+<!--                                    isAuthenticated = true;-->
+<!--                                {% endif %}-->
+
+<!--                                // Скрыть кнопку "Администратор" для незарегистрированных пользователей и не суперпользователей-->
+<!--                                if (!isSuperuser || !isAuthenticated) {-->
+<!--                                    document.querySelector(".admin-button").style.display = "none";-->
+<!--                                }-->
+<!--                            });-->
+
+<!--                        </script>-->
+<!--                        <a href="/signing/signup/"-->
+<!--                           class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать-->
+<!--                            медиатором</a>-->
+<!--                        <a href="/admin/" class="ud-btn btn-3 bdr1 bdrs120 btn-3 admin-button">Администратор</a>-->
+<!--                    </div>-->
+                    <div class="d-sm-flex align-items-center mt30 animate-up-3">
+
+    <a href="#" id="redirectLink" class="ud-btn btn-1 me-3 bdrs120 btn-1">
+        Решить конфликт</a>
+    <noscript>
+        <p> Для корректной работы этой страницы необходимо включить JavaScript.
+            <br>
+            Кнопка решить конфликт не работает.
+            <br>
+            Для подачи обращения
+            <br>
+            нажмите Вход.
+            <a href="/signing/signin/" class="ud-btn me-3 bdrs120 btn-1"> Вход </a>
+            <br>
+        </p>
+    </noscript>
+    <a href="/signing/signup/"
+       class="ud-btn btn-2 bdr1 bdrs120 btn-2">Стать медиатором</a>
+                   <style>
+                        .ud-btn {
+                            margin-right: 15px; /* Измените этот отступ по необходимости */
+                        }
+                    </style>
+    <a href="/admin/" class="ud-btn btn-1 me-3 bdrs120 btn-1 admin-button" id="adminLink">Администрирование</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+        var redirectLink = document.getElementById("redirectLink");
+        var adminLink = document.getElementById("adminLink");
+        var isLoggedIn = false;
+        var isSuperuser = false;
+
+        {% if user.is_authenticated %}
+            isLoggedIn = true;
+        {% endif %}
+        {% if user.is_superuser %}
+            isSuperuser = true;
+        {% endif %}
+
+        redirectLink.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            if (isLoggedIn) {
+                window.location.href = "/dashboard/create-project/";
+            } else {
+                window.location.href = "/signing/signin/";
+            }
+        });
+
+        if (isSuperuser) {
+            adminLink.style.display = "block";
+        } else {
+            adminLink.style.display = "none";
+        }
+    });
+</script>
                 </div>
             </div>
             <div class="col-xl-5 d-none d-xl-block">

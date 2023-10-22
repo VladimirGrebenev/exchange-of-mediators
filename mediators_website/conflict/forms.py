@@ -60,7 +60,7 @@ class ConflictForm(forms.ModelForm):
             # }),
             "fixed_price": TextInput(attrs={
                 'class': "form-control",
-                'placeholder': "$",
+                'placeholder': "руб.",
             }),
             "decide_time": forms.Select({
                 'class': "selectpicker",

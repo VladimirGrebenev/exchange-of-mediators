@@ -1,6 +1,7 @@
 from django.urls import path
 
-from user.views import EmailConfirmView
+from user.views import EmailConfirmView, MediatorDetailView
+
 
 app_name = 'user'
 urlpatterns = [

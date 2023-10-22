@@ -14,6 +14,10 @@
     <span class="text-secondary">Пользователя:</span>
   {% endif %}
   <span class="text-secondary">{{ user.firstname }} {{ user.lastname }}</span>
+  <br>
+  {% if user.is_superuser %}
+      <a href="/admin/" class="ud-btn text-secondary" id="adminLink">Администрирование</a>
+  {% endif %}
 {% endblock dash-description %}
 
 

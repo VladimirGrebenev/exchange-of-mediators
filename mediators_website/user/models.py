@@ -1,11 +1,12 @@
-from utils.common import sample_queryset
+import uuid
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
-import uuid
+from django.utils.translation import gettext_lazy as _
 
 from user.object_managers import MediatorManager, OnlyBasicUserManager
+from utils.common import sample_queryset
 
 NULLABLE = {'blank': True, 'null': True}
 
@@ -18,24 +19,28 @@ class Statuses(models.TextChoices):
 
 
 class User(PermissionsMixin, AbstractBaseUser):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    firstname = models.CharField(max_length=150, **NULLABLE)
-    lastname = models.CharField(max_length=150, **NULLABLE)
-    email = models.CharField(max_length=150, null=False, blank=False, unique=True)
-    phone = models.CharField(max_length=12, **NULLABLE)
-    birthday = models.DateField(**NULLABLE)
-    create_at = models.DateTimeField(auto_now_add=True, **NULLABLE)
-    is_superuser = models.BooleanField(default=False)
-    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_("ID пользователя"))
+    firstname = models.CharField(max_length=150, **NULLABLE, verbose_name=_("Имя"))
+    lastname = models.CharField(max_length=150, **NULLABLE, verbose_name=_("Фамилия"))
+    email = models.CharField(max_length=150, null=False, blank=False,
+                             unique=True, verbose_name=_("email"))
+    phone = models.CharField(max_length=12, **NULLABLE, verbose_name=_("Телефон"))
+    birthday = models.DateField(**NULLABLE, verbose_name=_("День рождения"))
+    create_at = models.DateTimeField(auto_now_add=True, **NULLABLE, verbose_name=_("Создан"))
+    is_active = models.BooleanField(default=True, verbose_name=_("Активный"))
+    is_staff = models.BooleanField(default=False, verbose_name=_("Сотрудник"))
+    is_superuser = models.BooleanField(default=False, verbose_name=_("superuser"))
+    profile_image = models.ImageField(upload_to='profile_images/', null=True,
+                                      blank=True, verbose_name=_("Аватарка"))
     status = models.TextField(
-        verbose_name="status",
+        verbose_name="Статус",
         choices=Statuses.choices,
         default=Statuses.NEW,
         null=False,
         blank=False,
     )
-    deleted = models.BooleanField(default=False)
-    deleted_at = models.DateTimeField(null=True)
+    deleted = models.BooleanField(default=False, verbose_name=_("Удален"))
+    deleted_at = models.DateTimeField(null=True, verbose_name=_("Дата удаления"))
 
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
@@ -45,7 +50,8 @@ class User(PermissionsMixin, AbstractBaseUser):
 
     def average_rating(self):
         """Вывод среднего рейтинга медиатора"""
-        rating = self.reviews.aggregate(avg_rating=models.Avg('rating'))['avg_rating']
+        rating = self.reviews.aggregate(avg_rating=models.Avg('rating'))[
+            'avg_rating']
         if rating is None:
             return 0.0
         return round(rating, 1)
@@ -68,22 +74,33 @@ class User(PermissionsMixin, AbstractBaseUser):
         """Вернет количество конфликтов, у которых статус 'Завершен'"""
         return self.created_conflicts.filter(status='Завершен').count()
 
+    # def get_absolute_url(self):
+    #     return reverse('post', kwargs={'post_id': self.pk})
+
+    class Meta:
+        verbose_name = _("Прользователь")
+        verbose_name_plural = _("Прользователи")
+
 
 class EmailConfirmation(models.Model):
     user = models.OneToOneField(
         User,
         related_name="email_confirmation",
-        verbose_name="email confirmation",
+        verbose_name="email подтверждена",
         on_delete=models.DO_NOTHING,
     )
     approval_code = models.CharField(
         max_length=128,
-        verbose_name='Approve code',
+        verbose_name='Код подтверждения',
         unique=True,
     )
     code_expiration_date = models.DateTimeField(
-        verbose_name='code expiration date')
+        verbose_name='Дата истечения срока действия кода')
     is_approved = models.BooleanField(verbose_name='Approved?', default=False)
+
+    class Meta:
+        verbose_name = _("Подтверждение почты")
+        verbose_name_plural = _("Подтверждение почты")
 
 
 class BasicUser(User):
@@ -91,6 +108,8 @@ class BasicUser(User):
 
     class Meta:
         proxy = True
+        verbose_name = _("Клиент")
+        verbose_name_plural = _("Клиенты")
 
 
 class Mediator(User):
@@ -99,6 +118,8 @@ class Mediator(User):
     class Meta:
         ordering = ['create_at']
         proxy = True
+        verbose_name = _("Медиатор")
+        verbose_name_plural = _("Медиаторы")
 
 
 class AdditionalInfo(Mediator):
@@ -107,6 +128,11 @@ class AdditionalInfo(Mediator):
         on_delete=models.CASCADE,
         primary_key=True,
         related_name='get_info',
+        verbose_name=_("Медиатор")
     )
-    rate = models.IntegerField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    rate = models.IntegerField(blank=True, null=True, verbose_name = _("Ставка"))
+    description = models.TextField(blank=True, null=True, verbose_name = _("Описание"))
+
+    class Meta:
+        verbose_name = _("Дополнительная информация")
+        verbose_name_plural = _("Дополнительная информация")
