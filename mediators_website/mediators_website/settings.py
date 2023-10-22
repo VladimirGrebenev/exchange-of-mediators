@@ -48,7 +48,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_htmx.middleware.HtmxMiddleware",
-    "utils.middleware.AttachUserGroupsMiddleware"
+    "utils.middleware.AttachUserGroupsMiddleware",
+    "utils.middleware.NotFoundMiddleware",
 ]
 
 if DEBUG:

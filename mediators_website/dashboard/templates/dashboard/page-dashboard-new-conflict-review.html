@@ -1,6 +1,8 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% load custom_filters %}
+
 {% block title %}
 {{ conflict.title }}
 {% endblock title %}
@@ -104,21 +106,34 @@
                       <div class="col-md-6">
                         <div class="mb20">
                           <label class="fw500 ff-heading dark-color mb-2">Ваша цена</label>
-                          {{ form.rate }}
-                          {{ form.rate.errors }}
+                          {% if form.rate.errors %}
+                            {{ form.rate|input_error }}
+                            {{ form.rate.errors|feedback_error }}
+                          {% else %}
+                            {{ form.rate }}
+                          {% endif %}
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="mb20">
                           <label class="fw500 ff-heading dark-color mb-2">Ваши сроки</label>
-                          {{ form.time_for_conflict }}
-                          {{ form.time_for_conflict.errors }}
+                          {% if form.time_for_conflict.errors %}
+                            {{ form.time_for_conflict|input_error }}
+                            {{ form.time_for_conflict.errors|feedback_error }}
+                          {% else %}
+                            {{ form.time_for_conflict }}
+                          {% endif %}
                         </div>
                       </div>
                       <div class="col-md-12">
                         <div class="mb-4">
                           <label class="fw500 fz16 ff-heading dark-color mb-2">Сопроводительное письмо</label>
-                          {{ form.comment }}
+                          {% if form.comment.errors %}
+                            {{ form.comment|input_error }}
+                            {{ form.comment.errors|feedback_error }}
+                          {% else %}
+                            {{ form.comment }}
+                          {% endif %}
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -155,17 +170,12 @@
                       {% if conflict.creator.profile_image %}
                       <img class="rounded-circle mx-auto" src="{{ conflict.creator.profile_image.url }}" style="width: 80px; height: 80px"  alt="">
                       {% else %}
-                      <img class="rounded-circle mx-auto" src="{% static 'images/team/client-2.png' %}" alt="">
+                      <img class="rounded-circle mx-auto" src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
                       {% endif %}
 
                     </div>
                     <div class="ml20">
-                      <h5 class="title mb-1">{{ conflict.creator.firstname }}</h5>
-                      <p class="mb-0">{{ conflict.creator.lastname }}</p>
-                      <p>{{ conflict.creator.email }}</p>
-                      {% if conflict.creator.phone %}
-                      <p>{{ conflict.creator.phone }}</p>
-                      {% endif %}
+                      <h5 class="title mb-1"><a href="{% url 'user-about' conflict.creator.id %}"> {{ conflict.creator.firstname }} {{ conflict.creator.lastname }}</a></h5>
                     </div>
                   </div>
                   <hr class="opacity-100">
@@ -180,7 +190,7 @@
                     </div>
                   </div>
                   <div class="d-grid mt30">
-                    <a href="{% url 'dashboard:user-about' %}"
+                    <a href="#"
                        class="ud-btn btn-white2">Написать клиенту
                         <i class="fal fa-arrow-right-long"></i></a>
                   </div>

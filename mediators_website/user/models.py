@@ -22,16 +22,14 @@ class User(PermissionsMixin, AbstractBaseUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_("ID пользователя"))
     firstname = models.CharField(max_length=150, **NULLABLE, verbose_name=_("Имя"))
     lastname = models.CharField(max_length=150, **NULLABLE, verbose_name=_("Фамилия"))
-    email = models.CharField(max_length=150, null=False, blank=False,
-                             unique=True, verbose_name=_("email"))
+    email = models.CharField(max_length=150, null=False, blank=False, unique=True, verbose_name=_("email"))
     phone = models.CharField(max_length=12, **NULLABLE, verbose_name=_("Телефон"))
     birthday = models.DateField(**NULLABLE, verbose_name=_("День рождения"))
     create_at = models.DateTimeField(auto_now_add=True, **NULLABLE, verbose_name=_("Создан"))
     is_active = models.BooleanField(default=True, verbose_name=_("Активный"))
     is_staff = models.BooleanField(default=False, verbose_name=_("Сотрудник"))
-    is_superuser = models.BooleanField(default=False, verbose_name=_("superuser"))
-    profile_image = models.ImageField(upload_to='profile_images/', null=True,
-                                      blank=True, verbose_name=_("Аватарка"))
+    is_superuser = models.BooleanField(default=False, verbose_name=_("superuser"))   
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True, verbose_name=_("Аватарка"))
     status = models.TextField(
         verbose_name="Статус",
         choices=Statuses.choices,

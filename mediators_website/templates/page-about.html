@@ -53,7 +53,7 @@
                                             class="fz14 fw400">%{{ top_mediator.average_rating }}</span></a>
                                 </div>
                                 <div class="d-grid mt15">
-                                    <a href="page-freelancer-single.html"
+                                    <a href="{% url 'mediator-about' top_mediator.id %}"
                                        class="ud-btn btn-white2 bdrs90">Подробнее<i
                                             class="fal fa-arrow-right-long"></i></a>
                                 </div>
@@ -220,7 +220,7 @@
                                     class="fz14 fw400">%{{ mediator.average_rating }}</span></a>
                         </div>
                         <div class="d-grid mt15">
-                            <a href="{% url 'mediator-detail' mediator.id %}"
+                            <a href="{% url 'mediator-about' mediator.id %}"
                                class="ud-btn btn-white2 bdrs90">Подробнее<i
                                     class="fal fa-arrow-right-long"></i></a>
                         </div>

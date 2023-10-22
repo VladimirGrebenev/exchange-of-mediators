@@ -2,11 +2,13 @@ from django.conf import settings
 from django.views import View
 
 from .models import EmailConfirmation, Mediator, User
+from reviews.models import Review
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.mixins import LoginRequiredMixin
 from utils.views_mixins import TopFiveMediatorsMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -64,7 +66,7 @@ def delete_avatar(request):
     return JsonResponse({'success': False}, status=400)
     
     
-class DashboardProfileView(View):
+class DashboardProfileView(LoginRequiredMixin, View):
     template_name = 'dashboard/page-dashboard-profile.html'
 
     def get(self, request):
@@ -113,27 +115,35 @@ class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-contact.html'
     context_object_name = 'mediators_list'
+    
 
-
-class MediatorDetailView(DetailView):
+class MediatorAboutView(DetailView):
     model = Mediator
-    template_name = 'user/page-mediator-detail.html'
+    template_name = 'user/page-mediator-about.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ReviewForm(initial={'to_user': kwargs['object'].id, 'from_user': self.request.user.id})
         mediator = kwargs['object']
+        reviews = Review.objects.all()
         conflicts = Conflict.objects.filter(mediator=mediator)
-        completed_conflicts = conflicts.filter(status='Завершен')
+        completed_conflicts = conflicts.filter(status='Завершен').count()
+        total_conflicts = conflicts.filter(mediator_id=mediator).count()
         active_conflicts = conflicts.exclude(status='Завершен')
         context['completed_conflicts'] = completed_conflicts
         context['active_conflicts'] = active_conflicts
+        context['total_conflicts'] = total_conflicts
+        context['reviews'] = reviews
         return context
+    
 
-    def post(self, request, *args, **kwargs):
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('mediator-detail', kwargs['pk'])
-        return render(request, self.template_name, {'form': form})
+class ClientAboutView(DetailView):
+    model = User
+    template_name = 'user/page-user-about.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['client'] = context['user']  # Заменяем имя переменной user на client
+        del context['user']  # Удаляем переменную user из контекста
+        return context
+    

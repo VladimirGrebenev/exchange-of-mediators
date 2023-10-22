@@ -91,8 +91,7 @@ class Conflict(models.Model):
     # prise = models.TextField(choices=PriseChoices.choices,
     #                          default=PriseChoices.CHOOSE,
     #                          verbose_name=_("Цена"))
-    fixed_price = models.FloatField(null=True,
-                                   verbose_name=_("Цена"))
+    fixed_price = models.PositiveIntegerField(verbose_name=_("Цена"))
     decide_time = models.TextField(choices=DecidedTime.choices,
                                    default=DecidedTime.CHOOSE,
                                    verbose_name=_("Время на решение"))
@@ -116,7 +115,7 @@ class Conflict(models.Model):
         User,
         related_name='conflicts_as_respondent',
         verbose_name=_('Остальные участники'),
-        **NULLABLE,
+        blank=True,
     )
     description = models.TextField(blank=True, null=True,
                                    verbose_name=_("Описание"))
@@ -197,11 +196,20 @@ class ConflictResponse(models.Model):
     response_time = models.DateTimeField(auto_now_add=True,
                                          editable=False,
                                          verbose_name=_("Время ответа"))
+                           
     rate = models.IntegerField(blank=False, null=False, verbose_name=_(
+        # blank=True, null=True, 
         "Ставка медиатора"))  # Ставка от медиатора
-    comment = models.TextField(blank=True, null=True, verbose_name=_(
-        "Комментарий медиатора"))  # Комментарий от медиатора
-    time_for_conflict = models.IntegerField(blank=True, null=True,
+    comment = models.TextField(
+        max_length=500,
+        error_messages={
+            'required': 'Пожалуйста, заполните это поле.',
+            'invalid': 'Оставьте комментарий к конфликту.',
+        },
+        verbose_name=_(
+         "Комментарий медиатора")
+    )  # Комментарий от медиатора
+    time_for_conflict = models.IntegerField(blank=False, null=False,
                                             verbose_name=_(
                                                 "Время на решение"))  # Время на решение конфликта
 

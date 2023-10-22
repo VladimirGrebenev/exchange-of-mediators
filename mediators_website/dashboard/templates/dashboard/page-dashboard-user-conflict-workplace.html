@@ -23,31 +23,23 @@
     <div class="col-lg-8 p60">
         <div class="column">
             <div class="service-about">
-                <h3>Название конфликта</h3>
+                <h3>{{ conflict.title }} <p class="preview">
+                    <a href="{% url 'mediator-about' conflict.mediator.id %}"
+                       class="btn ud-btn btn-thm">Медиатор: {{ conflict.mediator.firstname }}
+                                {% if conflict.mediator.profile_image %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{{ conflict.mediator.profile_image.url }}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{% static 'images/team/fl-1.png' %}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                                {% endif %}</a></p></h3>
                 <br>
-                <h5>Описание конфликта</h5>
-                <p class="text mb30">А здесь у нас КРАТКОЕ ОПИСАНИЕ
-                    конфликта at a reader will be distracted by the readable
-                    content of a page when looking at its layout. The point of
-                    using Lorem Ipsum is that it has a more-or-less normal
-                    distribution of letters, as opposed to using 'Content here,
-                    content here', making it look like readable English. </p>
-
-                <hr class="opacity-100 mb30 mt30">
-                <h5 class="mb30">Медиатор:</h5>
-                <div class="user_heading px-0 mx30">
-                <div class="wrap">
-                    <img class="img-fluid mr10" src="{% static 'images/inbox/ms3.png' %}"
-                         alt="ms3.png">
-                    <div class="meta d-sm-flex justify-content-sm-between align-items-center">
-                        <div class="authors">
-                            <h6 class="name mb-0">Антонио Саморанчес</h6>
-                            <p class="preview">Медиатор</p>
-                        </div>
-                    </div>
+                <h5>Описание конфликта:</h5>
+                <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
+                <p class="text mb30">{{ conflict.description }}</p>
                 </div>
-            </div>
-
                 <hr class="opacity-100 mb60 mt30">
                 <h4 class="mb30">Прикреплённые файлы (пока это нетрогаем)</h4>
                 <div class="row">
@@ -176,39 +168,50 @@
         <h5>Стороны конфликта:</h5>
         <div class="message_container">
             <div class="inbox_user_list">
-
-                <div class="chat-member-list pr20">
-                    <div class="list-item pt5">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}" alt="ms1.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Darlene Robertson
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Jane Cooper
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                <div class="iu_heading pr35">
+                    <div class="chat_user_search">
+                        <form class="d-flex align-items-center">
+                            <button class="btn" type="submit"><span
+                                    class="far fa-magnifying-glass"></span>
+                            </button>
+                            <input class="form-control" type="search"
+                                   placeholder=" Искать" aria-label="Search">
+                        </form>
                     </div>
                 </div>
+                {% if conflict.respondents.all %}
+                {% for respondent in conflict.respondents.all %}
+                <div class="list-item pt5">
+                    <a href="#">
+                        <div class="d-flex align-items-center position-relative">
+                                {% if respondent.profile_image %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{{ respondent.profile_image.url }}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{% static 'images/team/fl-1.png' %}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                                {% endif %}
+                            <div class="d-sm-flex">
+                                <div class="d-inline-block">
+                                    <div class="fz15 fw500 dark-color ff-heading mb-0">
+                                        {{ respondent.firstname }}
+                                    </div>
+                                    <p class="preview">Участник</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="chat-member-list pr20">
+                    <div class="fz15 fw500 dark-color ff-heading mb-0">
+                        Участников пока нет
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -2,36 +2,27 @@
 {% load static %}
 
 
-{% block dash-sidebar %}
-{% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
-{% endblock %}
-
+{% block dash-title %}
+<h1>Мои сообщения</h1>
+{% endblock dash-title %}
 
 {% block dash-description %}
-{% if user.groups.first.name == 'mediator' %}
-<span class="text-secondary">Медиатора:</span>
-{% else %}
-<span class="text-secondary">Пользователя:</span>
-{% endif %}
-<span class="text-secondary">{{ user.firstname }} {{ user.lastname }}</span>
+<p>Жи Ши пиши с буквой И</p>
 {% endblock dash-description %}
+
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with active_messages='active' %}
+{% endblock dash-main-header-nav %}
+
+{% block dash-sidebar %}
+    {% include 'dashboard/includes/dash-sidebar-list.html' with active_messages='-is-active' %}
+{% endblock %}
 
 
 {% block dash-content %}
 
 <!-- My messages -->
 
-<div class="row">
-    <div class="col-lg-8 p10">
-        <div class="column">
-            <div class="service-about">
-                <h3>Мои сообщения</h3>
-                <br>
-                <hr class="opacity-100 mb10 mt10">
-            </div>
-        </div>
-    </div>
-</div>
 <div class="row mb40">
     <div class="col-lg-6 col-xl-5 col-xxl-4">
         <h5>Мои контакты: </h5>

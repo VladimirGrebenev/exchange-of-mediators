@@ -1,7 +1,7 @@
 import datetime
-
 from django import forms
 from django.forms import TextInput, Textarea
+from django.shortcuts import redirect
 
 from conflict.models import Document, Conflict, ConflictResponse
 from user.models import User
@@ -9,22 +9,15 @@ from django.db.models import Q
 
 
 class ConflictForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
-        super(ConflictForm, self).__init__(*args, **kwargs)
-
-        if user:
-            self.fields['creator'].initial = user
-            # self.fields['mediator'].queryset = User.objects.exclude(
-            #     pk=user.pk)
-            # self.fields['respondents'].queryset = User.objects.exclude(
-            #     pk=user.pk)
 
     class Meta:
         model = Conflict
         fields = (
+            "status",
+            "creator",
+            "mediator",
+
             "title",
-            # "status",
             "category",
             # "mediators_level",
             # "prise",
@@ -34,17 +27,15 @@ class ConflictForm(forms.ModelForm):
             "city",
             # "language",
             # "language_level",
-            # "mediator",
             # "respondents",
-            "creator",
             "description",
             # "is_all_visible",
         )
         widgets = {
+            "status": forms.HiddenInput(),
             'creator': forms.HiddenInput(),
-            # "status": forms.Select({
-            #     'class': "selectpicker",
-            # }),
+            'mediator': forms.HiddenInput(),
+
             "title": TextInput(attrs={
                 'class': "form-control",
                 'placeholder': "Текст заголовка",
@@ -58,9 +49,8 @@ class ConflictForm(forms.ModelForm):
             # "prise": forms.Select({
             #     'class': "selectpicker",
             # }),
-            "fixed_price": TextInput(attrs={
+            "fixed_price": forms.NumberInput(attrs={
                 'class': "form-control",
-                'placeholder': "руб.",
             }),
             "decide_time": forms.Select({
                 'class': "selectpicker",
@@ -122,6 +112,14 @@ class DocumentForm(forms.ModelForm):
 
 
 class ResponseForm(forms.ModelForm):
+
+    def clean_rate(self):
+        rate = self.cleaned_data.get('rate')
+        fixed_price = self.cleaned_data.get('conflict').fixed_price
+        if rate < fixed_price:
+            raise forms.ValidationError('Цена должна быть не ниже заявленной')
+        return rate
+
     class Meta:
         model = ConflictResponse
         fields = [
@@ -161,4 +159,14 @@ class ResponseUserForm(forms.ModelForm):
             "mediator": forms.HiddenInput,
             "fixed_price": forms.HiddenInput,
             "decide_time": forms.HiddenInput,
+        }
+
+
+class RespondentsForm(forms.ModelForm):
+    class Meta:
+        model = Conflict
+        fields = ['respondents']
+        widgets = {
+            "respondents": forms.SelectMultiple(
+                attrs={"placeholder": "Выберите пользователей", "class": "selectpicker"})
         }
