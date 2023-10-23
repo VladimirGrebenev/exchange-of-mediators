@@ -17,6 +17,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -194,5 +195,16 @@ LOGGING = {
     'root': {
         'handlers': ['file', 'console'],
         'level': 'DEBUG',  # Уровень логирования
+    },
+}
+
+# Daphne
+ASGI_APPLICATION = 'mediators_website.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6380)],
+        },
     },
 }

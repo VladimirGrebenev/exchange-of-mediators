@@ -122,12 +122,18 @@ class ConflictCreateView(CreateView):
         return context
 
 
-
 class UserConflictWorkplacelView(LoginRequiredMixin, DetailView):
     """Получение рабочей страницы конфликта у юзера"""
     model = Conflict
     template_name = 'dashboard/page-dashboard-user-conflict-workplace.html'
     context_object_name = 'conflict'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['room_name'] = kwargs['object'].pk
+        # print(kwargs['object'].pk, dir(kwargs['object']))
+        # print('+++++++++++', kwargs['Conflict'])
+        return context
 
 
 class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
@@ -139,6 +145,9 @@ class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = RespondentsForm()
+        context['room_name'] = kwargs['object'].pk
+        # print(kwargs['object'].pk, dir(kwargs['object']))
+        # print('+++++++++++', kwargs['Conflict'])
         return context
 
     def post(self, request, *args, **kwargs):
