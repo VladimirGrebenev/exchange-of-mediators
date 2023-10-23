@@ -128,7 +128,7 @@ class MediatorAboutView(DetailView):
         mediator = kwargs['object']
         mediator_id = mediator.id
         reviews = Review.objects.filter(to_user_id=mediator_id)
-        
+
         quantity_reviews = reviews.count()
 
         ratings = reviews.values('rating').annotate(count=Count('rating')).order_by('rating')
@@ -144,7 +144,7 @@ class MediatorAboutView(DetailView):
 
         star_counts_up = {rating['rating']: {
             'count': rating['count'],
-            'percentage': (rating['count'] / total_reviews) * 100 
+            'percentage': (rating['count'] / total_reviews) * 100
         } for rating in ratings}
         star_counts.update(star_counts_up)
 
@@ -152,7 +152,6 @@ class MediatorAboutView(DetailView):
         completed_conflicts = conflicts.filter(status='Завершен').count()
         total_conflicts = conflicts.filter(mediator_id=mediator).count()
         active_conflicts = conflicts.exclude(status='Завершен')
-
 
         context.update({
             'reviews': reviews,
@@ -164,7 +163,31 @@ class MediatorAboutView(DetailView):
         })
 
         return context
-    
+
+    def get_success_url(self):
+        return self.request.path
+
+    def post(self, request, *args, **kwargs):
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            user = form.cleaned_data.get('from_user')
+            mediator = form.cleaned_data.get('to_user')
+            if user == mediator:
+                messages.error(request, 'Вы не можете оставить отзыв о себе')
+            elif user.groups.first().name == 'mediator':
+                messages.error(request, 'Вы не можете оставить отзыв о другом медиаторе')
+            elif mediator.reviews.filter(from_user=user).count() > 0:
+                messages.info(request, 'Вы уже оставили отзыв')
+            else:
+                form.save()
+                messages.success(request, 'Ваш отзыв учтен')
+            return redirect(self.get_success_url())
+        else:
+            messages.error(request, 'Ошибка заполнения формы')
+            context = self.get_context_data()
+            render(request, self.template_name, context)
+
 
 class ClientAboutView(DetailView):
     model = User
