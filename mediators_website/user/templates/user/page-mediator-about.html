@@ -36,7 +36,7 @@
                             <h5 class="title mb-1">{{ mediator.lastname }} {{ mediator.firstname }}</h5>
                             <p class="mb-0">Медиатор</p>
                             <p
-                                    class="mb-0 dark-color fz15 fw500 list-inline-item mb5-sm"><i class="fas fa-star vam fz10 review-color me-2"></i> 4.82 94 отзыва</p>
+                                    class="mb-0 dark-color fz15 fw500 list-inline-item mb5-sm"><i class="fas fa-star vam fz10 review-color me-2"></i> рейтинг {{ mediator.average_rating }} / {{ quantity_reviews }} отзыва</p>
                             {% comment %} <p
                                     class="mb-0 dark-color fz15 fw500 list-inline-item ml15 mb5-sm ml0-xs"><i class="flaticon-place vam fz20 me-2"></i> Москва, Россия</p> {% endcomment %}
                             <p
@@ -97,12 +97,12 @@
                     <div class="row">
                       <div class="col-lg-12">
                         <div class="total_review mb30">
-                          <h4>94 отзыва</h4>
+                          <h4> {{ quantity_reviews }} отзыва </h4>
                         </div>
                         <div class="d-md-flex align-items-center mb30">
                           <div class="total-review-box d-flex align-items-center text-center mb30-sm">
                             <div class="wrapper mx-auto">
-                              <div class="t-review mb15">4.96</div>
+                              <div class="t-review mb15">{{ mediator.average_rating }}</div>
                               <h5>Средняя</h5>
                               <p class="text mb-0">оценка</p>
                             </div>
@@ -111,37 +111,37 @@
                             <div class="review-list d-flex align-items-center mb10">
                               <div class="list-number">5 звёзд</div>
                                 <div class="progress">
-                                  <div class="progress-bar" style="width: 90%;" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                  <div class="progress-bar" style="width: {{ star_counts.5.percentage | floatformat:"0" }}%;" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                              <div class="value text-end">58</div>
+                              <div class="value text-end">{{ star_counts.5.count }}</div>
                             </div>
                             <div class="review-list d-flex align-items-center mb10">
                               <div class="list-number">4 звезды</div>
                                 <div class="progress">
-                                  <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                  <div class="progress-bar" style="width: {{ star_counts.4.percentage | floatformat:"0" }}%;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                              <div class="value text-end">20</div>
+                              <div class="value text-end">{{ star_counts.4.count }}</div>
                             </div>
                             <div class="review-list d-flex align-items-center mb10">
                               <div class="list-number">3 звезды</div>
                                 <div class="progress">
-                                  <div class="progress-bar w-50" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                  <div class="progress-bar" style="width: {{ star_counts.3.percentage | floatformat:"0" }}%;" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                              <div class="value text-end">15</div>
+                              <div class="value text-end">{{ star_counts.3.count }}</div>
                             </div>
                             <div class="review-list d-flex align-items-center mb10">
                               <div class="list-number">2 звезды</div>
                                 <div class="progress">
-                                  <div class="progress-bar" style="width: 30%;" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                  <div class="progress-bar" style="width: {{ star_counts.2.percentage | floatformat:"0" }}%;" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                              <div class="value text-end">2</div>
+                              <div class="value text-end">{{ star_counts.2.count }}</div>
                             </div>
                             <div class="review-list d-flex align-items-center mb10">
                               <div class="list-number">1 звезда</div>
                                 <div class="progress">
-                                  <div class="progress-bar" style="width: 20%;" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                  <div class="progress-bar" style="width: {{ star_counts.1.percentage | floatformat:"0" }}%;" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                              <div class="value text-end">1</div>
+                              <div class="value text-end">{{ star_counts.1.count }}</div>
                             </div>
                           </div>
                         </div>

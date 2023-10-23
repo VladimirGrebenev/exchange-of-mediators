@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from utils.views_mixins import TopFiveMediatorsMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Count
 
 from .forms import UserFormProfile, DeleteProfileForm
 from conflict.models import Conflict
@@ -125,15 +126,43 @@ class MediatorAboutView(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = ReviewForm(initial={'to_user': kwargs['object'].id, 'from_user': self.request.user.id})
         mediator = kwargs['object']
-        reviews = Review.objects.all()
+        mediator_id = mediator.id
+        reviews = Review.objects.filter(to_user_id=mediator_id)
+        
+        quantity_reviews = reviews.count()
+
+        ratings = reviews.values('rating').annotate(count=Count('rating')).order_by('rating')
+        total_reviews = reviews.count()
+
+        star_counts = {5: {'count': 0, 'percentage': 0},
+                       4: {'count': 0, 'percentage': 0},
+                       3: {'count': 0, 'percentage': 0},
+                       2: {'count': 0, 'percentage': 0},
+                       2: {'count': 0, 'percentage': 0},
+                       1: {'count': 0, 'percentage': 0},
+                       }
+
+        star_counts_up = {rating['rating']: {
+            'count': rating['count'],
+            'percentage': (rating['count'] / total_reviews) * 100 
+        } for rating in ratings}
+        star_counts.update(star_counts_up)
+
         conflicts = Conflict.objects.filter(mediator=mediator)
         completed_conflicts = conflicts.filter(status='Завершен').count()
         total_conflicts = conflicts.filter(mediator_id=mediator).count()
         active_conflicts = conflicts.exclude(status='Завершен')
-        context['completed_conflicts'] = completed_conflicts
-        context['active_conflicts'] = active_conflicts
-        context['total_conflicts'] = total_conflicts
-        context['reviews'] = reviews
+
+
+        context.update({
+            'reviews': reviews,
+            'quantity_reviews': quantity_reviews,
+            'completed_conflicts': completed_conflicts,
+            'active_conflicts': active_conflicts,
+            'total_conflicts': total_conflicts,
+            'star_counts': star_counts,
+        })
+
         return context
     
 
