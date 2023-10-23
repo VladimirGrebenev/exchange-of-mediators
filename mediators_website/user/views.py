@@ -169,7 +169,6 @@ class MediatorAboutView(DetailView):
 
     def post(self, request, *args, **kwargs):
         form = ReviewForm(request.POST)
-
         if form.is_valid():
             user = form.cleaned_data.get('from_user')
             mediator = form.cleaned_data.get('to_user')
@@ -185,8 +184,10 @@ class MediatorAboutView(DetailView):
             return redirect(self.get_success_url())
         else:
             messages.error(request, 'Ошибка заполнения формы')
-            context = self.get_context_data()
-            redirect(self.get_success_url())
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            context['form'] = form
+            return render(request, self.template_name, context=context)
 
 
 class ClientAboutView(DetailView):
