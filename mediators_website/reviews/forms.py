@@ -5,11 +5,6 @@ from user.models import User
 
 class ReviewForm(forms.ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['from_user'].initial = self.initial.get('from_user')
-        self.fields['to_user'].initial = self.initial.get('to_user')
-
     class Meta:
         model = Review
         fields = ('to_user', 'from_user', 'rating', 'text')
