@@ -1,4 +1,5 @@
 from django import template
+from utils.common import pluralize_word
 
 register = template.Library()
 
@@ -15,3 +16,9 @@ def input_error(value):
     classes += ' is-invalid'
     value.field.widget.attrs['class'] = classes
     return value
+
+
+@register.filter
+def pluralize_word(value, words):
+    sign, plur, other = words.split(',')
+    return f'{value} {pluralize_word(value, sign, plur, other)}'
