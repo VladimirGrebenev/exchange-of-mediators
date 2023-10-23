@@ -245,6 +245,8 @@
                 </div>
               </div>
               {% endfor %}
+              <!-- Pagination -->
+              {% if new_conflicts.paginator.num_pages > 1 %}
               <div class="row">
                 <div class="mbp_pagination dark-style mt30 text-center">
                   <ul class="page_navigation">
@@ -275,6 +277,8 @@
                   <p class="mt10 mb-0 pagination_page_count text-center">страница {{ new_conflicts.number }} из {{ new_conflicts.paginator.num_pages }}</p>
                 </div>
               </div>
+              {% endif %}
+              <!-- Pagination -->
             </div>
           </div>
         </div>

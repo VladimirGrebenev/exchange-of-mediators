@@ -86,8 +86,26 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
     allowed_groups = ('user',)
     model = Conflict
     template_name = 'dashboard/page-dashboard-manage-jobs.html'
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.request.user
+#         # Filter conflicts created by the user and not deleted
+#         conflicts = Conflict.objects.filter(
+#             Q(creator=user) | Q(respondents=user), deleted=False)
+#         # context['conflicts'] = conflicts
+#         # return context
+#         # Создаем пагинатор только для conflicts
+#         paginator = Paginator(conflicts, self.paginate_by)
+#         page = self.request.GET.get(
+#             'page')  # Получаем текущий номер страницы из запроса
+#         conflicts_page = paginator.get_page(
+#             page)  # Получаем конфликты для текущей страницы
+#         context['conflicts'] = conflicts_page
+#         return context
+
     context_object_name = 'conflicts'
-    paginate_by = 10
+    paginate_by = 10 # Количество конфликтов на одной странице
 
     def get_queryset(self):
         return Conflict.objects.filter(Q(creator=self.request.user) | Q(respondents=self.request.user), deleted=False)
@@ -109,6 +127,25 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
     """
     allowed_groups = ('mediator',)
     template_name = 'dashboard/page-dashboard-manage-job-mediator.html'
+
+#     paginate_by = 10  # Количество конфликтов на одной странице
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.request.user
+#         # Filter conflicts created by the user and not deleted
+#         conflicts = Conflict.objects.filter(mediator=user, deleted=False)
+#         # context['conflicts'] = conflicts
+
+#         # Создаем пагинатор только для conflicts
+#         paginator = Paginator(conflicts, self.paginate_by)
+#         page = self.request.GET.get(
+#             'page')  # Получаем текущий номер страницы из запроса
+#         conflicts_page = paginator.get_page(
+#             page)  # Получаем конфликты для текущей страницы
+#         context['conflicts'] = conflicts_page
+#         return context
+
     model = Conflict
     context_object_name = 'conflicts'
     paginate_by = 10
