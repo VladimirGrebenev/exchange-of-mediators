@@ -186,7 +186,7 @@ class MediatorAboutView(DetailView):
         else:
             messages.error(request, 'Ошибка заполнения формы')
             context = self.get_context_data()
-            render(request, self.template_name, context)
+            redirect(self.get_success_url())
 
 
 class ClientAboutView(DetailView):
