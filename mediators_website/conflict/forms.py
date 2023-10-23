@@ -4,7 +4,8 @@ from django.forms import TextInput, Textarea
 from django.shortcuts import redirect
 
 from conflict.models import Document, Conflict, ConflictResponse
-from user.models import User
+
+from user.models import BasicUser, User
 from django.db.models import Q
 
 
@@ -170,3 +171,8 @@ class RespondentsForm(forms.ModelForm):
             "respondents": forms.SelectMultiple(
                 attrs={"placeholder": "Выберите пользователей", "class": "selectpicker"})
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['respondents'].queryset = BasicUser.objects.exclude(id__in=self.instance.respondents.all())
+

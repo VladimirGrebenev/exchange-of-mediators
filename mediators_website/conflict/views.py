@@ -133,7 +133,20 @@ class UserConflictWorkplacelView(LoginRequiredMixin, DetailView):
         context['room_name'] = kwargs['object'].pk
         # print(kwargs['object'].pk, dir(kwargs['object']))
         # print('+++++++++++', kwargs['Conflict'])
+
+        context['form'] = RespondentsForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        """Добавление участников конфликта"""
+        form = RespondentsForm(request.POST)
+        if form.is_valid():
+            conflict = self.get_object()
+            respondents = form.cleaned_data.get('respondents', [])
+            for respondent in respondents:
+                conflict.respondents.add(respondent)
+            return redirect('dashboard:conflict-workplace', pk=conflict.pk)
+        return render(request, 'dashboard/page-dashboard-conflict-workplace.html')
 
 
 class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
