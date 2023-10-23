@@ -79,21 +79,45 @@ class MediatorsDashboardView(LoginRequiredMixin, PermissionByGroupMixin,
 
 
 class UserDashboardListConflictsView(LoginRequiredMixin,
-                                     PermissionByGroupMixin, TemplateView):
+                                     PermissionByGroupMixin, ListView):
     """
         User dashboard / conflicts list
     """
     allowed_groups = ('user',)
+    model = Conflict
     template_name = 'dashboard/page-dashboard-manage-jobs.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        # Filter conflicts created by the user and not deleted
-        conflicts = Conflict.objects.filter(
-            Q(creator=user) | Q(respondents=user), deleted=False)
-        context['conflicts'] = conflicts
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.request.user
+#         # Filter conflicts created by the user and not deleted
+#         conflicts = Conflict.objects.filter(
+#             Q(creator=user) | Q(respondents=user), deleted=False)
+#         # context['conflicts'] = conflicts
+#         # return context
+#         # Создаем пагинатор только для conflicts
+#         paginator = Paginator(conflicts, self.paginate_by)
+#         page = self.request.GET.get(
+#             'page')  # Получаем текущий номер страницы из запроса
+#         conflicts_page = paginator.get_page(
+#             page)  # Получаем конфликты для текущей страницы
+#         context['conflicts'] = conflicts_page
+#         return context
+
+    context_object_name = 'conflicts'
+    paginate_by = 10 # Количество конфликтов на одной странице
+
+    def get_queryset(self):
+        return Conflict.objects.filter(Q(creator=self.request.user) | Q(respondents=self.request.user), deleted=False)
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user = self.request.user
+    #     # Filter conflicts created by the user and not deleted
+    #     conflicts = Conflict.objects.filter(
+    #         Q(creator=user) | Q(respondents=user), deleted=False)
+    #     context['conflicts'] = conflicts
+    #     return context
 
 
 class MediatorDashboardListConflictsView(LoginRequiredMixin,
@@ -103,14 +127,35 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
     """
     allowed_groups = ('mediator',)
     template_name = 'dashboard/page-dashboard-manage-job-mediator.html'
+
+#     paginate_by = 10  # Количество конфликтов на одной странице
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.request.user
+#         # Filter conflicts created by the user and not deleted
+#         conflicts = Conflict.objects.filter(mediator=user, deleted=False)
+#         # context['conflicts'] = conflicts
+
+#         # Создаем пагинатор только для conflicts
+#         paginator = Paginator(conflicts, self.paginate_by)
+#         page = self.request.GET.get(
+#             'page')  # Получаем текущий номер страницы из запроса
+#         conflicts_page = paginator.get_page(
+#             page)  # Получаем конфликты для текущей страницы
+#         context['conflicts'] = conflicts_page
+#         return context
+
     model = Conflict
     context_object_name = 'conflicts'
     paginate_by = 10
 
     def get_queryset(self):
-        work_conflicts = Conflict.objects.filter(mediator=self.request.user, deleted=False)
-        new_conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
-        conflicts = list(new_conflicts) + list(work_conflicts)
+        # work_conflicts = Conflict.objects.filter(mediator=self.request.user, deleted=False)
+        # new_conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
+        # conflicts = list(set(new_conflicts) | set(work_conflicts))
+        conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
+        print(Conflict.objects.filter(mediator=self.request.user).count())
         return conflicts
 
     # def get_context_data(self, **kwargs):
@@ -177,9 +222,9 @@ def filter_conflicts(request):
         elif sorting == 'Сначала старые':
             conflicts = conflicts.order_by('created')
         elif sorting == 'Сначала недорогие':
-            conflicts = conflicts.order_by('-fixed_price')
-        else:
             conflicts = conflicts.order_by('fixed_price')
+        else:
+            conflicts = conflicts.order_by('-fixed_price')
 
         context = {'conflicts': conflicts}
         return render(request, 'dashboard/conflict_list.html', context)
@@ -244,22 +289,14 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
         if form.is_valid():
             # Если отклик был, скажем до свидания
             if conflict.responses.filter(mediator=mediator).count() > 0:
-                messages.info(request, 'Вы уже оставляли отклик', extra_tags='adsdf')
+                messages.info(request, 'Вы уже оставляли отклик')
                 return redirect(self.get_success_url())
 
             form.save()
-            messages.add_message(
-                self.request, 50,
-                f'Ваш отклик опубликован',
-                extra_tags='success',
-            )
+            messages.success(self.request, f'Ваш отклик опубликован',)
             return redirect(self.get_success_url())
 
-        messages.add_message(
-            self.request, 50,
-            f'Исправьте ошибки заполнения формы',
-            extra_tags='error',
-        )
+        messages.error(self.request, f'Ошибка заполнения формы',)
         context = {
             'conflict': conflict,
             'mediator': mediator,

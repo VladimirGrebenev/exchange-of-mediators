@@ -2,8 +2,9 @@ from django.conf import settings
 from django.views import View
 
 from .models import EmailConfirmation, Mediator, User
+from reviews.models import Review
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -11,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from utils.views_mixins import TopFiveMediatorsMixin
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Count
 
 from .forms import UserFormProfile, DeleteProfileForm
 from conflict.models import Conflict
@@ -114,27 +116,63 @@ class ContactTopMediatorsList(TopFiveMediatorsMixin, ListView):
     model = Mediator
     template_name = 'page-contact.html'
     context_object_name = 'mediators_list'
+    
 
-
-class MediatorDetailView(LoginRequiredMixin, DetailView):
+class MediatorAboutView(DetailView):
     model = Mediator
-    template_name = 'user/page-mediator-detail.html'
+    template_name = 'user/page-mediator-about.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = ReviewForm(initial={'to_user': kwargs['object'].id, 'from_user': self.request.user.id})
         mediator = kwargs['object']
+        mediator_id = mediator.id
+        reviews = Review.objects.filter(to_user_id=mediator_id)
+        
+        quantity_reviews = reviews.count()
+
+        ratings = reviews.values('rating').annotate(count=Count('rating')).order_by('rating')
+        total_reviews = reviews.count()
+
+        star_counts = {5: {'count': 0, 'percentage': 0},
+                       4: {'count': 0, 'percentage': 0},
+                       3: {'count': 0, 'percentage': 0},
+                       2: {'count': 0, 'percentage': 0},
+                       2: {'count': 0, 'percentage': 0},
+                       1: {'count': 0, 'percentage': 0},
+                       }
+
+        star_counts_up = {rating['rating']: {
+            'count': rating['count'],
+            'percentage': (rating['count'] / total_reviews) * 100 
+        } for rating in ratings}
+        star_counts.update(star_counts_up)
+
         conflicts = Conflict.objects.filter(mediator=mediator)
-        completed_conflicts = conflicts.filter(status='Завершен')
+        completed_conflicts = conflicts.filter(status='Завершен').count()
+        total_conflicts = conflicts.filter(mediator_id=mediator).count()
         active_conflicts = conflicts.exclude(status='Завершен')
-        context['completed_conflicts'] = completed_conflicts
-        context['active_conflicts'] = active_conflicts
+
+
+        context.update({
+            'reviews': reviews,
+            'quantity_reviews': quantity_reviews,
+            'completed_conflicts': completed_conflicts,
+            'active_conflicts': active_conflicts,
+            'total_conflicts': total_conflicts,
+            'star_counts': star_counts,
+        })
+
         return context
+    
 
-    def post(self, request, *args, **kwargs):
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('mediator-detail', kwargs['pk'])
-        return render(request, self.template_name, {'form': form})
+class ClientAboutView(DetailView):
+    model = User
+    template_name = 'user/page-user-about.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['client'] = context['user']  # Заменяем имя переменной user на client
+        del context['user']  # Удаляем переменную user из контекста
+        return context
+    

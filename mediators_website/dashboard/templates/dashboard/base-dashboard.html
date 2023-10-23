@@ -57,7 +57,9 @@
     <div class="preloader"></div>
 
     <!-- Main Header Nav -->
+    {% block dash-main-header-nav %}
     {% include 'dashboard/includes/dash-main-header-nav.html' %}
+    {% endblock dash-main-header-nav %}
     <!-- Search Modal -->
     {% include 'dashboard/includes/dash-search-modal.html' %}
 
@@ -71,7 +73,7 @@
           <!-- Dashboard Sidebar List -->
           {% block dash-sidebar %}
           {% include 'dashboard/includes/dash-sidebar-list.html' %}
-          {% endblock %}
+          {% endblock dash-sidebar %}
         </div>
         <!-- Dashboard Main -->
         <div class="dashboard__main pl0-md">

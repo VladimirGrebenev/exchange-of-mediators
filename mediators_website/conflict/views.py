@@ -110,6 +110,11 @@ class ConflictCreateView(CreateView):
         # Redirect to the success URL
         # return redirect(self.get_success_url())
 
+    def form_invalid(self, form):
+        context = {'form': form}
+        messages.error(self.request, 'Ошибка заполнения формы')
+        return render(self.request, self.template_name, context)
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         form = ConflictForm(initial={'creator': self.request.user})

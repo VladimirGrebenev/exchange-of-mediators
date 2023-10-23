@@ -24,7 +24,7 @@
         <div class="column">
             <div class="service-about">
                 <h3>{{ conflict.title }} <p class="preview">
-                    <a href=""
+                    <a href="{% url 'user-about' conflict.creator.id %}"
                        class="btn ud-btn btn-thm">Создатель конфликта: {{ conflict.creator.firstname }}
                                 {% if conflict.creator.profile_image %}
                                 <img class="img-fluid float-start rounded-circle mr10"

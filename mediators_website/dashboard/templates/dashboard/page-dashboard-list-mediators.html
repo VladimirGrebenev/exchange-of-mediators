@@ -1,6 +1,14 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with active_list_mediators='active' %}
+{% endblock dash-main-header-nav %}
+
+{% block dash-sidebar %}
+  {% include 'dashboard/includes/dash-sidebar-list.html' with active_list_mediators='-is-active' %}
+{% endblock %}
+
 {% block dash-content %}
 
 <!-- Title Mediators -->
@@ -129,15 +137,15 @@
                          <img class="rounded-circle mx-auto"
                               src="{{ mediator.profile_image.url }}"
                               alt="Аватар"
-                         style="width: 80px; height: 80px;"><span
-                            class="online"></span>
+                         style="width: 80px; height: 80px;">
+                         {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% else %}
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                         <!--                Next row must be changed-->
                         <img class="rounded-circle mx-auto"
                              src="{% static 'images/team/fl-1.png' %}" alt="">
-                        <span class="online"></span>
+                        {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% endif %}
                     <div class="details">
@@ -146,7 +154,7 @@
                         <!--                Next row must be changed-->
                         <div class="review"><p><i
                                 class="fas fa-star fz10 review-color pr10"></i><span
-                                class="dark-color fw500">4.9</span> (595
+                                class="dark-color fw500">{{ mediator.average_rating }}</span> (595
                             отзывов)</p></div>
 
                         <hr class="opacity-100 mt20 mb15">
@@ -158,7 +166,7 @@
                                     class="fz14 fw400">%{{ mediator.average_rating }}</span></a>
                         </div>
                         <div class="d-grid mt15">
-                            <a href="{% url 'mediator-detail' mediator.id %}"
+                            <a href="{% url 'mediator-about' mediator.id %}"
                                class="ud-btn btn-white2 bdrs90">Подробнее<i
                                     class="fal fa-arrow-right-long"></i></a>
                         </div>

@@ -1,9 +1,12 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
 
+{% block dash-main-header-nav %}
+{% include 'dashboard/includes/dash-main-header-nav.html' with active_start='active' %}
+{% endblock dash-main-header-nav %}
 
 {% block dash-sidebar %}
-  {% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
+{% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
 {% endblock %}
 
 
@@ -14,6 +17,10 @@
     <span class="text-secondary">Пользователя:</span>
   {% endif %}
   <span class="text-secondary">{{ user.firstname }} {{ user.lastname }}</span>
+  <br>
+  {% if user.is_superuser %}
+      <a href="/admin/" class="ud-btn text-secondary" id="adminLink">Администрирование</a>
+  {% endif %}
 {% endblock dash-description %}
 
 
@@ -81,20 +88,20 @@
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                          <img class="rounded-circle mx-auto"
                               src="{{ mediator.profile_image.url }}" alt="Аватар"
-                         style="width: 80px; height: 80px;"><span
-                            class="online"></span>
+                         style="width: 80px; height: 80px;">
+                         {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% else %}
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                         <img class="rounded-circle mx-auto"
-                             src="{% static 'images/team/fl-1.png' %}" alt="">
-                        <span class="online"></span>
+                             src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                        {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% endif %}
 <!--                  <img class="w-100 rounded-circle" height="120" width="100"  src="{% static 'images/blog/blog-15.jpg' %}" alt="">-->
                 </div>
                 <div class="list-content flex-grow-1 pt10 pb10 pl15 pl0-lg">
-                  <h5><a href="{% url 'mediator-detail' mediator.id %}">{{ mediator.lastname }}</a></h5>
+                  <h5><a href="{% url 'mediator-about' mediator.id %}">{{ mediator.lastname }} {{ mediator.firstname }}</a></h5>
                   <h6 class="list-title mb-2">{{ mediator.get_info.description }}</h6>
                   <div class="list-meta d-flex justify-content-between align-items-center">
                     <div class="review-meta d-flex align-items-center">

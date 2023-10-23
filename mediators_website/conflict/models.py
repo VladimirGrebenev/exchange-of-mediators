@@ -53,12 +53,18 @@ class PriseChoices(models.TextChoices):
 
 class LanguageLevel(models.TextChoices):
     """ Language Level Class """
-    BASIC_A_1 = 'A1', _(' A1 — Уровень выживания (Survival Level: Beginner и Elementary)')
-    BASIC_A_2 = 'A2', _(' A2 — Предпороговый уровень (Waystage: Pre-Intermediate)')
-    INDEPENDENT_B_1 = 'B1', _(' B1 — Пороговый уровень (Threshold: Intermediate)')
-    INDEPENDENT_B_2 = 'B2', _(' B2 — Пороговый продвинутый уровень (Vantage: Upper-Intermediate)')
-    PROFICIENT_C_1 = 'C1', _(' C1 — Уровень профессионального владения (Effective Operational Proficiency: Advanced)')
-    PROFICIENT_C_2 = 'C2', _(' C2 — Уровень владения в совершенстве (Mastery: Proficiency)')
+    BASIC_A_1 = 'A1', _(
+        ' A1 — Уровень выживания (Survival Level: Beginner и Elementary)')
+    BASIC_A_2 = 'A2', _(
+        ' A2 — Предпороговый уровень (Waystage: Pre-Intermediate)')
+    INDEPENDENT_B_1 = 'B1', _(
+        ' B1 — Пороговый уровень (Threshold: Intermediate)')
+    INDEPENDENT_B_2 = 'B2', _(
+        ' B2 — Пороговый продвинутый уровень (Vantage: Upper-Intermediate)')
+    PROFICIENT_C_1 = 'C1', _(
+        ' C1 — Уровень профессионального владения (Effective Operational Proficiency: Advanced)')
+    PROFICIENT_C_2 = 'C2', _(
+        ' C2 — Уровень владения в совершенстве (Mastery: Proficiency)')
 
 
 class DecidedTime(models.TextChoices):
@@ -85,20 +91,23 @@ class Conflict(models.Model):
     # prise = models.TextField(choices=PriseChoices.choices,
     #                          default=PriseChoices.CHOOSE,
     #                          verbose_name=_("Цена"))
-    fixed_price = models.FloatField(verbose_name=_("Цена"))
+    fixed_price = models.PositiveIntegerField(verbose_name=_("Цена"))
     decide_time = models.TextField(choices=DecidedTime.choices,
                                    default=DecidedTime.CHOOSE,
                                    verbose_name=_("Время на решение"))
-    country = models.CharField(max_length=256, null=True, verbose_name=_("Страна"))
+    country = models.CharField(max_length=256, null=True,
+                               verbose_name=_("Страна"))
     city = models.CharField(max_length=256, null=True, verbose_name=_("Город"))
     # language = models.CharField(max_length=256, null=True, verbose_name=_("Язык"))
     # language_level = models.TextField(choices=LanguageLevel.choices,
     #                                   default=LanguageLevel.BASIC_A_1,
     #                                   verbose_name=_("Уровень владения языком"))
     id = models.UUIDField(primary_key=True, default=uuid4)
-    title = models.CharField(max_length=256, verbose_name=_("Заголовок обращения"))
+    title = models.CharField(max_length=256,
+                             verbose_name=_("Заголовок обращения"))
     creator = models.ForeignKey(User, on_delete=models.CASCADE,
-                                verbose_name=_("Заявитель"), related_name='created_conflicts')
+                                verbose_name=_("Заявитель"),
+                                related_name='created_conflicts')
     mediator = models.ForeignKey(User, on_delete=models.CASCADE,
                                  verbose_name=_("Медиатор"), **NULLABLE,
                                  related_name='ownable_conflicts')
@@ -115,11 +124,13 @@ class Conflict(models.Model):
     #     verbose_name=_("Доступно для всех?")
     # )
     created = models.DateTimeField(auto_now_add=True,
+                                   verbose_name=_("Дата создания"),
                                    editable=False)
     updated = models.DateTimeField(auto_now=True,
                                    editable=False)
-    deleted = models.BooleanField(default=False, editable=False)
-    closed_at = models.DateTimeField(auto_now=True,
+    deleted = models.BooleanField(default=False, verbose_name=_("Удален"),
+                                  editable=False)
+    closed_at = models.DateTimeField(auto_now=True, verbose_name=_("Закрыт"),
                                      editable=False)
 
     def __str__(self) -> str:
@@ -129,15 +140,21 @@ class Conflict(models.Model):
         self.deleted = True
         self.save()
 
+    # def get_absolute_url(self):
+    #     return reverse('post', kwargs={'post_id': self.pk})
+
     class Meta:
-        verbose_name = _("Conflict")
-        verbose_name_plural = _("Conflict")
+        verbose_name = _("Конфликт")
+        verbose_name_plural = _("Конфликты")
         ordering = ("-created",)
 
 
 class Document(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, related_name='files', on_delete=models.CASCADE, verbose_name=_('Пользователь'))
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,
+                          verbose_name=_("ID документа"))
+    user = models.ForeignKey(User, related_name='files',
+                             on_delete=models.CASCADE,
+                             verbose_name=_('Пользователь'))
     conflict = models.ForeignKey(
         Conflict,
         on_delete=models.CASCADE,
@@ -145,42 +162,61 @@ class Document(models.Model):
         verbose_name=_('Обращение'),
         **NULLABLE,
     )
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
-    file_path = models.FileField(upload_to='documents_users', null=True)
-    is_all_visible = models.BooleanField(default=False, verbose_name='Виден всем?')
+    create_at = models.DateTimeField(auto_now_add=True,
+                                     verbose_name=_("Создан"))
+    update_at = models.DateTimeField(auto_now=True, verbose_name=_("Обновлен"))
+    file_path = models.FileField(upload_to='documents_users', null=True,
+                                 verbose_name=_("Путь к файлу"))
+    is_all_visible = models.BooleanField(default=False,
+                                         verbose_name='Виден всем?')
 
     def __str__(self):
         return f'{self.id}'
+
+    class Meta:
+        verbose_name = _("Документ")
+        verbose_name_plural = _("Документы")
 
 
 class ConflictResponse(models.Model):
     """
     Модель для откликов на конфликты
     """
-    id = models.UUIDField(primary_key=True, default=uuid4)
+    id = models.UUIDField(primary_key=True, default=uuid4, verbose_name=_("ID отклика"))
     conflict = models.ForeignKey(Conflict,
                                  on_delete=models.CASCADE,
                                  related_name='responses',
+                                 verbose_name=_("Обращение")
                                  )
     mediator = models.ForeignKey(Mediator,
                                  on_delete=models.CASCADE,
                                  related_name='conflicts',
+                                 verbose_name=_("Медиатор")
                                  )
     response_time = models.DateTimeField(auto_now_add=True,
-                                         editable=False)
-    rate = models.IntegerField(blank=False, null=False)  # Ставка от медиатора
+                                         editable=False,
+                                         verbose_name=_("Время ответа"))
+                           
+    rate = models.IntegerField(blank=False, null=False, verbose_name=_(
+        # blank=True, null=True, 
+        "Ставка медиатора"))  # Ставка от медиатора
     comment = models.TextField(
         max_length=500,
         error_messages={
             'required': 'Пожалуйста, заполните это поле.',
             'invalid': 'Оставьте комментарий к конфликту.',
-        }
+        },
+        verbose_name=_(
+         "Комментарий медиатора")
     )  # Комментарий от медиатора
-    time_for_conflict = models.IntegerField(blank=False, null=False)  # Время на решение конфликта
+    time_for_conflict = models.IntegerField(blank=False, null=False,
+                                            verbose_name=_(
+                                                "Время на решение"))  # Время на решение конфликта
 
     class Meta:
         ordering = ['-response_time']
+        verbose_name = _("Отклик на конфликт")
+        verbose_name_plural = _("Отклики на конфликты")
 
     def time_on_resolved(self) -> str:
         if self.time_for_conflict is None:
