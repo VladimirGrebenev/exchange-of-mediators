@@ -129,6 +129,22 @@ class UserConflictWorkplacelView(LoginRequiredMixin, DetailView):
     template_name = 'dashboard/page-dashboard-user-conflict-workplace.html'
     context_object_name = 'conflict'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = RespondentsForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Добавление участников конфликта"""
+        form = RespondentsForm(request.POST)
+        if form.is_valid():
+            conflict = self.get_object()
+            respondents = form.cleaned_data.get('respondents', [])
+            for respondent in respondents:
+                conflict.respondents.add(respondent)
+            return redirect('dashboard:conflict-workplace', pk=conflict.pk)
+        return render(request, 'dashboard/page-dashboard-conflict-workplace.html')
+
 
 class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
     """Получение рабочей страницы конфликта у медиатора"""
