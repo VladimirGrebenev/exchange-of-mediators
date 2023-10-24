@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 {{ top_mediators }}
 {% block content %}
 
@@ -87,7 +88,7 @@
 <!-- Listings All Lists -->
 <section class="pt30 pb90">
     <div class="container">
-        <div class="row align-items-center mb20">
+        {% comment %} <div class="row align-items-center mb20">
             <div class="col-sm-6 col-lg-9">
                 <div class="text-center text-sm-start">
                     <div class="dropdown-lists">
@@ -182,7 +183,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
         <div class="row">
             {% for mediator in page_obj %}
 
@@ -192,37 +193,39 @@
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                          <img class="rounded-circle mx-auto"
                               src="{{ mediator.profile_image.url }}" alt="Аватар"
-                         style="width: 80px; height: 80px;"><span
-                            class="online"></span>
+                         style="width: 80px; height: 80px;">
+                         {% comment %} <span
+                            class="online"></span> {% endcomment %}
                     </div>
                     {% else %}
                     <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                         <img class="rounded-circle mx-auto"
                              src="{% static 'images/team/fl-1.png' %}" alt="">
-                        <span class="online"></span>
+                        {% comment %} <span class="online"></span> {% endcomment %}
                     </div>
                     {% endif %}
                     <div class="details">
                         <h5 class="title mb-1">{{ mediator.firstname }} {{ mediator.lastname }}</h5>
                         <p class="mb-0">Семейный медиатор</p>
                         <!--                Next row must be changed-->
-                        <div class="review"><p><i
+                        <div class="review"><p>рейтинг<i
                                 class="fas fa-star fz10 review-color pr10"></i><span
-                                class="dark-color fw500">4.9</span> (595
-                            отзывов)</p></div>
+                                class="dark-color fw500">{{ mediator.average_rating }}</span> ({{ mediator.reviews.count|plural_word:"отзыв,отзыва,отзывов"}})</p></div>
 
                         <hr class="opacity-100 mt20 mb15">
-                        <div class="fl-meta d-flex align-items-center justify-content-between">
+                        {% comment %} <div class="fl-meta d-flex align-items-center justify-content-between">
                             <a class="meta fw500 text-start">Ставка<br><span
                                     class="fz14 fw400">$ {{ mediator.additionalinfo.rate }} /
                           час</span></a>
                             <a class="meta fw500 text-start">Результат<br><span
                                     class="fz14 fw400">%{{ mediator.average_rating }}</span></a>
-                        </div>
+                        </div> {% endcomment %}
                         <div class="d-grid mt15">
-                            <a href="{% url 'mediator-about' mediator.id %}"
-                               class="ud-btn btn-white2 bdrs90">Подробнее<i
-                                    class="fal fa-arrow-right-long"></i></a>
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'mediator-about' mediator.id %}" class="ud-btn btn-white2 bdrs90">Подробнее<i class="fal fa-arrow-right-long"></i></a>
+                            {% else %}
+                                <a href="{% url 'signing:login' %}" class="ud-btn btn-white2 bdrs90">Подробнее<i class="fal fa-arrow-right-long"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
