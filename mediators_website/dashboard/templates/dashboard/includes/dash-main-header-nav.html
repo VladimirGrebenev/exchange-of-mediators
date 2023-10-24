@@ -26,14 +26,14 @@
               <a href="#" class="dashboard_sidebar_toggle_icon vam"><img
                   src="{% static 'images/dashboard-navicon.svg' %}" alt=""></a>
             </div>
-            <a class="login-info d-block d-xl-none ml40 vam" data-bs-toggle="modal" href="#exampleModalToggle"
+            {% comment %} <a class="login-info d-block d-xl-none ml40 vam" data-bs-toggle="modal" href="#exampleModalToggle"
               role="button"><span class="flaticon-loupe"></span></a>
             <div class="ml40 d-none d-xl-block">
               <div class="search_area dashboard-style">
                 <input type="text" class="form-control border-0" placeholder="Давай попробуем что-то отыскать?">
                 <label><span class="flaticon-loupe"></span></label>
               </div>
-            </div>
+            </div> {% endcomment %}
           </div>
         </div>
         <div class="col-6 col-lg-auto">
@@ -135,7 +135,7 @@
               <li class="d-none d-sm-block">
                 <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
                   href=""><span class="flaticon-mail"></span></a>
-                <div class="dropdown-menu">
+                {% comment %} <div class="dropdown-menu">
                   <div class="dboard_notific_dd px30 pt20 pb15">
                     <div class="notif_list d-flex align-items-start bdrb1 pb25 mb10">
                       <img class="img-2" src="{% static 'images/testimonials/testi-1.png' %}" alt="">
@@ -158,9 +158,9 @@
                           class="fal fa-arrow-right-long"></i></a>
                     </div>
                   </div>
-                </div>
+                </div> {% endcomment %}
               </li>
-              <li class="d-none d-sm-block">
+              {% comment %} <li class="d-none d-sm-block">
                 <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
                   href=""><span class="flaticon-like"></span></a>
                 <div class="dropdown-menu">
@@ -202,7 +202,7 @@
                     </div>
                   </div>
                 </div>
-              </li>
+              </li> {% endcomment %}
               <li class="user_setting">
                 <div class="dropdown">
                   <a class="btn" href="#" data-bs-toggle="dropdown">

@@ -50,6 +50,7 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['objects_mediators'] = Mediator.objects.all().order_by('lastname')
         context['count_mediators'] = len(context['objects_mediators'])
+
         return context
 
 @login_required

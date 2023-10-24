@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.urls import include, path
 from django.conf.urls.static import static
+from django.contrib.auth.decorators import login_required
 
 from user.views import TopMediatorsList, ContactTopMediatorsList,  MediatorAboutView, ClientAboutView, delete_avatar
 
@@ -32,7 +33,7 @@ urlpatterns = [
         name='terms'),
     path(
         'mediators/',
-        TopMediatorsList.as_view(
+         TopMediatorsList.as_view(
             template_name='page-about.html'),
         name='mediators'
     ), 
