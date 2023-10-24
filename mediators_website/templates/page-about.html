@@ -7,73 +7,65 @@
 <!-- Highest Rated Mediators -->
 <section class="bgc-dark pb90 pb30-md">
     <div class="container">
-        <div class="row align-items-center wow fadeInUp">
-            <div class="col-lg-9">
-                <div class="main-title">
-                    <h2 class="title text-white">Медиаторы с высоким
-                        рейтингом</h2>
-                    <p class="paragraph text-white">Это наши лучшие медиаторы с
-                        огромным опытом работы и положительными отзывами</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="dots_nav_light navi_pagi_bottom_center slider-4-grid owl-carousel owl-theme">
-                    {% for top_mediator in top_mediators %}
-                    <div class="item">
-                        <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">
-                            {% if top_mediator.profile_image %}
-                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
-                         <img class="rounded-circle mx-auto"
-                              src="{{ top_mediator.profile_image.url }}"
-                              alt="Аватар"
-                         style="width: 80px; height: 80px;">
-                         {% comment %} <span
-                            class="online"></span> {% endcomment %}
-                    </div>
-                    {% else %}
-                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
-                        <img class="rounded-circle mx-auto"
-                             src="{% static 'images/team/fl-1.png' %}" alt="">
-                        {% comment %} <span class="online"></span> {% endcomment %}
-                    </div>
-                    {% endif %}
-                            <div class="details">
-                                <h5 class="title mb-1">{{ top_mediator.firstname }} {{top_mediator.lastname }}</h5>
-                                <p class="mb-0">Семейный медиатор</p>
-                                <div class="review"><p>рейтинг<i
-                                        class="fas fa-star fz10 review-color pr10"></i><span
-                                        class="dark-color fw500">{{top_mediator.average_rating}}</span>
-                                    ( {{ top_mediator.reviews.count|plural_word:"отзыв,отзыва,отзывов"}} )</p></div>
+<!--        <div class="row align-items-center wow fadeInUp">-->
+<!--            <div class="col-lg-9">-->
+<!--                <div class="main-title">-->
+<!--                    <h2 class="title text-white">Медиаторы с высоким-->
+<!--                        рейтингом</h2>-->
+<!--                    <p class="paragraph text-white">Это наши лучшие медиаторы с-->
+<!--                        огромным опытом работы и положительными отзывами</p>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-12">-->
+<!--                <div class="dots_nav_light navi_pagi_bottom_center slider-4-grid owl-carousel owl-theme">-->
+<!--                    {% for top_mediator in top_mediators %}-->
+<!--                    <div class="item">-->
+<!--                        <div class="freelancer-style1 text-center bdr1 bdrs16 hover-box-shadow">-->
+<!--                            {% if top_mediator.profile_image %}-->
+<!--                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
+<!--                         <img class="rounded-circle mx-auto"-->
+<!--                              src="{{ top_mediator.profile_image.url }}"-->
+<!--                              alt="Аватар"-->
+<!--                         style="width: 80px; height: 80px;"><span-->
+<!--                            class="online"></span>-->
+<!--                    </div>-->
+<!--                    {% else %}-->
+<!--                    <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">-->
+<!--                        <img class="rounded-circle mx-auto"-->
+<!--                             src="{% static 'images/team/fl-1.png' %}" alt="">-->
+<!--                        <span class="online"></span>-->
+<!--                    </div>-->
+<!--                    {% endif %}-->
+<!--                            <div class="details">-->
+<!--                                <h5 class="title mb-1">{{ top_mediator.firstname }} {{top_mediator.lastname }}</h5>-->
+<!--                                <p class="mb-0">Семейный медиатор</p>-->
+<!--                                <div class="review"><p><i-->
+<!--                                        class="fas fa-star fz10 review-color pr10"></i><span-->
+<!--                                        class="dark-color fw500">4.9</span>-->
+<!--                                    (595 отзывов)</p></div>-->
 
-                                <hr class="opacity-100 mt20 mb15">
-                                {% comment %} <div class="fl-meta d-flex align-items-center justify-content-between">
-                                    <a class="meta fw500 text-start">Ставка<br><span
-                                            class="fz14 fw400">${{ top_mediator.additionalinfo.rate }} / час</span></a>
-                                    <a class="meta fw500 text-start">Результат<br><span
-                                            class="fz14 fw400">%{{ top_mediator.average_rating }}</span></a>
-                                </div> {% endcomment %}
-                                <div class="d-grid mt15">
-                                    {% if user.is_authenticated %}
-                                        <a href="{% url 'mediator-about' top_mediator.id %}" class="ud-btn btn-white2 bdrs90">Подробнее<i class="fal fa-arrow-right-long"></i></a>
-                                    {% else %}
-                                        <a href="{% url 'signing:login' %}" class="ud-btn btn-white2 bdrs90">Подробнее<i class="fal fa-arrow-right-long"></i></a>
-                                    {% endif %}
-                                </div>
-                                {% comment %} <div class="d-grid mt15">
-                                    <a href="{% url 'mediator-about' top_mediator.id %}"
-                                       class="ud-btn btn-white2 bdrs90">Подробнее<i
-                                            class="fal fa-arrow-right-long"></i></a>
-                                </div> {% endcomment %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+<!--                                <hr class="opacity-100 mt20 mb15">-->
+<!--                                <div class="fl-meta d-flex align-items-center justify-content-between">-->
+<!--                                    <a class="meta fw500 text-start">Ставка<br><span-->
+<!--                                            class="fz14 fw400">${{ top_mediator.additionalinfo.rate }} / час</span></a>-->
+<!--                                    <a class="meta fw500 text-start">Результат<br><span-->
+<!--                                            class="fz14 fw400">%{{ top_mediator.average_rating }}</span></a>-->
+<!--                                </div>-->
+<!--                                <div class="d-grid mt15">-->
+<!--                                    <a href="{% url 'mediator-about' top_mediator.id %}"-->
+<!--                                       class="ud-btn btn-white2 bdrs90">Подробнее<i-->
+<!--                                            class="fal fa-arrow-right-long"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    {% endfor %}-->
 
-                </div>
-            </div>
-        </div>
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </section>
 
