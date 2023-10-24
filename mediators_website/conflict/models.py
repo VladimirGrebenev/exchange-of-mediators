@@ -118,8 +118,7 @@ class Conflict(models.Model):
         verbose_name=_('Остальные участники'),
         blank=True,
     )
-    description = models.TextField(blank=True, null=True,
-                                   verbose_name=_("Описание"))
+    description = models.TextField(verbose_name=_("Описание"))
     # is_all_visible = models.BooleanField(
     #     default=False,
     #     verbose_name=_("Доступно для всех?")
