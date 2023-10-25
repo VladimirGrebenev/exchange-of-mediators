@@ -96,10 +96,9 @@ class ConflictCreateView(CreateView):
         # Сохраняем форму конфликта
 
         conflict = form.save(commit=True)
-        messages.add_message(
-            self.request, LEVEL_MESSAGE,
+        messages.success(
+            self.request,
             f'Вы участник {form.cleaned_data["title"]}',
-            extra_tags='message_conflict',
         )
 
         # Логируем данные формы
@@ -108,7 +107,7 @@ class ConflictCreateView(CreateView):
 
     def form_invalid(self, form):
         context = {'form': form}
-        messages.error(self.request, 'Ошибка заполнения формы')
+        messages.error(self.request, 'Ошибка заполнения формы', extra_tags='danger')
         return render(self.request, self.template_name, context)
 
     def get_context_data(self, *args, **kwargs):

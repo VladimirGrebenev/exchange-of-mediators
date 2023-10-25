@@ -296,7 +296,7 @@ class MediatorConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailV
             messages.success(self.request, f'Ваш отклик опубликован',)
             return redirect(self.get_success_url())
 
-        messages.error(self.request, f'Ошибка заполнения формы',)
+        messages.error(self.request, f'Ошибка заполнения формы', extra_tags='danger')
         context = {
             'conflict': conflict,
             'mediator': mediator,
@@ -349,6 +349,8 @@ class UserConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailView)
                 conflict.mediator = Mediator.objects.get(pk=request.POST["mediat"])
                 conflict.status = 'В работе'
                 conflict.save()
+                messages.success(request, 'Медиатор назначен')
+                return redirect(reverse('dashboard:user-conflict-workplace', kwargs={'pk': conflict.id}))
 
         conflict = Conflict.objects.get(pk=kwargs.get('pk'))
         mediator = request.user

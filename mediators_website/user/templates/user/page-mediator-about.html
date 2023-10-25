@@ -2,6 +2,16 @@
 {% load static %}
 {% load custom_filters %}
 
+
+{% block dash-title %}
+Медиатор: {{ mediator.lastname}} {{ mediator.firstname }}
+{% endblock dash-title %}
+
+{% block dash-description %}
+Рейтинг на портале: {{ mediator.average_rating }}
+{% endblock dash-description %}
+
+
 {% block dash-content %}
 
 {% include 'reviews/includes/rating/rating-styles-mini.html' %}
