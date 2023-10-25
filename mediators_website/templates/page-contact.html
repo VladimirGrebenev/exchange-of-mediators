@@ -54,40 +54,69 @@
               <h4 class="form-title mb25">Напишите нам письмо</h4>
               <p class="text mb30">Ваш вопрос останется строго
                 конфиденциальным</p>
-              <form action="" class="form-style1">
+              <form action="" method="post" class="form-style1">
+                    {% csrf_token %}
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb20">
                       <label class="heading-color ff-heading fw500 mb10"
-                             for="">Имя</label>
-                      <input type="text" class="form-control"
-                             placeholder="Имя">
+                             >Имя</label>
+                       {{ form.name }}
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="mb20">
-                      <label class="heading-color ff-heading fw500 mb10" for="">Email</label>
-                      <input type="email" class="form-control"
-                             placeholder="Email">
+                      <label class="heading-color ff-heading fw500 mb10" >Email</label>
+                      {{ form.email }}
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="mb20">
                       <label class="heading-color ff-heading fw500 mb10"
-                             for="">Сообщение</label>
-                      <textarea name="" id="" cols="30" rows="6"
-                                placeholder="Опишите ваш вопрос"></textarea>
+                             >Сообщение</label>
+                      {{ form.message }}
                     </div>
                   </div>
                   <div class="col-md-12">
                     <div class="">
-                      <a class="ud-btn btn-dark"
-                         href="page-contact.html">Отправить
-                        <i class="fal fa-arrow-right-long"></i></a>
+                        <button class="ud-btn btn-dark" type="submit">Отправить
+                            <i class="fal fa-arrow-right-long"></i>
+                        </button>
                     </div>
                   </div>
                 </div>
               </form>
+
+
+
+<!--              <form action="" method="post" class="form-style1">-->
+<!--  {% csrf_token %}-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-6">-->
+<!--      <div class="mb20">-->
+<!--        <label class="heading-color ff-heading fw500 mb10" for="{{ form.name.id_for_label }}">Имя</label>-->
+<!--        {{ form.name }}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-6">-->
+<!--      <div class="mb20">-->
+<!--        <label class="heading-color ff-heading fw500 mb10" for="{{ form.email.id_for_label }}">Email</label>-->
+<!--        {{ form.email }}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-12">-->
+<!--      <div class="mb20">-->
+<!--        <label class="heading-color ff-heading fw500 mb10" for="{{ form.message.id_for_label }}">Сообщение</label>-->
+<!--        {{ form.message }}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-md-12">-->
+<!--      <div class="">-->
+<!--        <button type="submit" class="ud-btn btn-dark">Отправить <i class="fal fa-arrow-right-long"></i></button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</form>-->
             </div>
           </div>
         </div>

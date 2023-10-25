@@ -1,7 +1,8 @@
 from django.conf import settings
+from django.middleware.csrf import get_token
 from django.views import View
 
-from .models import EmailConfirmation, Mediator, User
+from .models import EmailConfirmation, Mediator, User, ContactMessage
 from reviews.models import Review
 
 from django.views.generic import ListView, DetailView, TemplateView
@@ -14,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Count
 
-from .forms import UserFormProfile, DeleteProfileForm
+from .forms import UserFormProfile, DeleteProfileForm, ContactMessageForm
 from conflict.models import Conflict
 from reviews.forms import ReviewForm
 
@@ -199,4 +200,26 @@ class ClientAboutView(DetailView):
         context['client'] = context['user']  # Заменяем имя переменной user на client
         del context['user']  # Удаляем переменную user из контекста
         return context
-    
+
+
+class ContactMessageView(View):
+    model = ContactMessage
+    template_name = 'page-contact.html'
+    # context_object_name = 'contacts-message'
+
+    def get(self, request):
+        form = ContactMessageForm()
+        return render(request, 'page-contact.html', {'form': form})
+
+    def post(self, request):
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ваше сообщение успешно отправлено.')
+            print("Имя: ", form.cleaned_data['name'])
+            print("email: ", form.cleaned_data['email'])
+            print("message: ", form.cleaned_data['message'])
+            return redirect('contacts')  # Перенаправляем на страницу контактов
+        else:
+            messages.error(request, 'Произошла ошибка в отправке формы. Пожалуйста, проверьте данные и попробуйте ещё раз.')
+        return render(request, 'page-contact.html', {'form': form, 'csrf_token': get_token(request)})
