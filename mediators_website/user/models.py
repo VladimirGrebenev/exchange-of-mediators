@@ -134,3 +134,25 @@ class AdditionalInfo(Mediator):
     class Meta:
         verbose_name = _("Дополнительная информация")
         verbose_name_plural = _("Дополнительная информация")
+
+
+class ContactMessage(models.Model):
+    create_at = models.DateTimeField(auto_now_add=True,
+                                     verbose_name=_("Создан"))
+    name = models.CharField(max_length=150, null=False, blank=False, verbose_name=_("Имя"))
+    email = models.EmailField(max_length=150, null=False, blank=False,
+                              verbose_name=_("Email"))
+    message = models.TextField(
+        null=False, blank=False,
+        max_length=500,
+        error_messages={
+            'required': 'Пожалуйста, заполните это поле.',
+            'invalid': 'Напишите нам сообщение.',
+        },
+        verbose_name=_(
+         "Сообщения пользователей"))
+
+    class Meta:
+        ordering = ['-create_at']
+        verbose_name = _("Сообщения пользователей")
+        verbose_name_plural = _("Сообщения пользователей")

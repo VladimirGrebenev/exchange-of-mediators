@@ -5,17 +5,24 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 
-from user.views import TopMediatorsList, ContactTopMediatorsList,  MediatorAboutView, ClientAboutView, delete_avatar
+from user.views import TopMediatorsList, ContactTopMediatorsList, \
+    MediatorAboutView, ClientAboutView, delete_avatar, ContactMessageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path(
-        'contacts/',
-        ContactTopMediatorsList.as_view(
-            template_name='page-contact.html'),
-        name='contacts'),
+    # path(
+    #     'contacts/',
+    #     ContactTopMediatorsList.as_view(
+    #         template_name='page-contact.html'),
+    #     name='contacts'),
+      path(
+          'contacts/',
+          ContactMessageView.as_view(
+              template_name='page-contact.html'),
+          name='contacts'),
+    # path('contacts/message/', ContactMessageView.as_view(), name='contacts-message'),
     path(
         'error/',
         TemplateView.as_view(
