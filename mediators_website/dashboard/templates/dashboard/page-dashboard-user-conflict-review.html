@@ -1,5 +1,17 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
+{% load custom_filters %}
+
+
+{% block dash-title %}
+Про конфликт
+{% endblock dash-title %}
+
+
+{% block dash-description %}
+<h5 class="fw-bold">{{ conflict.title }}</h5>
+{% endblock dash-description %}
+
 
 {% block dash-content %}
 
@@ -10,70 +22,74 @@
             <div class="col-lg-8">
                 <div class="column">
                     <div class="service-about">
-<!--                        <h3>Название конфликта</h3>-->
-                        <h3> {{ conflict.title }}</h3>
-                        <br>
-                        <h5>Описание конфликта</h5>
-                        <p> {{ conflict.description }} </p>
-
-                        <hr class="opacity-100 mb60 mt60">
-                        <h4 class="mb30">Прикреплённые файлы (пока это
-                            не трогаем)</h4>
                         <div class="row">
-                            <div class="col-6 col-lg-3">
-                                <div class="project-attach">
-                                    <h6 class="title">Договор</h6>
-                                    <p>PDF</p>
-                                    <span class="icon flaticon-page"></span>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3">
-                                <div class="project-attach">
-                                    <h6 class="title">Выписка с банка</h6>
-                                    <p>PDF</p>
-                                    <span class="icon flaticon-page"></span>
-                                </div>
-                            </div>
+                            <h5>Описание конфликта</h5>
+                            <p> {{ conflict.description }} </p>
+                            <hr class="opacity-100 mb60 mt60">
                         </div>
-                        <hr class="opacity-100 mb60 mt30">
-                        <h4 class="mb30">Категория конфликта</h4>
-                        <div class="mb60">
-                            <a href=""
-                               class="tag list-inline-item mb-2 mb-xl-0 mr10">
-                                {{ conflict.category }}</a>
-                        </div>
-                        <hr class="opacity-100 mb60">
-                        <h4 class="mb30">Отклики ({{ conflict.responses.count }})</h4>
+<!--                        <div class="row">-->
+<!--                            <h4 class="mb30">Прикреплённые файлы (пока это не трогаем)</h4>-->
+<!--                            <div class="col-6 col-lg-3">-->
+<!--                                <div class="project-attach">-->
+<!--                                    <h6 class="title">Договор</h6>-->
+<!--                                    <p>PDF</p>-->
+<!--                                    <span class="icon flaticon-page"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-6 col-lg-3">-->
+<!--                                <div class="project-attach">-->
+<!--                                    <h6 class="title">Выписка с банка</h6>-->
+<!--                                    <p>PDF</p>-->
+<!--                                    <span class="icon flaticon-page"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <hr class="opacity-100 mb60 mt30">-->
+<!--                        </div>-->
                         <div class="row">
+                            <h4 class="mb30">Категория конфликта</h4>
+                            <div class="mb60">
+                                <a href="" class="tag list-inline-item mb-2 mb-xl-0 mr10">
+                                    {{ conflict.category }}
+                                </a>
+                            </div>
+                            <hr class="opacity-100 mb60">
+                        </div>
+                        <div class="row">
+                            <h4 class="mb30">Отклики ({{ conflict.responses.count }})</h4>
                             {% for response in conflict.responses.all %}
                             <div class="col-md-6 col-lg-12">
                                 <div class="freelancer-style1 bdr1 hover-box-shadow row ms-0 align-items-start">
                                     <div class="col-xl-10 px-0">
                                         <div class="d-lg-flex">
                                             <div class="thumb w90 position-relative rounded-circle mb15-md">
+                                                <a href="{% url 'mediator-about' response.mediator.id %}">
                                                 {% if response.mediator.profile_image %}
                                                     <img class="rounded-circle mx-auto" src="{{ response.mediator.profile_image.url }}" style="width: 80px; height: 80px" alt="">
                                                 {% else %}
                                                     <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">
                                                 {% endif %}
+                                                </a>
 <!--                                                <img class="rounded-circle mx-auto"-->
 <!--                                                     src="{% static 'images/team/fl-1.png' %}"-->
 <!--                                                     alt="">-->
-                                                <span class="online"></span>
+<!--                                                <span class="online"></span>-->
                                             </div>
                                             <div class="details ml20 ml0-md mb15-md">
-                                                <h5 class="title mb-1"><a href="{% url 'mediator-about' response.mediator.id %}">{{ response.mediator.lastname }} {{ response.mediator.firstname }}</h5>
+                                                <h5 class="title mb-1">
+                                                  <a href="{% url 'mediator-about' response.mediator.id %}">
+                                                    {{ response.mediator.lastname }} {{ response.mediator.firstname }}
+                                                  </a>
+                                                </h5>
                                                 <div class="review mb20">
-                                                    <p
-                                                            class="mb-0 fz14 list-inline-item mb5-sm pe-1">
+                                                    <p class="mb-0 fz14 list-inline-item mb5-sm pe-1">
                                                         <i class="fas fa-star fz10 review-color pr10"></i>
                                                         <span class="dark-color">{{ response.mediator.average_rating }}</span>
-                                                        ({{ response.count_reviews }})</p>
-                                                    <p
-                                                            class="mb-0 fz14 list-inline-item mb5-sm pe-1">
+                                                        ({{ response.count_reviews }})
+                                                    </p>
+                                                    <p class="mb-0 fz14 list-inline-item mb5-sm pe-1">
                                                         <i class="flaticon-30-days fz16 vam text-thm2 me-1 bdrl1 bdrn-md pl15 pl0-md bdrn-xs"></i>
-                                                        {{ response.response_time|date:"d.m.Y H:i" }}</p>
-
+                                                        {{ response.response_time|date:"d.m.Y H:i" }}
+                                                    </p>
                                                 </div>
                                                 <p class="text mb-0">{{ response.comment }}</p>
                                             </div>
@@ -82,29 +98,24 @@
                                     <div class="col-xl-2 px-0">
                                         <div class="text-lg-center text-xl-end mt-0 mt-lg-2 mt-xl-0">
                                             <h4>{{ response.rate }} &#x20bd</h4>
-                                              {% if response.time_for_conflict %}
-                                            <p class="text mb-0">{{ response.time_on_resolved }}</p>
-                          {% endif %}
+                                            <p class="text mb-0">{{ response.time_for_conflict|plural_word:"день,дня,дней" }}</p>
                                         </div>
-
                                     </div>
+                                    <form method="post" class="comments_form mt30 mb30-md" >
+                                        {% csrf_token %}
+                                        <input type="hidden" name="mediat" value="{{response.mediator.id}}">
+                                        <input type="hidden" name="id" value="{{ conflict.id }}">
 
-                                  <form method="post" class="comments_form mt30 mb30-md" >
-                          {% csrf_token %}
-                            <input type="hidden" name="mediat" value="{{response.mediator.id}}">
-                            <input type="hidden" name="id" value="{{ conflict.id }}">
-
-                            {{ category }}
-                            <div class="d-grid">
-                          <button type="submit" class="ud-btn btn-dark">Выбрать медиатором конфликта
-                            <i class="fal fa-arrow-right-long"></i>
-                          </button>
-                            </div>
-                           </form>
+                                        {{ category }}
+                                        <div class="d-grid">
+                                            <button type="submit" class="ud-btn btn-dark">Выбрать медиатором конфликта
+                                                <i class="fal fa-arrow-right-long"></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             {% endfor %}
-
                         </div>
                     </div>
                 </div>
@@ -119,28 +130,30 @@
                             <h3 class="widget-title">{{ conflict.decide_time }}</h3>
                             <div class="details">
                                 <div class="fl-meta d-flex align-items-center justify-content-between">
-                                    <a class="meta fw500 text-start">Город:<br><span
-                                            class="fz14 fw400">{{ conflict.city }}</span></a>
-                                    <a class="meta fw500 text-start">Откликов:<br><span
-                                            class="fz14 fw400">{{ conflict.responses.count }}</span></a>
-                                    <a class="meta fw500 text-start">Открыт:<br><span
-                                            class="fz14 fw400">{{ conflict.created }}</span></a>
+                                    <a class="meta fw500 text-start">Город:<br>
+                                      <span class="fz13 fw400">{{ conflict.city }}</span>
+                                    </a>
+                                    <a class="meta fw500 text-center">Откликов:<br>
+                                      <span class="fz13 fw400">{{ conflict.responses.count }}</span>
+                                    </a>
+                                    <a class="meta fw500 text-end">Открыт:<br>
+                                      <span class="fz13 fw400">{{ conflict.created|date:"d.m.Y H:i" }}</span>
+                                    </a>
                                 </div>
                             </div>
                             <br>
-                          <form method="post" class="comments_form mt30 mb30-md" >
-                          {% csrf_token %}
-                            <input type="hidden" name="status" value="Завершен">
-                            <input type="hidden" name="id" value="{{ conflict.id }}">
+                            <form method="post" class="comments_form mt30 mb30-md" >
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="Завершен">
+                                <input type="hidden" name="id" value="{{ conflict.id }}">
 
-                            {{ category }}
-                            <div class="d-grid">
-                          <button type="submit" class="ud-btn btn-dark">Закрыть конфликт
-                            <i class="fal fa-arrow-right-long"></i>
-                          </button>
-
-                            </div>
-                           </form>
+                                {{ category }}
+                                <div class="d-grid">
+                                    <button type="submit" class="ud-btn btn-dark">Закрыть конфликт
+                                        <i class="fa fa-arrow-right-long"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

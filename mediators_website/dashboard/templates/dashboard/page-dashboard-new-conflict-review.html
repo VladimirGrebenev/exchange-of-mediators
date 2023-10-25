@@ -8,9 +8,11 @@
 {% endblock title %}
 
 {% block dash-title %}
+Неразрешенный конфликт
 {% endblock dash-title %}
 
 {% block dash-description %}
+Оставьте свой отклик на решение конфликта
 {% endblock dash-description %}
 
 {% block dash-content %}
@@ -22,37 +24,40 @@
           <div class="col-lg-8">
             <div class="column">
               <div class="service-about">
-                <h3>{{ conflict.title }}</h3>
-                  <br>
-                <h5>Описание конфликта</h5>
-                <p class="text mb30">{{ conflict.description }}</p>
 
-                <hr class="opacity-100 mb60 mt60">
-                <h4 class="mb30">Прикреплённые файлы (пока это не трогаем)</h4>
                 <div class="row">
-                  <div class="col-6 col-lg-3">
-                    <div class="project-attach">
-                      <h6 class="title">Договор</h6>
-                      <p>PDF</p>
-                      <span class="icon flaticon-page"></span>
-                    </div>
-                  </div>
-                  <div class="col-6 col-lg-3">
-                    <div class="project-attach">
-                      <h6 class="title">Выписка с банка</h6>
-                      <p>PDF</p>
-                      <span class="icon flaticon-page"></span>
-                    </div>
-                  </div>
+                  <h3 class="mb30">{{ conflict.title }}</h3>
+                  <h5>Описание конфликта</h5>
+                  <p class="text mb30">{{ conflict.description }}</p>
+                  <hr class="opacity-100">
                 </div>
-                <hr class="opacity-100 mb60 mt30">
-                <h4 class="mb30">Категория конфликта</h4>
-                <div class="mb60">
-                  <a href="" class="tag list-inline-item mb-2 mb-xl-0 mr10">{{ conflict.category }}</a>
-                </div>
-                <hr class="opacity-100 mb60">
-                <h4 class="mb30">Отклики ({{ conflict.responses.count }})</h4>
+<!--                <div class="row">-->
+<!--                  <h4 class="mb30">Прикреплённые файлы (пока это не трогаем)</h4>-->
+<!--                  <div class="col-6 col-lg-3">-->
+<!--                    <div class="project-attach">-->
+<!--                      <h6 class="title">Договор</h6>-->
+<!--                      <p>PDF</p>-->
+<!--                      <span class="icon flaticon-page"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                  <div class="col-6 col-lg-3">-->
+<!--                    <div class="project-attach">-->
+<!--                      <h6 class="title">Выписка с банка</h6>-->
+<!--                      <p>PDF</p>-->
+<!--                      <span class="icon flaticon-page"></span>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
                 <div class="row">
+                  <h4>Категория конфликта</h4>
+                  <div class="mb60">
+                    <a href="" class="tag list-inline-item mb-2 mb-xl-0 mr10">{{ conflict.category }}</a>
+                  </div>
+                  <hr class="opacity-100 mb60">
+                </div>
+
+                <div class="row">
+                  <h4 class="mb30">Отклики ({{ conflict.responses.count }})</h4>
                   {% for response in conflict.responses.all %}
                   <div class="col-md-6 col-lg-12">
                     <div class="freelancer-style1 bdr1 hover-box-shadow row ms-0 align-items-start">
@@ -201,8 +206,5 @@
         </div>
       </div>
     </section>
-
-
-
 <!-- Dashboard Content End -->
 {% endblock dash-content %}

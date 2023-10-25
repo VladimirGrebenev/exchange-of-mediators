@@ -9,6 +9,17 @@
 {% include 'dashboard/includes/dash-sidebar-list.html' with active_profile='-is-active' %}
 {% endblock %}
 
+
+{% block dash-title %}
+Мой профайл
+{% endblock dash-title %}
+
+
+{% block dash-description %}
+Береги честь смолоду
+{% endblock dash-description %}
+
+
 {% block dash-content %}
 <!-- Dashboard Content -->
 <style>
@@ -30,15 +41,7 @@
         /* или object-fit: cover; в зависимости от требуемого поведения */
     }
 </style>
-<div class="dashboard__content hover-bgc-color">
-    <div class="row pb40">
-        <div class="col-lg-9">
-            <div class="dashboard_title_area">
-                <h2>Мой профайл</h2>
-                <p class="text">Береги честь смолоду.</p>
-            </div>
-        </div>
-    </div>
+<div class="dashboard__content hover-bgc-color mt-50">
     <div class="row">
         <div class="col-xl-12">
             <form method="post" class="form-style1" enctype="multipart/form-data">

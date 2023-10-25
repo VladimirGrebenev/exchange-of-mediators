@@ -1,5 +1,16 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
+{% load custom_filters %}
+
+
+{% block dash-title %}
+Медиатор: {{ mediator.lastname}} {{ mediator.firstname }}
+{% endblock dash-title %}
+
+{% block dash-description %}
+Рейтинг на портале: {{ mediator.average_rating }}
+{% endblock dash-description %}
+
 
 {% block dash-content %}
 
@@ -231,14 +242,19 @@
                       <div class="row">
                         <div class="col-sm-4">
                           <div class="mb20">
-                              {% include 'reviews/includes/rating/rating-stars.html' %}
-                              {{ form.rating.errors }}
+                            {% include 'reviews/includes/rating/rating-stars.html' %}
+                            {{ form.rating.errors }}
                           </div>
                         </div>
                         <div class="col-sm-10">
                           <div class="mb10">
                             <label class="heading-color ff-heading fw500 mb10">Отзыв</label>
-                            {{ form.text }}
+                            {% if form.text.errors %}
+                              {{ form.text|input_error }}
+                              {{ form.text.errors|feedback_error }}
+                            {% else %}
+                              {{ form.text }}
+                            {% endif %}
                           </div>
                         </div>
                         <div class="col-sm-10">
