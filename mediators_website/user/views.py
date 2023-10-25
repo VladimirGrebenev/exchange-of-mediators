@@ -1,5 +1,9 @@
 from django.conf import settings
+
 from django.middleware.csrf import get_token
+
+from django.urls import reverse
+
 from django.views import View
 
 from .models import EmailConfirmation, Mediator, User, ContactMessage
@@ -27,11 +31,11 @@ class EmailConfirmView(View):
         try:
             email = EmailConfirmation.objects.get(approval_code=code)
         except EmailConfirmation.DoesNotExist:
-            messages.error(request, 'Something went wrong, try again and contact with technicals')
+            messages.error(request, 'Что-то пошло не так, попробуйте еще раз и обратитесь в службу технической поддержки', extra_tags='danger')
         else:
             email.is_approved = True
             email.save()
-            messages.success(request, 'Mail has been successfully confirmed')
+            messages.success(request, 'Почта успешно подтверждена')
         return redirect(settings.LOGIN_URL)
 
 
@@ -94,15 +98,15 @@ class DashboardProfileView(LoginRequiredMixin, View):
         if profile_form.is_valid():
 
             if 'password1' in request.POST and request.POST['password1'] != '' and request.POST['password2'] != '':
-                messages.add_message(request, LEVEL_MESSAGE, 'Пароль успешно изменен.', extra_tags='message_password')
+                messages.success(request, 'Пароль успешно изменен.')
             else:
-                messages.add_message(request, LEVEL_MESSAGE, 'Данные профиля успешно изменены.', extra_tags='message_profile')
+                messages.success(request, 'Данные профиля успешно изменены.')
 
             profile_form.save()
             update_session_auth_hash(request, user)
 
         else:
-            messages.error(request, 'Введены некорректные данные.')
+            messages.error(request, 'Введены некорректные данные.', extra_tags='danger')
 
         context = {
             'profile_form': profile_form,
@@ -171,24 +175,27 @@ class MediatorAboutView(DetailView):
 
     def post(self, request, *args, **kwargs):
         form = ReviewForm(request.POST)
-
         if form.is_valid():
             user = form.cleaned_data.get('from_user')
             mediator = form.cleaned_data.get('to_user')
             if user == mediator:
-                messages.error(request, 'Вы не можете оставить отзыв о себе')
+                messages.error(request, 'Вы не можете оставить отзыв о себе', extra_tags='danger')
             elif user.groups.first().name == 'mediator':
-                messages.error(request, 'Вы не можете оставить отзыв о другом медиаторе')
+                messages.error(request, 'Вы не можете оставить отзыв о другом медиаторе', extra_tags='danger')
             elif mediator.reviews.filter(from_user=user).count() > 0:
                 messages.info(request, 'Вы уже оставили отзыв')
             else:
                 form.save()
                 messages.success(request, 'Ваш отзыв учтен')
+                return redirect(reverse('reviews:list_review'))
             return redirect(self.get_success_url())
         else:
-            messages.error(request, 'Ошибка заполнения формы')
-            context = self.get_context_data()
-            redirect(self.get_success_url())
+            messages.error(request, 'Ошибка заполнения формы', extra_tags='danger')
+
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            context['form'] = form
+            return render(request, self.template_name, context=context)
 
 
 class ClientAboutView(DetailView):

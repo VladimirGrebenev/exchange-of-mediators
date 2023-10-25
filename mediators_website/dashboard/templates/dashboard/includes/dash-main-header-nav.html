@@ -38,98 +38,50 @@
         </div>
         <div class="col-6 col-lg-auto">
           <div class="text-center text-lg-end header_right_widgets">
-            <ul
-              class="dashboard_dd_menu_list d-flex align-items-center justify-content-center justify-content-sm-end mb-0 p-0">
+            <ul class="dashboard_dd_menu_list d-flex align-items-center justify-content-center justify-content-sm-end mb-0 p-0">
               <li class="d-none d-sm-block">
                 {% if messages %}
-                <div id="notification-message" class="notification-message">
-                  {% for message in messages %}
-                  {% if message.tags == 'error' %}
-                  <div class="alert alert-{{ message.tags }}" role="alert" style="background-color: hsl(0, 89%, 78%);">
-                    {{ message }}
+                  <div id="notification-message" class="notification-message mt10 ml40">
+                    {% for message in messages %}
+                      <div class="alert alert-{{ message.tags }}" role="alert" >
+                        {{ message }}
+                      </div>
+                    {% endfor %}
                   </div>
-                  {% else %}
-                  <div class="alert alert-{{ message.tags }}" role="alert"
-                    style="background-color: rgb(158, 248, 193);">
-                    {{ message }}
-                  </div>
-                  {% endif %}
-                  {% endfor %}
-                </div>
-                {% for message in messages %}
-                {% if message.tags == 'error' %}
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href="">
-                  <span class="flaticon-notification" id="notification-icon" style="color: hwb(0 2% 2%);"></span>
-                  <span class="online" id="notification-dot"
-                    style="background-color: rgb(250, 5, 5); width: 12px; height: 12px; border-radius: 50%; display: inline-block; position: absolute; top: 10px; left: 25px;"></span>
-                </a>
+
+                  <a class="btn text-center mr5 dropdown-toggle fz20" data-bs-toggle="dropdown" href="">
+                    <span class="flaticon-notification text-danger" id="notification-icon"></span>
+                    <span class="online bg-danger" id="notification-dot" style="width: 12px; height: 12px; position: absolute; top: 40px; left: 25px;"></span>
+                  </a>
                 {% else %}
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href="">
-                  <span class="flaticon-notification" id="notification-icon" style="color: rgb(158, 248, 193);"></span>
-                  <span class="online" id="notification-dot"
-                    style="background-color: rgb(158, 248, 193); width: 12px; height: 12px; border-radius: 50%; display: inline-block; position: absolute; top: 10px; left: 25px;"></span>
-                </a>
+                  <a class="btn fz20 disabled text-muted" href="#">
+                    <span class="flaticon-notification"></span>
+                  </a>
                 {% endif %}
-                {% endfor %}
-                {% else %}
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href="">
-                  <span class="flaticon-notification"></span>
-                </a>
-                {% endif %}
+
                 {% for message in messages %}
-                <div class="dropdown-menu">
-                  <div class="dboard_notific_dd px30 pt10 pb15">
-                    {% if message.tags == 'error' %}
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/close.png' %}" alt="">
-                      <div class="details ml10">
-                        <div style="color: hwb(0 3% 30%);">
-                          {{ message }}
+                    <div class="dropdown-menu">
+                      <div class="dboard_notific_dd px5">
+                        <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10 alert alert-{{ message.tags }}">
+                          {% if message.tags == 'debug' %}
+                            <img src="{% static 'images/resource/notif-5.png' %}" alt="">
+                          {% elif message.tags == 'info' %}
+                            <img src="{% static 'images/resource/notif-4.png' %}" alt="">
+                          {% elif message.tags == 'success' %}
+                            <img src="{% static 'images/resource/notif-3.png' %}" alt="">
+                          {% elif message.tags == 'warning' %}
+                            <img src="{% static 'images/resource/notif-2.png' %}" alt="">
+                          {% elif 'error' in message.tags or 'danger' in message.tags %}
+                            <img src="{% static 'images/resource/notif-1.png' %}" alt="">
+                          {% endif %}
+                          <div class="details ml10">
+                            <div class="text-dark">
+                              {{ message }}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    {% elif message.tags == 'message_profile' %}
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-1.png' %}" alt="">
-                      <div class="details ml10">
-                        <div style="color: hsl(145, 100%, 22%);">
-                          {{ message }}
-                        </div>
-                      </div>
-                    </div>
-                    {% elif message.tags == 'message_password' %}
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-2.png' %}" alt="">
-                      <div class="details ml10">
-                        <div style="color: hwb(145 15% 36%);">
-                          {{ message }}
-                        </div>
-                      </div>
-                    </div>
-                    {% elif message.tags == 'success' %}
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-3.png' %}" alt="">
-                      <div class="details ml10">
-                        <div style="color: hwb(145 15% 36%);">
-                          {{ message }}
-                        </div>
-                      </div>
-                    </div>
-                    {% elif message.tags == 'message_conflict' %}
-                    <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10">
-                      <img src="{% static 'images/resource/notif-4.png' %}" alt="">
-                      <div class="details ml10">
-                        <div style="color: hwb(145 15% 36%);">
-                          {{ message }}
-                        </div>
-                      </div>
-                    </div>
-                    {% endif %}
-                  </div>
-                </div>
                 {% endfor %}
               </li>
               <li class="d-none d-sm-block">
@@ -213,7 +165,7 @@
                         style="width: 50px; height: 50px; margin-right: 10px;">
                       {% else %}
                           <img class="w-40 rounded-circle wa-xs"
-                              src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                              src="{% static 'images/resource/user_default.png' %}" alt="">
                           {% comment %} <span class="online"></span> {% endcomment %}
 
                       {% endif %}
@@ -312,6 +264,7 @@
 
   notificationIcon.addEventListener('click', function () {
     notificationIcon.style.color = '';
+    notificationIcon.classList.remove('text-danger')
     notificationDot.style.display = 'none';
   });
 </script>

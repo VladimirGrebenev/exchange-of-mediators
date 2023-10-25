@@ -4,7 +4,7 @@ from django.http import HttpRequest
 from django.shortcuts import get_object_or_404, render, redirect
 
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 import logging
 
@@ -93,26 +93,21 @@ class ConflictCreateView(CreateView):
     def form_valid(self, form):
         form.instance.creator = self.request.user
         logger.info("Я попал в form_valid ")
-        print(form.cleaned_data)
         # Сохраняем форму конфликта
 
         conflict = form.save(commit=True)
-        messages.add_message(
-            self.request, LEVEL_MESSAGE,
+        messages.success(
+            self.request,
             f'Вы участник {form.cleaned_data["title"]}',
-            extra_tags='message_conflict',
         )
 
         # Логируем данные формы
         logger.info("Данные формы успешно прошли проверку")
-
-        return super().form_valid(form)
-        # Redirect to the success URL
-        # return redirect(self.get_success_url())
+        return redirect(reverse('dashboard:user-conflict-review', kwargs={'pk': conflict.id}))
 
     def form_invalid(self, form):
         context = {'form': form}
-        messages.error(self.request, 'Ошибка заполнения формы')
+        messages.error(self.request, 'Ошибка заполнения формы', extra_tags='danger')
         return render(self.request, self.template_name, context)
 
     def get_context_data(self, *args, **kwargs):

@@ -1,5 +1,16 @@
 {% extends 'dashboard/base-dashboard.html' %}
 {% load static %}
+{% load custom_filters %}
+
+
+{% block dash-title %}
+Медиатор: {{ mediator.lastname}} {{ mediator.firstname }}
+{% endblock dash-title %}
+
+{% block dash-description %}
+Рейтинг на портале: {{ mediator.average_rating }}
+{% endblock dash-description %}
+
 
 {% block dash-content %}
 
@@ -28,7 +39,7 @@
                           {% else %}
                           <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                               <img class="rounded-circle mx-auto"
-                                  src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                                  src="{% static 'images/resource/user_default.png' %}" alt="">
                               {% comment %} <span class="online"></span> {% endcomment %}
                           </div>
                           {% endif %}
@@ -162,7 +173,7 @@
                                                 style="width: 80px; height: 80px;">
                                           {% else %}
                                                 <img class="rounded-circle mx-auto"
-                                                  src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                                                  src="{% static 'images/resource/user_default.png' %}" alt="">
                                           {% endif %}
                                             <h4 class="timeline-title"> <a href="{% url 'user-about' review.from_user.pk %}"> {{ review.from_user.lastname }} {{ review.from_user.firstname }}</h4></a>
                                             <div>
@@ -231,14 +242,19 @@
                       <div class="row">
                         <div class="col-sm-4">
                           <div class="mb20">
-                              {% include 'reviews/includes/rating/rating-stars.html' %}
-                              {{ form.rating.errors }}
+                            {% include 'reviews/includes/rating/rating-stars.html' %}
+                            {{ form.rating.errors }}
                           </div>
                         </div>
                         <div class="col-sm-10">
                           <div class="mb10">
                             <label class="heading-color ff-heading fw500 mb10">Отзыв</label>
-                            {{ form.text }}
+                            {% if form.text.errors %}
+                              {{ form.text|input_error }}
+                              {{ form.text.errors|feedback_error }}
+                            {% else %}
+                              {{ form.text }}
+                            {% endif %}
                           </div>
                         </div>
                         <div class="col-sm-10">
