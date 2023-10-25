@@ -8,11 +8,29 @@
 {% include 'dashboard/includes/dash-sidebar-list.html' with active_list_review='-is-active' %}
 {% endblock %}
 
-{% block reviews-list-reviews %}
 
 {% include 'reviews/includes/rating/rating-styles-mini.html' %}
 
 
+{% block dash-title %}
+{% if view.request.user.groups.first.name == 'mediator' %}
+    Отзывы обо мне
+{% else %}
+    Мои отзывы
+{% endif %}
+{% endblock dash-title %}
+
+
+{% block dash-description %}
+{% if view.request.user.groups.first.name == 'mediator' %}
+    Отзывы - источник бесконечного смеха и радости
+{% else %}
+    Отзывы - как пирожки, один не возьмешь, а два уже много!
+{% endif %}
+{% endblock dash-description %}
+
+
+{% block dash-content %}
 <div class="container">
     <div class="row">
         <ul class="timeline">
@@ -21,16 +39,18 @@
                 <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
                 <div class="timeline-panel">
                     <div class="timeline-heading">
-                        <h4 class="timeline-title">{{ review.from_user.username }}</h4>
-                        <div>
-                            <small class="text-muted">{{ review.created_at }}</small>
-                            <div class="rating-mini">
-                                {% comment %} Строка нужной длины {% endcomment %}
-                                {% for item in ''|ljust:review.rating %}
-                                    <span class="active"></span>
-                                {% endfor %}
-                            </div>
+                        {% if view.request.user.groups.first.name == 'mediator' %}
+                            <h4 class="timeline-title">{{ review.from_user.lastname }} {{ review.from_user.firstname }}</h4>
+                        {% else %}
+                            <h4 class="timeline-title">{{ review.to_user.lastname }} {{ review.to_user.firstname }}</h4>
+                        {% endif %}
 
+                        <div>
+                            <small class="text-muted pe-2">{{ review.created_at }}</small>
+                            {% comment %} Строка нужной длины {% endcomment %}
+                            {% for item in ''|ljust:review.rating %}
+                                <i class="fa fa-star fz12 text-warning"></i>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="timeline-body">
@@ -43,4 +63,4 @@
         </ul>
     </div>
 </div>
-{% endblock reviews-list-reviews %}
+{% endblock dash-content %}

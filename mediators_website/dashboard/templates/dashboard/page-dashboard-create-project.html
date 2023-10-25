@@ -11,21 +11,21 @@
     {% include 'dashboard/includes/dash-sidebar-list.html' with active_create_project='-is-active'  %}
 {% endblock %}
 
+{% block dash-title %}
+Создать обращение
+{% endblock dash-title %}
+
+
+{% block dash-description %}
+Заполните форму обращения и опубликуйте
+{% endblock dash-description %}
+
 {% block dash-content %}
 <!-- Dashboard Content-->
-<div class="row pb40">
-    <div class="col-lg-9">
-        <div class="dashboard_title_area">
-            <h2>Создать обращение</h2>
-            <p class="text">Заполните форму обращения и опубликуйте</p>
-        </div>
-    </div>
-
-    <div class="col-lg-3">
-        <div class="text-lg-end">
-            <a href="/dashboard/user/manage-jobs/" class="ud-btn btn-dark" type="submit" >Мои конфликты<i
-                    class="fal fa-arrow-right-long"></i></a>
-        </div>
+<div class="row pb40 mt-120">
+    <div class="text-lg-end">
+        <a href="{% url 'dashboard:jobs' %}" class="ud-btn btn-dark" type="submit" >Мои конфликты<i
+                class="fal fa-arrow-right-long"></i></a>
     </div>
 </div>
 <div class="row">
