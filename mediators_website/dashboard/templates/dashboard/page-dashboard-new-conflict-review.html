@@ -67,7 +67,7 @@
                             {% if response.mediator.profile_image %}
                               <img class="rounded-circle mx-auto" src="{{ response.mediator.profile_image.url }}" style="width: 80px; height: 80px" alt="">
                             {% else %}
-                              <img class="rounded-circle mx-auto" src="{% static 'images/team/fl-1.png' %}" alt="">
+                              <img class="rounded-circle mx-auto" src="{% static 'images/resource/user_default.png' %}" alt="">
                             {% endif %}
                             <span class="online"></span>
                           </div>
@@ -175,7 +175,7 @@
                       {% if conflict.creator.profile_image %}
                       <img class="rounded-circle mx-auto" src="{{ conflict.creator.profile_image.url }}" style="width: 80px; height: 80px"  alt="">
                       {% else %}
-                      <img class="rounded-circle mx-auto" src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                      <img class="rounded-circle mx-auto" src="{% static 'images/resource/user_default.png' %}" alt="">
                       {% endif %}
 
                     </div>

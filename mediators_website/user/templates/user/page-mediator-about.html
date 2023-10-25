@@ -39,7 +39,7 @@
                           {% else %}
                           <div class="thumb w90 mb25 mx-auto position-relative rounded-circle">
                               <img class="rounded-circle mx-auto"
-                                  src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                                  src="{% static 'images/resource/user_default.png' %}" alt="">
                               {% comment %} <span class="online"></span> {% endcomment %}
                           </div>
                           {% endif %}
@@ -173,7 +173,7 @@
                                                 style="width: 80px; height: 80px;">
                                           {% else %}
                                                 <img class="rounded-circle mx-auto"
-                                                  src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                                                  src="{% static 'images/resource/user_default.png' %}" alt="">
                                           {% endif %}
                                             <h4 class="timeline-title"> <a href="{% url 'user-about' review.from_user.pk %}"> {{ review.from_user.lastname }} {{ review.from_user.firstname }}</h4></a>
                                             <div>

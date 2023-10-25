@@ -60,18 +60,28 @@
                 {% endif %}
 
                 {% for message in messages %}
-                <div class="dropdown-menu">
-                  <div class="dboard_notific_dd px5">
-                    <div class="d-flex alert alert-{{ message.tags }}">
-                      <i class="flaticon-next fz30 text-dark"></i>
-                      <div class="details ml10">
-                        <div class="text">
-                          {{ message }}
+                    <div class="dropdown-menu">
+                      <div class="dboard_notific_dd px5">
+                        <div class="notif_list d-flex align-items-center bdrb1 pb15 mb10 alert alert-{{ message.tags }}">
+                          {% if message.tags == 'debug' %}
+                            <img src="{% static 'images/resource/notif-5.png' %}" alt="">
+                          {% elif message.tags == 'info' %}
+                            <img src="{% static 'images/resource/notif-4.png' %}" alt="">
+                          {% elif message.tags == 'success' %}
+                            <img src="{% static 'images/resource/notif-3.png' %}" alt="">
+                          {% elif message.tags == 'warning' %}
+                            <img src="{% static 'images/resource/notif-2.png' %}" alt="">
+                          {% elif 'error' in message.tags or 'danger' in message.tags %}
+                            <img src="{% static 'images/resource/notif-1.png' %}" alt="">
+                          {% endif %}
+                          <div class="details ml10">
+                            <div class="text-dark">
+                              {{ message }}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
                 {% endfor %}
               </li>
               <li class="d-none d-sm-block">
@@ -155,7 +165,7 @@
                         style="width: 50px; height: 50px; margin-right: 10px;">
                       {% else %}
                           <img class="w-40 rounded-circle wa-xs"
-                              src="{% static 'images/apple-touch-icon-72x72.png' %}" alt="">
+                              src="{% static 'images/resource/user_default.png' %}" alt="">
                           {% comment %} <span class="online"></span> {% endcomment %}
 
                       {% endif %}
