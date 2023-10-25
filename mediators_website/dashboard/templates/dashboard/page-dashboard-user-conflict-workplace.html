@@ -2,18 +2,13 @@
 {% load static %}
 
 
-{% block dash-sidebar %}
-{% include 'dashboard/includes/dash-sidebar-list.html' with active_start='-is-active' %}
-{% endblock %}
+{% block dash-title %}
+Зона решения конфликта
+{% endblock dash-title %}
 
 
 {% block dash-description %}
-{% if user.groups.first.name == 'mediator' %}
-<span class="text-secondary">Медиатора:</span>
-{% else %}
-<span class="text-secondary">Пользователя:</span>
-{% endif %}
-<span class="text-secondary">{{ user.firstname }} {{ user.lastname }}</span>
+Досудебное решение
 {% endblock dash-description %}
 
 
@@ -23,26 +18,48 @@
     <div class="col-lg-8 p60">
         <div class="column">
             <div class="service-about">
-                <h3>{{ conflict.title }} <p class="preview">
-                    <a href="{% url 'mediator-about' conflict.mediator.id %}"
-                       class="btn ud-btn btn-thm">Медиатор: {{ conflict.mediator.firstname }}
-                                {% if conflict.mediator.profile_image %}
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{{ conflict.mediator.profile_image.url }}"
-                                     style="width: 50px; height: 50px; margin-right: 10px;">
-                                {% else %}
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/team/fl-1.png' %}"
-                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
-                                {% endif %}</a></p></h3>
-                <br>
-                <h5>Описание конфликта:</h5>
-                <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
-                <p class="text mb30">{{ conflict.description }}</p>
+                <h3>{{ conflict.title }}</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{% url 'user-about' conflict.creator.id %}"
+                           class="btn ud-btn btn-thm mb50 {% if conflict.creator == view.request.user %} disabled {% endif %}">
+                            {% if conflict.creator.profile_image %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{{ conflict.creator.profile_image.url }}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;">
+                            {% else %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{% static 'images/team/fl-1.png' %}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                            {% endif %}
+                            Создатель: {{ conflict.creator.firstname }}
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'mediator-about' conflict.mediator.id %}" class="btn ud-btn btn-thm mb50">
+                            {% if conflict.mediator.profile_image %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{{ conflict.mediator.profile_image.url }}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;">
+                            {% else %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{% static 'images/team/fl-1.png' %}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                            {% endif %}
+                            Медиатор: {{ conflict.mediator.firstname }}
+                        </a>
+                    </div>
                 </div>
-<!--                <hr class="opacity-100 mb60 mt30">-->
-<!--                <h4 class="mb30">Прикреплённые файлы (пока это нетрогаем)</h4>-->
+                <div class="row">
+                    <h5>Описание конфликта:</h5>
+                    <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
+                        <p class="text mb30">{{ conflict.description }}</p>
+                    </div>
+                    <hr class="opacity-100 mb60 mt30">
+                </div>
+
 <!--                <div class="row">-->
+<!--                    <h4 class="mb30">Прикреплённые файлы (пока это нетрогаем)</h4>-->
 <!--                    <div class="col-6 col-lg-3">-->
 <!--                        <div class="project-attach">-->
 <!--                            <h6 class="title">Договор</h6>-->
@@ -57,14 +74,9 @@
 <!--                            <span class="icon flaticon-page"></span>-->
 <!--                        </div>-->
 <!--                    </div>-->
-<!--                </div>-->
-<!--                <button type="button" class="ud-btn btn-gray me-2"-->
-<!--                        data-bs-toggle="tooltip" data-bs-placement="right"-->
-<!--                        title="Tooltip on right">Добавить документ</button>-->
             </div>
         </div>
     </div>
-
 </div>
 <div class="row mb40">
     <div class="col-lg-6 col-xl-5 col-xxl-4">

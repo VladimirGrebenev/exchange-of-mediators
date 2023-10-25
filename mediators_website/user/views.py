@@ -1,7 +1,12 @@
 from django.conf import settings
+
+from django.middleware.csrf import get_token
+
+from django.urls import reverse
+
 from django.views import View
 
-from .models import EmailConfirmation, Mediator, User
+from .models import EmailConfirmation, Mediator, User, ContactMessage
 from reviews.models import Review
 
 from django.views.generic import ListView, DetailView, TemplateView
@@ -14,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Count
 
-from .forms import UserFormProfile, DeleteProfileForm
+from .forms import UserFormProfile, DeleteProfileForm, ContactMessageForm
 from conflict.models import Conflict
 from reviews.forms import ReviewForm
 
@@ -26,11 +31,11 @@ class EmailConfirmView(View):
         try:
             email = EmailConfirmation.objects.get(approval_code=code)
         except EmailConfirmation.DoesNotExist:
-            messages.error(request, 'Something went wrong, try again and contact with technicals')
+            messages.error(request, 'Что-то пошло не так, попробуйте еще раз и обратитесь в службу технической поддержки', extra_tags='danger')
         else:
             email.is_approved = True
             email.save()
-            messages.success(request, 'Mail has been successfully confirmed')
+            messages.success(request, 'Почта успешно подтверждена')
         return redirect(settings.LOGIN_URL)
 
 
@@ -50,6 +55,7 @@ class TopMediatorsList(TopFiveMediatorsMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['objects_mediators'] = Mediator.objects.all().order_by('lastname')
         context['count_mediators'] = len(context['objects_mediators'])
+
         return context
 
 @login_required
@@ -92,15 +98,15 @@ class DashboardProfileView(LoginRequiredMixin, View):
         if profile_form.is_valid():
 
             if 'password1' in request.POST and request.POST['password1'] != '' and request.POST['password2'] != '':
-                messages.add_message(request, LEVEL_MESSAGE, 'Пароль успешно изменен.', extra_tags='message_password')
+                messages.success(request, 'Пароль успешно изменен.')
             else:
-                messages.add_message(request, LEVEL_MESSAGE, 'Данные профиля успешно изменены.', extra_tags='message_profile')
+                messages.success(request, 'Данные профиля успешно изменены.')
 
             profile_form.save()
             update_session_auth_hash(request, user)
 
         else:
-            messages.error(request, 'Введены некорректные данные.')
+            messages.error(request, 'Введены некорректные данные.', extra_tags='danger')
 
         context = {
             'profile_form': profile_form,
@@ -169,24 +175,27 @@ class MediatorAboutView(DetailView):
 
     def post(self, request, *args, **kwargs):
         form = ReviewForm(request.POST)
-
         if form.is_valid():
             user = form.cleaned_data.get('from_user')
             mediator = form.cleaned_data.get('to_user')
             if user == mediator:
-                messages.error(request, 'Вы не можете оставить отзыв о себе')
+                messages.error(request, 'Вы не можете оставить отзыв о себе', extra_tags='danger')
             elif user.groups.first().name == 'mediator':
-                messages.error(request, 'Вы не можете оставить отзыв о другом медиаторе')
+                messages.error(request, 'Вы не можете оставить отзыв о другом медиаторе', extra_tags='danger')
             elif mediator.reviews.filter(from_user=user).count() > 0:
                 messages.info(request, 'Вы уже оставили отзыв')
             else:
                 form.save()
                 messages.success(request, 'Ваш отзыв учтен')
+                return redirect(reverse('reviews:list_review'))
             return redirect(self.get_success_url())
         else:
-            messages.error(request, 'Ошибка заполнения формы')
-            context = self.get_context_data()
-            redirect(self.get_success_url())
+            messages.error(request, 'Ошибка заполнения формы', extra_tags='danger')
+
+            self.object = self.get_object()
+            context = self.get_context_data(object=self.object)
+            context['form'] = form
+            return render(request, self.template_name, context=context)
 
 
 class ClientAboutView(DetailView):
@@ -198,4 +207,26 @@ class ClientAboutView(DetailView):
         context['client'] = context['user']  # Заменяем имя переменной user на client
         del context['user']  # Удаляем переменную user из контекста
         return context
-    
+
+
+class ContactMessageView(View):
+    model = ContactMessage
+    template_name = 'page-contact.html'
+    # context_object_name = 'contacts-message'
+
+    def get(self, request):
+        form = ContactMessageForm()
+        return render(request, 'page-contact.html', {'form': form})
+
+    def post(self, request):
+        form = ContactMessageForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ваше сообщение успешно отправлено.')
+            print("Имя: ", form.cleaned_data['name'])
+            print("email: ", form.cleaned_data['email'])
+            print("message: ", form.cleaned_data['message'])
+            return redirect('contacts')  # Перенаправляем на страницу контактов
+        else:
+            messages.error(request, 'Произошла ошибка в отправке формы. Пожалуйста, проверьте данные и попробуйте ещё раз.')
+        return render(request, 'page-contact.html', {'form': form, 'csrf_token': get_token(request)})

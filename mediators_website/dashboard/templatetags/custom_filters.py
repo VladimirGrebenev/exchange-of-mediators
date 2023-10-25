@@ -19,6 +19,6 @@ def input_error(value):
 
 
 @register.filter
-def pluralize_word(value, words):
+def plural_word(value, words):
     sign, plur, other = words.split(',')
     return f'{value} {pluralize_word(value, sign, plur, other)}'

@@ -1,6 +1,7 @@
 import uuid
 from uuid import uuid4
 
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -117,8 +118,7 @@ class Conflict(models.Model):
         verbose_name=_('Остальные участники'),
         blank=True,
     )
-    description = models.TextField(blank=True, null=True,
-                                   verbose_name=_("Описание"))
+    description = models.TextField(verbose_name=_("Описание"))
     # is_all_visible = models.BooleanField(
     #     default=False,
     #     verbose_name=_("Доступно для всех?")
@@ -209,9 +209,14 @@ class ConflictResponse(models.Model):
         verbose_name=_(
          "Комментарий медиатора")
     )  # Комментарий от медиатора
-    time_for_conflict = models.IntegerField(blank=False, null=False,
-                                            verbose_name=_(
-                                                "Время на решение"))  # Время на решение конфликта
+    time_for_conflict = models.PositiveIntegerField(
+        validators=[MinValueValidator(1)],
+        verbose_name=_("Время на решение"),
+        error_messages={
+            'required': 'Значение должно быть положительным',
+            'min_value': 'Введите количество дней на решение конфликта'
+        },
+    )
 
     class Meta:
         ordering = ['-response_time']

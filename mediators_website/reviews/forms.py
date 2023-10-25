@@ -4,7 +4,7 @@ from user.models import User
 
 
 class ReviewForm(forms.ModelForm):
-
+    
     class Meta:
         model = Review
         fields = ('to_user', 'from_user', 'rating', 'text')

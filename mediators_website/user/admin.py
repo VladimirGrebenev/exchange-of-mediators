@@ -36,8 +36,17 @@ class MediatorAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 
+class ContactMessageAdmin(admin.ModelAdmin):
+    list_display = (
+        "name", "email",)
+    list_display_links = ("name",)
+    list_filter = ("name",)
+    list_per_page = 10
+
+
 admin.site.register(User, UserAdmin)
 admin.site.register(EmailConfirmation)
 admin.site.register(BasicUser, BasicUserAdmin)
 admin.site.register(Mediator, MediatorAdmin)
 admin.site.register(AdditionalInfo)
+admin.site.register(ContactMessage, ContactMessageAdmin)

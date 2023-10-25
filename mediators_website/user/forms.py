@@ -1,7 +1,8 @@
-from django.forms import ModelForm, CharField, TextInput, EmailInput, DateInput, PasswordInput, ValidationError
+from django.forms import ModelForm, CharField, TextInput, EmailInput, \
+    DateInput, PasswordInput, ValidationError, Textarea
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import models
-from .models import User
+from .models import User, ContactMessage
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 
@@ -118,4 +119,27 @@ class DeleteProfileForm(ModelForm):
         if commit:
             user.save()
         return user
-    
+
+
+class ContactMessageForm(ModelForm):
+
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'message']
+
+    widgets = {
+        "name": TextInput(attrs={
+            'class': "form-control",
+            'placeholder': "Ваше имя",
+        }),
+        "email": EmailInput(attrs={
+            'class': "form-control",
+            'placeholder': "Ваш email",
+        }),
+        "message": Textarea(attrs={
+            'cols': "30",
+            'rows': "6",
+            'class': "form-control",
+            'placeholder': "Ваше сообщение",
+        }),
+    }
