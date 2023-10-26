@@ -23,18 +23,38 @@
     <div class="col-lg-8 p60">
         <div class="column">
             <div class="service-about">
-                <h3>{{ conflict.title }} <p class="preview">
-                    <a href="{% url 'user-about' conflict.creator.id %}"
-                       class="btn ud-btn btn-thm">Создатель конфликта: {{ conflict.creator.firstname }}
-                                {% if conflict.creator.profile_image %}
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{{ conflict.creator.profile_image.url }}"
-                                     style="width: 50px; height: 50px; margin-right: 10px;">
-                                {% else %}
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/team/fl-1.png' %}"
-                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
-                                {% endif %}</a></p></h3>
+                <h3>{{ conflict.title }}</h3>
+                    <div class="row">
+                    <div class="col-md-6">
+                        <a href="{% url 'user-about' conflict.creator.id %}"
+                           class="btn ud-btn btn-thm mb50">
+                            {% if conflict.creator.profile_image %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{{ conflict.creator.profile_image.url }}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;">
+                            {% else %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{% static 'images/team/fl-1.png' %}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                            {% endif %}
+                            Создатель: {{ conflict.creator.firstname }}
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'mediator-about' conflict.mediator.id %}" class="btn ud-btn btn-thm mb50">
+                            {% if conflict.mediator.profile_image %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{{ conflict.mediator.profile_image.url }}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;">
+                            {% else %}
+                            <img class="img-fluid float-start rounded-circle mr10"
+                                 src="{% static 'images/team/fl-1.png' %}"
+                                 style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                            {% endif %}
+                            Медиатор: {{ conflict.mediator.firstname }}
+                        </a>
+                    </div>
+                </div>
                 <br>
                 <h5>Описание конфликта:</h5>
                 <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
@@ -95,7 +115,7 @@
                     {% if conflict.respondents.all %}
                     {% for respondent in conflict.respondents.all %}
                     <div class="list-item pt5">
-                        <a href="#">
+                        <a href="'user-about' conflict.creator.id">
                             <div class="d-flex align-items-center position-relative">
                                 {% if respondent.profile_image %}
                                 <img class="img-fluid float-start rounded-circle mr10"
@@ -148,6 +168,44 @@
             </div>
         </div>
     </div>
+                <div class="col-lg-4">
+                <div class="column">
+                    <div class="blog-sidebar ms-lg-auto">
+                        <div class="price-widget pt25 bdrs8">
+                            <p class="text fz14">Ваша цена:</p>
+                            <h3 class="widget-title">{{ conflict.fixed_price }} &#x20bd</h3>
+                            <p class="text fz14">Ваши сроки:</p>
+                            <h3 class="widget-title">{{ conflict.decide_time }}</h3>
+                            <div class="details">
+                                <div class="fl-meta d-flex align-items-center justify-content-between">
+                                    <a class="meta fw500 text-start">Город:<br>
+                                      <span class="fz13 fw400">{{ conflict.city }}</span>
+                                    </a>
+                                    <a class="meta fw500 text-end">Открыт:<br>
+                                      <span class="fz13 fw400">{{ conflict.created|date:"d.m.Y H:i" }}</span>
+                                    </a>
+                                    {% if conflict.status == 'Завершен' %}
+                                    <a class="meta fw500 text-end">Закрыт:<br>
+                                      <span class="fz13 fw400">{{ conflict.closed_at|date:"d.m.Y H:i" }}</span>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <br>
+                            <form method="post" action="" class="comments_form mt30 mb30-md" >
+                                {% csrf_token %}
+                                <input type="hidden" name="status" value="Завершен">
+                                <input type="hidden" name="id" value="{{ conflict.id }}">
+                                <div class="d-grid">
+                                    <button type="submit" class="ud-btn btn-dark">Закрыть конфликт
+                                        <i class="fa fa-arrow-right-long"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <!--    <div class="col-lg-6 col-xl-7 col-xxl-8">-->
 <!--        <h5>Комментарии:</h5>-->
 <!--        <div class="message_container mt30-md">-->
