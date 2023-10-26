@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from conflict.management.commands.create_response import CreateResponse
 from conflict.management.commands.create_conflict import CreateConflict
 from user.management.commands.create_user import CreateUser
+from user.management.commands.create_admin import CreateAdmin
 from user.models import User
 from reviews.management.commands.create_review import CreateReview
 
@@ -21,6 +22,7 @@ class Command(BaseCommand):
             Пример: python manage.py create_data 10
         
         Также отдельно каждую из указанных таблиц можно заполнить командами:
+            - create_admin;
             - create_user;
             - create_conflict;
             - create_review;
@@ -38,6 +40,11 @@ class Command(BaseCommand):
 
         green = '\033[92m'
         default = '\033[0m'
+
+        print(green + 'Create admin'.center(100, '=') + default)
+        admin = CreateAdmin()
+        admin.create(password='123', role='client', username='admin', server='mail.ru')
+        print()
 
         print(green + 'Create users'.center(100, '=') + default)
         for i in range(count, total + count):
