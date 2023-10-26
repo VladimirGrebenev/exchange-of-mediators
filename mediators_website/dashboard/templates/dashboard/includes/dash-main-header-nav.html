@@ -49,10 +49,16 @@
                     {% endfor %}
                   </div>
 
-                  <a class="btn text-center mr5 dropdown-toggle fz20" data-bs-toggle="dropdown" href="">
-                    <span class="flaticon-notification text-danger" id="notification-icon"></span>
-                    <span class="online bg-danger" id="notification-dot" style="width: 12px; height: 12px; position: absolute; top: 40px; left: 25px;"></span>
-                  </a>
+                  {% for message in messages %}
+                    <a class="btn text-center mr5 dropdown-toggle fz20" data-bs-toggle="dropdown" href="">
+                      <span class="flaticon-notification text-{{ message.tags }}" id="notification-icon"></span>
+                      <span class="online bg-{{ message.tags }}" id="notification-dot" style="width: 12px; height: 12px; position: absolute; top: 30px; left: 25px;"></span>
+                    </a>
+                  {% endfor %}
+<!--                  <a class="btn text-center mr5 dropdown-toggle fz20" data-bs-toggle="dropdown" href="">-->
+<!--                    <span class="flaticon-notification text-" id="notification-icon"></span>-->
+<!--                    <span class="online bg-warning" id="notification-dot" style="width: 12px; height: 12px; position: absolute; top: 40px; left: 25px;"></span>-->
+<!--                  </a>-->
                 {% else %}
                   <a class="btn fz20 disabled text-muted" href="#">
                     <span class="flaticon-notification"></span>
@@ -165,7 +171,7 @@
                         style="width: 50px; height: 50px; margin-right: 10px;">
                       {% else %}
                           <img class="w-40 rounded-circle wa-xs"
-                              src="{% static 'images/resource/user_default.png' %}" alt="">
+                              src="{% static 'images/resource/user_default.png' %}" alt="" style="width: 50px; height: 50px; margin-right: 10px;">
                           {% comment %} <span class="online"></span> {% endcomment %}
 
                       {% endif %}
@@ -263,8 +269,13 @@
   const notificationDot = document.getElementById('notification-dot');
 
   notificationIcon.addEventListener('click', function () {
-    notificationIcon.style.color = '';
-    notificationIcon.classList.remove('text-danger')
+    notificationIcon.classList.remove('text-success');
+    notificationIcon.classList.remove('text-warning');
+    notificationIcon.classList.remove('text-info');
+    notificationIcon.classList.remove('text-debug');
+    notificationIcon.classList.remove('text-danger');
+
+    notificationIcon.classList.add('text');
     notificationDot.style.display = 'none';
   });
 </script>
