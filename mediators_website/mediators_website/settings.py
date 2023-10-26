@@ -181,20 +181,20 @@ LOGGING = {
     },
     'handlers': {
         'file': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'class': 'logging.FileHandler',
             'filename': 'django.log',  # Имя файла для записи логов
             'formatter': 'verbose',
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'ERROR',
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'root': {
         'handlers': ['file', 'console'],
-        'level': 'DEBUG',  # Уровень логирования
+        'level': 'ERROR',  # Уровень логирования
     },
 }
 
@@ -202,9 +202,10 @@ LOGGING = {
 ASGI_APPLICATION = 'mediators_website.asgi.application'
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6380)],
-        },
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # "BACKEND": "channels_redis.core.RedisChannelLayer",
+        # "CONFIG": {
+        #     "hosts": [("127.0.0.1", 6380)],
+        # },
     },
 }

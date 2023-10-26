@@ -1,4 +1,5 @@
 import uuid
+from uuid import uuid4
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -134,3 +135,49 @@ class AdditionalInfo(Mediator):
     class Meta:
         verbose_name = _("Дополнительная информация")
         verbose_name_plural = _("Дополнительная информация")
+
+
+class UserMessage(models.Model):
+    """
+    Модель для сообщений в личной переписке
+    """
+    id = models.UUIDField(primary_key=True, default=uuid4, verbose_name=_("ID сообщения"))
+
+    from_user = models.ForeignKey(User,
+                                  on_delete=models.CASCADE,
+                                  related_name='user_from',
+                                  verbose_name=_("От пользователя")
+                                  )
+    to_user = models.ForeignKey(User,
+                                on_delete=models.CASCADE,
+                                related_name='user_to',
+                                verbose_name=_("Для пользователя")
+                                )
+    message_time = models.DateTimeField(auto_now_add=True,
+                                        editable=False,
+                                        verbose_name=_("Время сообщения"))
+    message = models.TextField(
+        max_length=1000,
+        verbose_name=_(
+            "Сообщение")
+    )
+    class Meta:
+        ordering = ['-message_time']
+        verbose_name = _("Сообщение в конфликте")
+        verbose_name_plural = _("Сообщения в конфликте")
+
+
+class ContactUser(models.Model):
+    """
+    Модель для контактов пользователя
+    """
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name='user_to_contact',
+                             verbose_name=_("От пользователя")
+                             )
+    contact = models.ForeignKey(User,
+                                on_delete=models.CASCADE,
+                                related_name='user_contact',
+                                verbose_name=_("От пользователя")
+                                )

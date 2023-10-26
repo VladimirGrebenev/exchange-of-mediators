@@ -1,7 +1,7 @@
-from django.forms import ModelForm, CharField, TextInput, EmailInput, DateInput, PasswordInput, ValidationError
+from django.forms import ModelForm, CharField, TextInput, EmailInput, DateInput, PasswordInput, ValidationError, SelectMultiple, ModelChoiceField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import models
-from .models import User
+from .models import User, ContactUser
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 
@@ -118,4 +118,22 @@ class DeleteProfileForm(ModelForm):
         if commit:
             user.save()
         return user
-    
+
+
+class ContactForm(ModelForm):
+    contact = ModelChoiceField(queryset=User.objects.all())
+    class Meta:
+        model = User
+        print(dir(ContactUser))
+
+        fields = ['contact']
+        widgets = {
+            'contact': SelectMultiple(
+                attrs={"placeholder": "Выберите пользователей", "class": "selectpicker"})
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['contact'].queryset = User.objects.all()
+        # self.fields['user_contact'].queryset = User.objects.exclude(id__in=self.instance.user_contact.all())
+

@@ -3,7 +3,9 @@
 
 
 {% block dash-title %}
-<h1>Мои сообщения</h1>
+<h1>Мои сообщения
+
+</h1>
 {% endblock dash-title %}
 
 {% block dash-description %}
@@ -25,95 +27,206 @@
 
 <div class="row mb40">
     <div class="col-lg-6 col-xl-5 col-xxl-4">
-        <h5>Мои контакты: </h5>
+        <h5>Контакты: </h5>
         <div class="message_container">
             <div class="inbox_user_list">
                 <div class="iu_heading pr35">
-                    <div class="chat_user_search">
-                        <form class="d-flex align-items-center">
-                            <button class="btn" type="submit"><span
-                                    class="far fa-magnifying-glass"></span>
-                            </button>
-                            <input class="form-control" type="search"
-                                   placeholder=" Искать" aria-label="Search">
-                        </form>
+                <center><form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form.contact }}
+                    <div class="col-md-12">
+                        <div class="text-start">
+                            <center><button class="ud-btn btn-thm" type="submit">Добавить участников
+                                <i class="fal fa-arrow-right-long"></i>
+                            </button></center>
+                        </div>
                     </div>
+                </form></center>
                 </div>
                 <div class="chat-member-list pr20">
+                    {% if contacts_user %}
+                    {% for contact in contacts_user %}
                     <div class="list-item pt5">
-                        <a href="#">
+                        <a href="{% url 'dashboard:my-messages' %}{{contact.contact.id}}/">
                             <div class="d-flex align-items-center position-relative">
+                                {% if contact.contact.profile_image %}
                                 <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms1.png' %}"
-                                     alt="ms1.png">
+                                     src="{{ respondent.profile_image.url }}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{% static 'images/team/fl-1.png' %}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                                {% endif %}
                                 <div class="d-sm-flex">
                                     <div class="d-inline-block">
                                         <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Darlene Robertson
+                                            {{ contact.contact.firstname }} {{ contact.contact.lastname }}
                                         </div>
+                                    </div>
+                                    <div class="switch-style1">
+<!--                                        <div-->
+<!--                                                class="form-check form-switch ml20 mb20">-->
+<!--                                            <input class="form-check-input"-->
+<!--                                                   type="checkbox"-->
+<!--                                                   id="flexSwitchCheckDefault1"-->
+<!--                                                   checked="checked">-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                    <div class="list-item">
-                        <a href="#">
-                            <div class="d-flex align-items-center position-relative">
-                                <img class="img-fluid float-start rounded-circle mr10"
-                                     src="{% static 'images/inbox/ms5.png' %}"
-                                     alt="ms5.png">
-                                <div class="d-sm-flex">
-                                    <div class="d-inline-block">
-                                        <div class="fz15 fw500 dark-color ff-heading mb-0">
-                                            Лора Пилигримм
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                    {% endfor %}
+                    {% else %}
+                    <div class="chat-member-list pr20">
+                        <div class="fz15 fw500 dark-color ff-heading mb-0">
+                            Участников пока нет
+                        </div>
                     </div>
-
+                    {% endif %}
                 </div>
+<!--                <div class="iu_heading pr35">-->
+<!--                    <div class="chat_user_search">-->
+<!--                        <form class="d-flex align-items-center">-->
+<!--                            <button class="btn" type="submit"><span-->
+<!--                                    class="far fa-magnifying-glass"></span>-->
+<!--                            </button>-->
+<!--                            <input class="form-control" type="search"-->
+<!--                                   placeholder=" Искать" aria-label="Search">-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
+
+
+<!--<div class="row mb40">-->
+<!--    <div class="col-lg-6 col-xl-5 col-xxl-4">-->
+<!--        <h5>Мои контакты: </h5>-->
+<!--        <div class="message_container">-->
+<!--            <div class="inbox_user_list">-->
+<!--                <div class="iu_heading pr35">-->
+<!--                    <div class="chat_user_search">-->
+<!--                        <form class="d-flex align-items-center">-->
+<!--                            <button class="btn" type="submit"><span-->
+<!--                                    class="far fa-magnifying-glass"></span>-->
+<!--                            </button>-->
+<!--                            <input class="form-control" type="search"-->
+<!--                                   placeholder=" Искать" aria-label="Search">-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="chat-member-list pr20">-->
+<!--                    <div class="list-item pt5">-->
+<!--                        <a href="#">-->
+<!--                            <div class="d-flex align-items-center position-relative">-->
+<!--                                <img class="img-fluid float-start rounded-circle mr10"-->
+<!--                                     src="{% static 'images/inbox/ms1.png' %}"-->
+<!--                                     alt="ms1.png">-->
+<!--                                <div class="d-sm-flex">-->
+<!--                                    <div class="d-inline-block">-->
+<!--                                        <div class="fz15 fw500 dark-color ff-heading mb-0">-->
+<!--                                            Darlene Robertson-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div class="list-item">-->
+<!--                        <a href="#">-->
+<!--                            <div class="d-flex align-items-center position-relative">-->
+<!--                                <img class="img-fluid float-start rounded-circle mr10"-->
+<!--                                     src="{% static 'images/inbox/ms5.png' %}"-->
+<!--                                     alt="ms5.png">-->
+<!--                                <div class="d-sm-flex">-->
+<!--                                    <div class="d-inline-block">-->
+<!--                                        <div class="fz15 fw500 dark-color ff-heading mb-0">-->
+<!--                                            Лора Пилигримм-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
     <div class="col-lg-6 col-xl-7 col-xxl-8">
         <h5>Личный чат:</h5>
+
+        {% if user_from_contact %}
+
+        <div class="mi_text">
+
+                <div class="message_input">
+<!--                    <form class="d-flex align-items-center">-->
+                        <input id="chat-message-input" class="form-control" type="search"
+                               placeholder="Напиши сообщение"
+                               aria-label="Search">
+                        <button id="chat-message-submit" class="btn ud-btn btn-thm">Отправить<i
+                                class="fal fa-arrow-right-long"></i></button>
+<!--                    </form>-->
+                </div>
+        </div>
+
+
         <div class="message_container mt30-md">
             <div class="user_heading px-0 mx30">
                 <div class="wrap">
-                    <img class="img-fluid mr10"
-                         src="{% static 'images/inbox/ms3.png' %}"
-                         alt="ms3.png">
+                  {% if user_from_contact.profile_image %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{{ user_from_contact.profile_image.url }}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;">
+                                {% else %}
+                                <img class="img-fluid float-start rounded-circle mr10"
+                                     src="{% static 'images/team/fl-1.png' %}"
+                                     style="width: 50px; height: 50px; margin-right: 10px;" alt="">
+                                {% endif %}
+
+<!--                    <img class="img-fluid mr10" src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                         alt="ms3.png">-->
                     <div class="meta d-sm-flex justify-content-sm-between align-items-center">
                         <div class="authors">
-                            <h6 class="name mb-0">Arlene McCoy</h6>
-                            <p class="preview">На портале</p>
+                            <h6 class="name mb-0">{{ user_from_contact.firstname }} {{user_from_contact.lastname }}</h6>
+                            <p class="preview">Переписка с пользователем</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="inbox_chatting_box" style="">
-                <ul class="chatting_content">
+
+            <div  class="inbox_chatting_box" style="">
+                <ul  id="chat-log" class="chatting_content">
+
+                    {% for message in user_messages %}
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms4.png' %}"
-                                 alt="ms4.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms4.png' %}" alt="ms4.png">-->
+                            <div class="title fz15">
+                              {% if message.from_user == user %}Вы{% else %}
+                              {{ message.from_user.firstname }} {{ message.from_user.lastname }}
+                              {%endif %}
+                              <small
+                                    class="ml10">{{ message.message_time | date:'d-m-Y H:i' }}</small></div>
                         </div>
-                        <p>How likely are you to recommend our company to your
-                            friends and family?</p>
+                        <p>{{ message.message }}</p>
                     </li>
+                    {% endfor %}
+
+
                     <li class="reply float-end">
                         <div class="d-flex align-items-center justify-content-end mb15">
                             <div class="title fz15"><small class="mr10">35
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms5.png' %}"
-                                 alt="ms5.png">
+                                 src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
                         </div>
                         <p>Hey there, we’re just writing to let you know that
                             you’ve been subscribed to a repository on
@@ -122,8 +235,7 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms5.png' %}"
-                                 alt="ms5.png' %}">
+                                 src="{% static 'images/inbox/ms5.png" alt="ms5.png' %}">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -135,16 +247,14 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms5.png' %}"
-                                 alt="ms5.png">
+                                 src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
                         </div>
                         <p>The project finally complete! Let's go to!.</p>
                     </li>
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -153,8 +263,7 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -164,8 +273,7 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -177,8 +285,7 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}"
-                                 alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
                         </div>
                         <p>simply dummy text of the printing and typesetting
                             industry. Lorem Ipsum has been the industry's</p>
@@ -189,8 +296,7 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}"
-                                 alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
                         </div>
                         <p>Are we meeting today?</p>
                     </li>
@@ -200,16 +306,14 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}"
-                                 alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
                         </div>
                         <p>The project finally complete! Let's go to!</p>
                     </li>
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -218,8 +322,7 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -232,8 +335,7 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}"
-                                 alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
                         </div>
                         <p>Are we meeting today?</p>
                     </li>
@@ -243,16 +345,14 @@
                                 mins</small> You
                             </div>
                             <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}"
-                                 alt="ms3.png">
+                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
                         </div>
                         <p>The project finally complete! Let's go to!</p>
                     </li>
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -261,8 +361,7 @@
                     <li class="sent float-start">
                         <div class="d-flex align-items-center mb15">
                             <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}"
-                                 alt="ms2.png">
+                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
                             <div class="title fz15">Albert Flores <small
                                     class="ml10">35 mins</small></div>
                         </div>
@@ -271,20 +370,332 @@
                     </li>
                 </ul>
             </div>
-            <div class="mi_text">
-                <div class="message_input">
-                    <form class="d-flex align-items-center">
-                        <input class="form-control" type="search"
-                               placeholder="Напиши комментарий"
-                               aria-label="Search">
-                        <button class="btn ud-btn btn-thm">Отправить<i
-                                class="fal fa-arrow-right-long"></i></button>
-                    </form>
+<!--            <div class="mi_text">-->
+<!--                <div class="message_input">-->
+<!--&lt;!&ndash;                    <form class="d-flex align-items-center">&ndash;&gt;-->
+<!--                        <input id="chat-message-input" class="form-control" type="search"-->
+<!--                               placeholder="Напиши комментарий"-->
+<!--                               aria-label="Search">-->
+<!--                        <button id="chat-message-submit" class="btn ud-btn btn-thm">Отправить<i-->
+<!--                                class="fal fa-arrow-right-long"></i></button>-->
+<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+
+        </div>
+        {% else %}
+
+        <div class="message_container mt30-md">
+            <div class="user_heading px-0 mx30">
+                <div class="wrap">
+                    <p>Не выбран адрессат</p>
                 </div>
             </div>
         </div>
+
+        {% endif %}
     </div>
 </div>
+
+
+<!--        <div class="message_container mt30-md">-->
+<!--            <div class="user_heading px-0 mx30">-->
+<!--                <div class="wrap">-->
+<!--                    <img class="img-fluid mr10"-->
+<!--                         src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                         alt="ms3.png">-->
+<!--                    <div class="meta d-sm-flex justify-content-sm-between align-items-center">-->
+<!--                        <div class="authors">-->
+<!--                            <h6 class="name mb-0">Arlene McCoy</h6>-->
+<!--                            <p class="preview">На портале</p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="inbox_chatting_box" style="">-->
+<!--                <ul class="chatting_content">-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms4.png' %}"-->
+<!--                                 alt="ms4.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins </small></div>-->
+<!--                        </div>-->
+<!--                        <p>How likely are you to recommend our company to your-->
+<!--                            friends and family?</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins </small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms5.png' %}"-->
+<!--                                 alt="ms5.png">-->
+<!--                        </div>-->
+<!--                        <p>Hey there, we’re just writing to let you know that-->
+<!--                            you’ve been subscribed to a repository on-->
+<!--                            GitHub.</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms5.png' %}"-->
+<!--                                 alt="ms5.png' %}">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>Ok, Understood!</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins</small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms5.png' %}"-->
+<!--                                 alt="ms5.png">-->
+<!--                        </div>-->
+<!--                        <p>The project finally complete! Let's go to!.</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>Let's go!</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>simply dummy text of the printing and typesetting-->
+<!--                            industry. Lorem Ipsum has been the industry's</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>Hello, John!</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins</small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                                 alt="ms3.png">-->
+<!--                        </div>-->
+<!--                        <p>simply dummy text of the printing and typesetting-->
+<!--                            industry. Lorem Ipsum has been the industry's</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins</small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                                 alt="ms3.png">-->
+<!--                        </div>-->
+<!--                        <p>Are we meeting today?</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins</small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                                 alt="ms3.png">-->
+<!--                        </div>-->
+<!--                        <p>The project finally complete! Let's go to!</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>Let's go!</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>simply dummy text of the printing and typesetting-->
+<!--                            industry. Lorem Ipsum has been the industry's</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins</small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                                 alt="ms3.png">-->
+<!--                        </div>-->
+<!--                        <p>Are we meeting today?</p>-->
+<!--                    </li>-->
+<!--                    <li class="reply float-end">-->
+<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
+<!--                            <div class="title fz15"><small class="mr10">35-->
+<!--                                mins</small> You-->
+<!--                            </div>-->
+<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
+<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
+<!--                                 alt="ms3.png">-->
+<!--                        </div>-->
+<!--                        <p>The project finally complete! Let's go to!</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>Let's go!</p>-->
+<!--                    </li>-->
+<!--                    <li class="sent float-start">-->
+<!--                        <div class="d-flex align-items-center mb15">-->
+<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
+<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
+<!--                                 alt="ms2.png">-->
+<!--                            <div class="title fz15">Albert Flores <small-->
+<!--                                    class="ml10">35 mins</small></div>-->
+<!--                        </div>-->
+<!--                        <p>simply dummy text of the printing and typesetting-->
+<!--                            industry. Lorem Ipsum has been the industry's</p>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            <div class="mi_text">-->
+<!--                <div class="message_input">-->
+<!--                    <form class="d-flex align-items-center">-->
+<!--                        <input class="form-control" type="search"-->
+<!--                               placeholder="Напиши комментарий"-->
+<!--                               aria-label="Search">-->
+<!--                        <button class="btn ud-btn btn-thm">Отправить<i-->
+<!--                                class="fal fa-arrow-right-long"></i></button>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+{{ id_user_from_pk }}
+{{ id_user|json_script:"room-name1" }}
+{{ id_user_from_pk|json_script:"room-name2" }}
+
+<script>
+<!--const id_1 = JSON.parse(document.getElementById('room-name1').textContent);-->
+<!--const id_2 = JSON.parse(document.getElementById('room-name2').textContent);-->
+<!--var roomName-->
+<!--if (id_1 < id_2) {-->
+<!--roomName = id_1 + id_2;-->
+<!--console.log('TTTTTTTTTTTTTTTT');-->
+<!--} else {-->
+<!--console.log('RRRRRRRRRRRRRR');-->
+<!--roomName = id_2 + id_1;-->
+<!--}-->
+
+<!--console.log(id_1);-->
+<!--console.log(id_2);-->
+<!--console.log(roomName);-->
+</script>
+
+{% if user_from_contact %}
+
+<script>
+
+        const id_1 = JSON.parse(document.getElementById('room-name1').textContent);
+        const id_2 = JSON.parse(document.getElementById('room-name2').textContent);
+        var roomName
+        if (id_1 < id_2) {
+        roomName = id_1 + id_2;
+        console.log('TTTTTTTTTTTTTTTT');
+                    } else {
+        console.log('RRRRRRRRRRRRRR');
+        roomName = id_2 + id_1;
+                    }
+
+
+
+<!--        const roomName = JSON.parse(document.getElementById('room-name').textContent);-->
+        console.log('RoomName is ==', roomName)
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/dashboard/my-messages/'
+            + roomName
+            + '/'
+        );
+
+        console.log('chatSoket is ==', chatSocket)
+
+        chatSocket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log('data is ', data)
+            document.querySelector('#chat-log').value += (data.sender_lastname + '  ' + data.sender_firstname + ' ' + data.message + '\n');
+
+            var block = document.createElement('li');
+<!--            var li_text = data.message-->
+            var html_block = '<div class="d-flex align-items-center mb15">' + '<div class="title fz15">' + data.sender_firstname + ' ' + data.sender_lastname + '<small class="ml10">' + data.message_time + '</small></div></div><p>' + data.message + '</p>'
+            block.innerHTML = html_block
+            console.log(block);
+            ul_block = document.querySelectorAll('#chat-log')[0];
+            console.log(ul_block);
+            ul_block.prepend(block);
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.key === 'Enter') {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            const id_from_msg = id_1;
+            const id_to_msg = id_2;
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'id_from_msg': id_from_msg,
+                'id_to_msg': id_to_msg
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+
+{% endif %}
 
 <!-- Dashboard Content End -->
 {% endblock dash-content %}

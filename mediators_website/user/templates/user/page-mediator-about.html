@@ -33,7 +33,7 @@
                           </div>
                           {% endif %}
                           <div class="ml20 ml0-xs">
-                            <h5 class="title mb-1">{{ mediator.lastname }} {{ mediator.firstname }}</h5>
+                            <h5 class="title mb-1">{{ mediator.firstname }} {{ mediator.lastname }}</h5>
                             <p class="mb-0">Медиатор</p>
                             <p
                                     class="mb-0 dark-color fz15 fw500 list-inline-item mb5-sm"><i class="fas fa-star vam fz10 review-color me-2"></i> рейтинг {{ mediator.average_rating }} / {{ quantity_reviews }} отзыва</p>
@@ -69,28 +69,28 @@
                   </div>
                 </div>
               </div>
-              {% if view.request.user.is_authenticated %}
-                <div class="service-about">
-                  <div class="bsp_reveiw_wrt p30 mb30 bg-white bdrs12 wow fadeInUp bdr1">
-                    <h6 class="fz17">Написать</h6>
-                    <form class="comments_form mt30 mb30-md">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="mb-4">
-                            <label class="fw500 fz16 ff-heading dark-color mb-2">Сообщение</label>
-                            <textarea class="pt15" rows="6" placeholder="Ваше сообщение"></textarea>
-                          </div>
-                        </div>
-                        <div class="col-md-12">
-                          <a href="" class="ud-btn btn-dark">Отправить
-                            <i class="fal fa-arrow-right-long"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              {% endif %}
+<!--              {% if view.request.user.is_authenticated %}-->
+<!--                <div class="service-about">-->
+<!--                  <div class="bsp_reveiw_wrt p30 mb30 bg-white bdrs12 wow fadeInUp bdr1">-->
+<!--                    <h6 class="fz17">Написать</h6>-->
+<!--                    <form class="comments_form mt30 mb30-md">-->
+<!--                      <div class="row">-->
+<!--                        <div class="col-md-12">-->
+<!--                          <div class="mb-4">-->
+<!--                            <label class="fw500 fz16 ff-heading dark-color mb-2">Сообщение</label>-->
+<!--                            <textarea class="pt15" rows="6" placeholder="Ваше сообщение"></textarea>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-12">-->
+<!--                          <a href="" class="ud-btn btn-dark">Отправить-->
+<!--                            <i class="fal fa-arrow-right-long"></i>-->
+<!--                          </a>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </form>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              {% endif %}-->
 
               
               <div class="service-about">

@@ -10,13 +10,14 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.db.models import Q
 from django.contrib import messages
 
-from user.models import Mediator, BasicUser
+from user.models import Mediator, BasicUser, User, UserMessage, ContactUser
 
 from utils.views_mixins import PermissionByGroupMixin
 from utils.common import sample_queryset
 
 from conflict.models import Conflict
 from conflict.forms import ResponseForm, ResponseUserForm
+from user.forms import ContactForm
 
 import logging
 
@@ -358,3 +359,119 @@ class UserConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailView)
             'form': form
         }
         return render(request, 'dashboard/page-dashboard-user-conflict-review.html', context)
+
+
+class UserMessageView(LoginRequiredMixin, ListView):
+    """Просмотр сообщений у User"""
+    model = UserMessage
+    template_name = 'dashboard/page-dashboard-my-messages.html'
+    context_object_name = 'message'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print('((((((((((((((((((((((((((((((((((')
+        # room = kwargs['object'].pk
+        # context['room_name'] = kwargs['object'].pk
+        # user_messages = UserMessage.objects.filter(conflict_id=room)
+        user = self.request.user
+        user_messages = UserMessage.objects.filter(Q(from_user=user.id) | Q(to_user=user.id))
+        print(user_messages)
+        contacts_user = ContactUser.objects.filter(user=user.id)
+        # print(self.request.user, dir(self.request.user))
+
+        context['user_messages'] = user_messages
+        context['user'] = user
+        context['contacts_user'] = contacts_user
+        # for obj in conflict_messages:
+        #     print(f'------ conflict = { obj.user.firstname} ')
+        # print(f'------ conflict = {conflict} ')
+        # print(kwargs['object'].pk, dir(kwargs['object']))
+        # print('+++++++++++', kwargs['Conflict'])
+
+        context['form'] = ContactForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Добавление участников в контакты пользователя"""
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # conflict = self.get_object()
+            contact = form.cleaned_data.get('contact', [])
+            # ContactUser.objects.filter(user=self.request.user, contact=contact)[0]
+            try:
+                ContactUser.objects.filter(user=self.request.user, contact=contact)[0]
+            except IndexError:
+                if self.request.user != contact:
+                    contact_elem = ContactUser(user=self.request.user, contact=contact)
+                    contact_elem.save()
+                    print(f'elem saved !!!!')
+            print(self.request.user)
+            print(f'+++ contact = {contact}')
+            # for contact in contacts:
+                # conflict.respondents.add(contact)
+            return redirect('dashboard:my-messages')
+        return render(request, 'dashboard/page-dashboard-my-messages.html')
+
+
+class UserMessageParamView(LoginRequiredMixin, ListView):
+    """Просмотр сообщений у User при откртыии страницы с параметрами"""
+    model = UserMessage
+    template_name = 'dashboard/page-dashboard-my-messages.html'
+    context_object_name = 'message'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print('AAAAAAAAAAAAAAAAAAAAAa')
+        # print('1111111111111', kwargs['u2'])
+        # print(self.kwargs['u2'])
+        # room = kwargs['object'].pk
+        # print(self.kwargs)
+        # context['room_name'] = kwargs['object'].pk
+        # user_messages = UserMessage.objects.filter(conflict_id=room)
+        user = self.request.user  # Пользователь основной
+        id_user_from_pk = self.kwargs['u2']  # UUID пользователя из контактов
+        user_from_pk = User.objects.filter(id=id_user_from_pk)[0]
+        print(f'===++=== user = {user.id}, user_from_pk = {id_user_from_pk}')
+        user_messages = UserMessage.objects.filter(
+            Q(from_user=user.id, to_user=user_from_pk) | Q(from_user=user_from_pk, to_user=user.id))
+        print(user_messages)
+        contacts_user = ContactUser.objects.filter(user=user.id)
+        # print(self.request.user, dir(self.request.user))
+
+        context['user_messages'] = user_messages
+        context['user'] = user
+        context['contacts_user'] = contacts_user
+        context['user_from_contact'] = user_from_pk
+        context['id_user_from_pk'] = id_user_from_pk
+        context['id_user'] = user.id
+        print(f'-----------{user.id}')
+
+        # for obj in conflict_messages:
+        #     print(f'------ conflict = { obj.user.firstname} ')
+        # print(f'------ conflict = {conflict} ')
+        # print(kwargs['object'].pk, dir(kwargs['object']))
+        # print('+++++++++++', kwargs['Conflict'])
+
+        context['form'] = ContactForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Добавление участников в контакты пользователя"""
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            # conflict = self.get_object()
+            contact = form.cleaned_data.get('contact', [])
+            # ContactUser.objects.filter(user=self.request.user, contact=contact)[0]
+            try:
+                ContactUser.objects.filter(user=self.request.user, contact=contact)[0]
+            except IndexError:
+                if self.request.user != contact:
+                    contact_elem = ContactUser(user=self.request.user, contact=contact)
+                    contact_elem.save()
+                    print(f'elem saved !!!!')
+            print(self.request.user)
+            print(f'+++ contact = {contact}')
+            # for contact in contacts:
+                # conflict.respondents.add(contact)
+            return redirect('dashboard:my-messages')
+        return render(request, 'dashboard/page-dashboard-my-messages.html')
