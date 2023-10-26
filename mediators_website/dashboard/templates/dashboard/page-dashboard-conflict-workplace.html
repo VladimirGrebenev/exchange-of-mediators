@@ -7,13 +7,13 @@
 {% endblock %}
 
 
+{% block dash-title %}
+Зона решения конфликта
+{% endblock dash-title %}
+
+
 {% block dash-description %}
-{% if user.groups.first.name == 'mediator' %}
-<span class="text-secondary">Медиатора:</span>
-{% else %}
-<span class="text-secondary">Пользователя:</span>
-{% endif %}
-<span class="text-secondary">{{ user.firstname }} {{ user.lastname }}</span>
+Досудебное решение
 {% endblock dash-description %}
 
 
