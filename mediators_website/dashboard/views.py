@@ -108,8 +108,7 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
     paginate_by = 10 # Количество конфликтов на одной странице
 
     def get_queryset(self):
-        return Conflict.objects.filter(Q(creator=self.request.user) | Q(respondents=self.request.user), deleted=False)
-
+        return Conflict.objects.filter(Q(creator=self.request.user) | Q(respondents=self.request.user)).distinct()
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     user = self.request.user
