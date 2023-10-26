@@ -141,12 +141,20 @@ class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        """Добавление участников конфликта"""
         form = RespondentsForm(request.POST)
+        if 'status' in request.POST:
+            """Завершение конфликта"""
+            status = request.POST["status"]
+            conflict = self.get_object()
+            conflict.status = status
+            conflict.save()
+            return redirect('dashboard:conflict-workplace', pk=conflict.pk)
         if form.is_valid():
+            """Добавление участников конфликта"""
             conflict = self.get_object()
             respondents = form.cleaned_data.get('respondents', [])
             for respondent in respondents:
                 conflict.respondents.add(respondent)
             return redirect('dashboard:conflict-workplace', pk=conflict.pk)
         return render(request, 'dashboard/page-dashboard-conflict-workplace.html')
+
