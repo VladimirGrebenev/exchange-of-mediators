@@ -40,7 +40,7 @@
                         </ul>
                         {% if request.user.is_authenticated %}
                             <a class="login-info ml30 mr10 home18-sign-btn px30 py-1 bdrs12"
-                               href="{% url 'signing:logout' %}"> {{ user.firstname }} | Выйти
+                               href="{% url 'signing:logout' %}"> {{ user.lastname }} {{ user.firstname }} | Выйти
                             </a>
                         {% else %}
                             <a class="login-info ml30 mr10 home18-sign-btn px30 py-1 bdrs12"

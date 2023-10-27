@@ -91,32 +91,10 @@
                 {% endfor %}
               </li>
               <li class="d-none d-sm-block">
-                <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
-                  href=""><span class="flaticon-mail"></span></a>
-                {% comment %} <div class="dropdown-menu">
-                  <div class="dboard_notific_dd px30 pt20 pb15">
-                    <div class="notif_list d-flex align-items-start bdrb1 pb25 mb10">
-                      <img class="img-2" src="{% static 'images/testimonials/testi-1.png' %}" alt="">
-                      <div class="details ml15">
-                        <p class="dark-color fw500 mb-2">Иван Иванов</p>
-                        <p class="text mb-2">Хочу решить конфликт.</p>
-                        <p class="mb-0 text-thm">4 часа назад</p>
-                      </div>
-                    </div>
-                    <div class="notif_list d-flex align-items-start mb25">
-                      <img class="img-2" src="{% static 'images/testimonials/testi-2.png' %}" alt="">
-                      <div class="details ml15">
-                        <p class="dark-color fw500 mb-2">Фёдор Игнатов</p>
-                        <p class="text mb-2">Нужно решить конфликт.</p>
-                        <p class="mb-0 text-thm">4 часа назад</p>
-                      </div>
-                    </div>
-                    <div class="d-grid">
-                      <a href="page-dashboard-message.html" class="ud-btn btn-thm w-100">Все сообщения<i
-                          class="fal fa-arrow-right-long"></i></a>
-                    </div>
-                  </div>
-                </div> {% endcomment %}
+
+                <a class="text-center mr5 text-thm2 fz20" type="button"
+                  href="{% url 'dashboard:my-messages' %}"><span class="flaticon-mail"></span></a>
+
               </li>
               {% comment %} <li class="d-none d-sm-block">
                 <a class="text-center mr5 text-thm2 dropdown-toggle fz20" type="button" data-bs-toggle="dropdown"
@@ -165,7 +143,7 @@
                 <div class="dropdown">
                   <a class="btn" href="#" data-bs-toggle="dropdown">
                     <p class="fz18 fw400 ff-heading mb10 pl30">
-                      {{ request.user.firstname }}
+                      {{ request.user.firstname }} {{ request.user.lastname }}
                       {% if user.profile_image %}
                       <img class="w-40 rounded-circle wa-xs" src="{{ user.profile_image.url }}" alt="Аватар"
                         style="width: 50px; height: 50px; margin-right: 10px;">

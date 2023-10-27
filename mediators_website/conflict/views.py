@@ -12,7 +12,7 @@ from django.views import View
 from django.views.generic import FormView, TemplateView, CreateView, DetailView
 
 from conflict.forms import ConflictForm, DocumentForm, RespondentsForm
-from conflict.models import Conflict, Document
+from conflict.models import Conflict, Document, ConflictMessage
 from user.models import BasicUser
 
 LEVEL_MESSAGE = 50
@@ -125,6 +125,10 @@ class UserConflictWorkplacelView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        room = kwargs['object'].pk
+        context['room_name'] = kwargs['object'].pk
+        conflict_messages = ConflictMessage.objects.filter(conflict_id=room)
+        context['conflict_messages'] = conflict_messages
         context['form'] = RespondentsForm()
         return context
 
@@ -138,6 +142,11 @@ class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = RespondentsForm()
+
+        room = kwargs['object'].pk
+        context['room_name'] = kwargs['object'].pk
+        conflict_messages = ConflictMessage.objects.filter(conflict_id=room)
+        context['conflict_messages'] = conflict_messages
         return context
 
     def post(self, request, *args, **kwargs):

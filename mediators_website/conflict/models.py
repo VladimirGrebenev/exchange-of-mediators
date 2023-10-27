@@ -233,3 +233,32 @@ class ConflictResponse(models.Model):
     def count_reviews(self) -> str:
         return (f"{self.mediator.reviews.count()} "
                 f"{pluralize_word(self.mediator.reviews.count(), 'отзыв', 'отзыва', 'отзывов')}")
+
+
+class ConflictMessage(models.Model):
+    """
+    Модель для сообщений в конфликтах
+    """
+    id = models.UUIDField(primary_key=True, default=uuid4, verbose_name=_("ID сообщения"))
+    conflict = models.ForeignKey(Conflict,
+                                 on_delete=models.CASCADE,
+                                 related_name='conflicts',
+                                 verbose_name=_("Конфликт")
+                                 )
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name='users',
+                             verbose_name=_("Пользователь")
+                             )
+    message_time = models.DateTimeField(auto_now_add=True,
+                                         editable=False,
+                                         verbose_name=_("Время ответа"))
+    message = models.TextField(
+        max_length=1000,
+        verbose_name=_(
+            "Сообщение")
+    )
+    class Meta:
+        ordering = ['-message_time']
+        verbose_name = _("Сообщение в конфликте")
+        verbose_name_plural = _("Сообщения в конфликте")

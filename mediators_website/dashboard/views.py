@@ -10,13 +10,14 @@ from django.views.generic import TemplateView, ListView, DetailView
 from django.db.models import Q
 from django.contrib import messages
 
-from user.models import Mediator, BasicUser
+from user.models import Mediator, BasicUser, User, UserMessage, ContactUser
 
 from utils.views_mixins import PermissionByGroupMixin
 from utils.common import sample_queryset
 
 from conflict.models import Conflict
 from conflict.forms import ResponseForm, ResponseUserForm
+from user.forms import ContactForm
 
 import logging
 
@@ -359,3 +360,85 @@ class UserConflictDetail(LoginRequiredMixin, PermissionByGroupMixin, DetailView)
             'form': form
         }
         return render(request, 'dashboard/page-dashboard-user-conflict-review.html', context)
+
+
+class UserMessageView(LoginRequiredMixin, ListView):
+    """Просмотр сообщений у User"""
+    model = UserMessage
+    template_name = 'dashboard/page-dashboard-my-messages.html'
+    context_object_name = 'message'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        user_messages = UserMessage.objects.filter(Q(from_user=user.id) | Q(to_user=user.id))
+        contacts_user = ContactUser.objects.filter(user=user.id)
+
+        context['user_messages'] = user_messages
+        context['user'] = user
+        context['contacts_user'] = contacts_user
+        context['form'] = ContactForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """Добавление участников в контакты пользователя"""
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.cleaned_data.get('contact', [])
+            try:
+                ContactUser.objects.filter(user=self.request.user, contact=contact)[0]
+            except IndexError:
+                if self.request.user != contact:
+                    contact_elem = ContactUser(user=self.request.user, contact=contact)
+                    contact_elem.save()
+            return redirect('dashboard:my-messages')
+        return render(request, 'dashboard/page-dashboard-my-messages.html')
+
+
+class UserMessageParamView(LoginRequiredMixin, ListView):
+    """Просмотр сообщений у User при откртыии страницы с параметрами"""
+    model = UserMessage
+    template_name = 'dashboard/page-dashboard-my-messages.html'
+    context_object_name = 'message'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user  # Пользователь основной
+        id_user_from_pk = self.kwargs['u2']  # UUID пользователя из контактов
+        user_from_pk = User.objects.filter(id=id_user_from_pk)[0]
+        user_messages = UserMessage.objects.filter(
+            Q(from_user=user.id, to_user=user_from_pk) | Q(from_user=user_from_pk, to_user=user.id))
+        self.set_new_message_false(user=user, user_from_pk=user_from_pk)  # устанавливаем информацию о новых сообщениях в false
+
+        contacts_user = ContactUser.objects.filter(user=user.id)
+        context['user_messages'] = user_messages
+        context['user'] = user
+        context['contacts_user'] = contacts_user
+        context['user_from_contact'] = user_from_pk
+        context['id_user_from_pk'] = id_user_from_pk
+        context['id_user'] = user.id
+        context['form'] = ContactForm()
+        return context
+
+    def set_new_message_false(self, user, user_from_pk):
+        """
+        Функция для установки new_messages = False в контактах при открытии окна сообщений контакта
+        """
+        contact = ContactUser.objects.get(user=user.id, contact=user_from_pk)
+        contact.new_messages = False
+        contact.save()
+
+    def post(self, request, *args, **kwargs):
+        """Добавление участников в контакты пользователя"""
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.cleaned_data.get('contact', [])
+            try:
+                ContactUser.objects.filter(user=self.request.user, contact=contact)[0]
+            except IndexError:
+                if self.request.user != contact:
+                    contact_elem = ContactUser(user=self.request.user, contact=contact)
+                    contact_elem.save()
+
+            return redirect('dashboard:my-messages')
+        return render(request, 'dashboard/page-dashboard-my-messages.html')

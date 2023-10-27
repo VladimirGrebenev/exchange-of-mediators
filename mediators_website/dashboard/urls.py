@@ -60,12 +60,12 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-manage-jobs-mediator.html'),
         name='jobs-mediator'
     ),
-    path(
-        'message/',
-        TemplateView.as_view(
-            template_name='dashboard/page-dashboard-message.html'),
-        name='message'
-    ),
+    # path(
+    #     'message/',
+    #     TemplateView.as_view(
+    #         template_name='dashboard/page-dashboard-message.html'),
+    #     name='message'
+    # ),
     path(
         'payouts/',
         TemplateView.as_view(
@@ -107,9 +107,13 @@ urlpatterns = [
     ),
     path(
         'my-messages/',
-        TemplateView.as_view(
-            template_name='dashboard/page-dashboard-my-messages.html'),
+        views.UserMessageView.as_view(),
         name='my-messages'
+    ),
+    path(
+        'my-messages/<uuid:u2>/',
+        views.UserMessageParamView.as_view(),
+        name='my-messages-param'
     ),
     path('mediator/new-conflicts-list/filter-conflicts/', filter_conflicts, name='filter_conflicts'),
 ]

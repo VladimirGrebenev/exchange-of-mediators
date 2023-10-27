@@ -1,8 +1,10 @@
+
 from django.forms import ModelForm, CharField, TextInput, EmailInput, \
-    DateInput, PasswordInput, ValidationError, Textarea
+    DateInput, PasswordInput, ValidationError, Textarea, SelectMultiple, ModelChoiceField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import models
-from .models import User, ContactMessage
+from .models import User, ContactMessage, ContactUser
+
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 
@@ -143,3 +145,21 @@ class ContactMessageForm(ModelForm):
             'placeholder': "Ваше сообщение",
         }),
     }
+
+
+class ContactForm(ModelForm):
+    contact = ModelChoiceField(queryset=User.objects.all())
+    class Meta:
+        model = User
+        fields = ['contact']
+        widgets = {
+            'contact': SelectMultiple(
+                attrs={"placeholder": "Выберите пользователей", "class": "selectpicker"})
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['contact'].queryset = User.objects.all().order_by('lastname')
+        # self.fields['user_contact'].queryset = User.objects.exclude(id__in=self.instance.user_contact.all())
+
+
