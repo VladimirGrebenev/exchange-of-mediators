@@ -130,19 +130,27 @@
                             <h3 class="widget-title">{{ conflict.decide_time }}</h3>
                             <div class="details">
                                 <div class="fl-meta d-flex align-items-center justify-content-between">
-                                    <a class="meta fw500 text-start">Город:<br>
+                                    <a class="meta fw500 text-start mb10">Город:
+                                        <br>
                                       <span class="fz13 fw400">{{ conflict.city }}</span>
                                     </a>
-                                    <a class="meta fw500 text-center">Откликов:<br>
+                                </div>
+                                <div class="fl-meta d-flex align-items-center justify-content-between">
+                                    <a class="meta fw500 text-start mb10">
+                                        Откликов:<br>
                                       <span class="fz13 fw400">{{ conflict.responses.count }}</span>
                                     </a>
-                                    <a class="meta fw500 text-end">Открыт:<br>
+                                </div>
+                                <div class="fl-meta d-flex align-items-center justify-content-between">
+                                    <a class="meta fw500 text-start mb10">
+                                        Открыт:<br>
                                       <span class="fz13 fw400">{{ conflict.created|date:"d.m.Y H:i" }}</span>
                                     </a>
                                 </div>
                             </div>
-                            <br>
-                            <form method="post" class="comments_form mt30 mb30-md" >
+                            {% if conflict.status != 'Завершен' %}
+                            <form method="post"
+                                  class="comments_form mt20 mb30-md" >
                                 {% csrf_token %}
                                 <input type="hidden" name="status" value="Завершен">
                                 <input type="hidden" name="id" value="{{ conflict.id }}">
@@ -154,6 +162,7 @@
                                     </button>
                                 </div>
                             </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
