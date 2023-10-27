@@ -26,28 +26,12 @@
               <div class="service-about">
 
                 <div class="row">
-                  <h3 class="mb30">{{ conflict.title }}</h3>
+                  <h3 class="mb30">Конфликт: {{ conflict.title }}</h3>
                   <h5>Описание конфликта</h5>
                   <p class="text mb30">{{ conflict.description }}</p>
                   <hr class="opacity-100">
                 </div>
-<!--                <div class="row">-->
-<!--                  <h4 class="mb30">Прикреплённые файлы (пока это не трогаем)</h4>-->
-<!--                  <div class="col-6 col-lg-3">-->
-<!--                    <div class="project-attach">-->
-<!--                      <h6 class="title">Договор</h6>-->
-<!--                      <p>PDF</p>-->
-<!--                      <span class="icon flaticon-page"></span>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="col-6 col-lg-3">-->
-<!--                    <div class="project-attach">-->
-<!--                      <h6 class="title">Выписка с банка</h6>-->
-<!--                      <p>PDF</p>-->
-<!--                      <span class="icon flaticon-page"></span>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
+
                 <div class="row">
                   <h4>Категория конфликта</h4>
                   <div class="mb60">
@@ -186,18 +170,18 @@
                   <hr class="opacity-100">
                   <div class="details">
                     <div class="fl-meta d-flex align-items-center justify-content-between">
-                      <a class="meta fw500 text-start">Город<br><span
+                      <a class="meta fw500 text-start mb10">Город:<br><span
                               class="fz14 fw400">{{ conflict.city }}</span></a>
-                      <a class="meta fw500 text-start">Конфликтов<br><span
+                    </div>
+                    <div class="fl-meta d-flex align-items-center justify-content-between">
+                      <a class="meta fw500 text-start mb10">Конфликтов:
+                        <br><span
                               class="fz14 fw400">{{ conflict.creator.created_conflicts.count }}</span></a>
-                      <a class="meta fw500 text-start">На портале с<br><span
+                    </div>
+                    <div class="fl-meta d-flex align-items-center justify-content-between">
+                      <a class="meta fw500 text-start mb10">На портале с:<br><span
                               class="fz14 fw400">{{ conflict.creator.create_at|date:"d.m.Y" }}</span></a>
                     </div>
-                  </div>
-                  <div class="d-grid mt30">
-                    <a href="#"
-                       class="ud-btn btn-white2">Написать клиенту
-                        <i class="fal fa-arrow-right-long"></i></a>
                   </div>
                 </div>
               </div>
