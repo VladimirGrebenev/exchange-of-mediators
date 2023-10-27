@@ -93,20 +93,6 @@
         <div class="message_container">
             <div class="inbox_user_list">
 
-                <div class="iu_heading pr35">
-                <center><form method="POST" action="">
-                    {% csrf_token %}
-                    {{ form.respondents }}
-                    <div class="col-md-12">
-                        <div class="text-start">
-                            <center><button class="ud-btn btn-thm mt10 mb20" type="submit">Добавить участников
-                                <i class="fal fa-arrow-right-long"></i>
-                            </button></center>
-                        </div>
-                    </div>
-                </form></center>
-                </div>
-
                 {% if conflict.respondents.all %}
                 {% for respondent in conflict.respondents.all %}
                 <div class="list-item pt5">
