@@ -20,14 +20,14 @@
 {% block dash-content %}
 
 <div class="row">
-    <div class="col-lg-8 p60">
+    <div class="col-lg-8">
         <div class="column">
             <div class="service-about">
-                <h3>{{ conflict.title }}</h3>
-                    <div class="row">
+                <h3>Конфликт: {{ conflict.title }}</h3>
+                <div class="row mt20">
                     <div class="col-md-6">
                         <a href="{% url 'user-about' conflict.creator.id %}"
-                           class="btn ud-btn btn-thm mb50">
+                           class="btn ud-btn btn-thm mb10">
                             {% if conflict.creator.profile_image %}
                             <img class="img-fluid float-start rounded-circle mr10"
                                  src="{{ conflict.creator.profile_image.url }}"
@@ -41,7 +41,8 @@
                         </a>
                     </div>
                     <div class="col-md-6">
-                        <a href="{% url 'mediator-about' conflict.mediator.id %}" class="btn ud-btn btn-thm mb50">
+                        <a
+                                href="{% url 'mediator-about' conflict.mediator.id %}" class="btn ud-btn btn-thm mb10">
                             {% if conflict.mediator.profile_image %}
                             <img class="img-fluid float-start rounded-circle mr10"
                                  src="{{ conflict.mediator.profile_image.url }}"
@@ -55,40 +56,48 @@
                         </a>
                     </div>
                 </div>
-                <br>
                 <h5>Описание конфликта:</h5>
                 <div class="ps-widget bgc-white bdrs4 p30 mb30 overflow-hidden position-relative">
-                <p class="text mb30">{{ conflict.description }}</p>
+                    <p class="text mb30">{{ conflict.description }}</p>
                 </div>
-
-<!--                <hr class="opacity-100 mb30 mt30">-->
-<!--                <h5 class="mb30">Пригласить в конфликт:</h5>-->
-<!--                <a href="" class="ud-btn btn-white mb25 me-4">Скопировать-->
-<!--                    ссылку-->
-<!--                    приглашения<i class="fal fa-arrow-right-long"></i></a>-->
-
-<!--                <hr class="opacity-100 mb60 mt30">-->
-<!--                <h4 class="mb30">Прикреплённые файлы (пока это нетрогаем)</h4>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-6 col-lg-3">-->
-<!--                        <div class="project-attach">-->
-<!--                            <h6 class="title">Договор</h6>-->
-<!--                            <p>PDF</p>-->
-<!--                            <span class="icon flaticon-page"></span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-6 col-lg-3">-->
-<!--                        <div class="project-attach">-->
-<!--                            <h6 class="title">Выписка с банка</h6>-->
-<!--                            <p>PDF</p>-->
-<!--                            <span class="icon flaticon-page"></span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <button type="button" class="ud-btn btn-gray me-2"-->
-<!--                        data-bs-toggle="tooltip" data-bs-placement="right"-->
-<!--                        title="Tooltip on right">Добавить документ-->
-<!--                </button>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="column mt50">
+            <div class="service-about">
+                <div class="column">
+                    <div class="price-widget pt25 bdrs8">
+                        <div class="details">
+                            <div class="fl-meta d-flex align-items-center justify-content-between">
+                                <a class="meta fw500 text-start">Город:<br>
+                                  <span class="fz13 fw400">{{ conflict.city }}</span>
+                                </a>
+                            </div>
+                            <div class="fl-meta d-flex align-items-center justify-content-between">
+                                <a class="meta fw500 text-start">Конфликт открыт:<br>
+                                  <span class="fz13 fw400">{{ conflict.created|date:"d.m.Y H:i" }}</span>
+                                </a>
+                                {% if conflict.status == 'Завершен' %}
+                                <a class="meta fw500 text-start">Закрыт:<br>
+                                  <span class="fz13 fw400">{{ conflict.closed_at|date:"d.m.Y H:i" }}</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <form method="post" action=""
+                              class="comments_form mt20 mb30-md" >
+                            {% csrf_token %}
+                            <input type="hidden" name="status" value="Завершен">
+                            <input type="hidden" name="id" value="{{ conflict.id }}">
+                            <div class="d-grid">
+                                <button type="submit" class="ud-btn btn-dark">Закрыть конфликт
+                                    <i class="fa fa-arrow-right-long"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -133,13 +142,6 @@
                                         </div>
                                     </div>
                                     <div class="switch-style1">
-<!--                                        <div-->
-<!--                                                class="form-check form-switch ml20 mb20">-->
-<!--                                            <input class="form-check-input"-->
-<!--                                                   type="checkbox"-->
-<!--                                                   id="flexSwitchCheckDefault1"-->
-<!--                                                   checked="checked">-->
-<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -154,264 +156,217 @@
                     </div>
                     {% endif %}
                 </div>
-<!--                <div class="iu_heading pr35">-->
-<!--                    <div class="chat_user_search">-->
-<!--                        <form class="d-flex align-items-center">-->
-<!--                            <button class="btn" type="submit"><span-->
-<!--                                    class="far fa-magnifying-glass"></span>-->
-<!--                            </button>-->
-<!--                            <input class="form-control" type="search"-->
-<!--                                   placeholder=" Искать" aria-label="Search">-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
+
             </div>
         </div>
     </div>
-                <div class="col-lg-4">
-                <div class="column">
-                    <div class="blog-sidebar ms-lg-auto">
-                        <div class="price-widget pt25 bdrs8">
-                            <p class="text fz14">Ваша цена:</p>
-                            <h3 class="widget-title">{{ conflict.fixed_price }} &#x20bd</h3>
-                            <p class="text fz14">Ваши сроки:</p>
-                            <h3 class="widget-title">{{ conflict.decide_time }}</h3>
-                            <div class="details">
-                                <div class="fl-meta d-flex align-items-center justify-content-between">
-                                    <a class="meta fw500 text-start">Город:<br>
-                                      <span class="fz13 fw400">{{ conflict.city }}</span>
-                                    </a>
-                                    <a class="meta fw500 text-end">Открыт:<br>
-                                      <span class="fz13 fw400">{{ conflict.created|date:"d.m.Y H:i" }}</span>
-                                    </a>
-                                    {% if conflict.status == 'Завершен' %}
-                                    <a class="meta fw500 text-end">Закрыт:<br>
-                                      <span class="fz13 fw400">{{ conflict.closed_at|date:"d.m.Y H:i" }}</span>
-                                    </a>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <br>
-                            <form method="post" action="" class="comments_form mt30 mb30-md" >
-                                {% csrf_token %}
-                                <input type="hidden" name="status" value="Завершен">
-                                <input type="hidden" name="id" value="{{ conflict.id }}">
-                                <div class="d-grid">
-                                    <button type="submit" class="ud-btn btn-dark">Закрыть конфликт
-                                        <i class="fa fa-arrow-right-long"></i>
-                                    </button>
-                                </div>
-                            </form>
+
+    <div class="col-lg-6 col-xl-7 col-xxl-8">
+        <h5>Комментарии:</h5>
+        <div class="message_container mt30-md">
+            <div class="user_heading px-0 mx30">
+                <div class="wrap">
+                    <img class="img-fluid mr10"
+                         src="{% static 'images/inbox/ms3.png' %}"
+                         alt="ms3.png">
+                    <div class="meta d-sm-flex justify-content-sm-between align-items-center">
+                        <div class="authors">
+                            <h6 class="name mb-0">Arlene McCoy</h6>
+                            <p class="preview">Active</p>
                         </div>
                     </div>
                 </div>
             </div>
-<!--    <div class="col-lg-6 col-xl-7 col-xxl-8">-->
-<!--        <h5>Комментарии:</h5>-->
-<!--        <div class="message_container mt30-md">-->
-<!--            <div class="user_heading px-0 mx30">-->
-<!--                <div class="wrap">-->
-<!--                    <img class="img-fluid mr10"-->
-<!--                         src="{% static 'images/inbox/ms3.png' %}"-->
-<!--                         alt="ms3.png">-->
-<!--                    <div class="meta d-sm-flex justify-content-sm-between align-items-center">-->
-<!--                        <div class="authors">-->
-<!--                            <h6 class="name mb-0">Arlene McCoy</h6>-->
-<!--                            <p class="preview">Active</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="inbox_chatting_box" style="">-->
-<!--                <ul class="chatting_content">-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms4.png' %}"-->
-<!--                                 alt="ms4.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>How likely are you to recommend our company to your-->
-<!--                            friends and family?</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms5.png' %}"-->
-<!--                                 alt="ms5.png">-->
-<!--                        </div>-->
-<!--                        <p>Hey there, we’re just writing to let you know that-->
-<!--                            you’ve been subscribed to a repository on-->
-<!--                            GitHub.</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms5.png"-->
-<!--                                 alt="ms5.png' %}">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>Ok, Understood!</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms5.png' %}"-->
-<!--                                 alt="ms5.png">-->
-<!--                        </div>-->
-<!--                        <p>The project finally complete! Let's go to!.</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>Let's go!</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>simply dummy text of the printing and typesetting-->
-<!--                            industry. Lorem Ipsum has been the industry's</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>Hello, John!</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
-<!--                                 alt="ms3.png">-->
-<!--                        </div>-->
-<!--                        <p>simply dummy text of the printing and typesetting-->
-<!--                            industry. Lorem Ipsum has been the industry's</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
-<!--                                 alt="ms3.png">-->
-<!--                        </div>-->
-<!--                        <p>Are we meeting today?</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
-<!--                                 alt="ms3.png">-->
-<!--                        </div>-->
-<!--                        <p>The project finally complete! Let's go to!</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>Let's go!</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>simply dummy text of the printing and typesetting-->
-<!--                            industry. Lorem Ipsum has been the industry's</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
-<!--                                 alt="ms3.png">-->
-<!--                        </div>-->
-<!--                        <p>Are we meeting today?</p>-->
-<!--                    </li>-->
-<!--                    <li class="reply float-end">-->
-<!--                        <div class="d-flex align-items-center justify-content-end mb15">-->
-<!--                            <div class="title fz15"><small class="mr10">35-->
-<!--                                mins</small> You-->
-<!--                            </div>-->
-<!--                            <img class="img-fluid rounded-circle align-self-end ml10"-->
-<!--                                 src="{% static 'images/inbox/ms3.png' %}"-->
-<!--                                 alt="ms3.png">-->
-<!--                        </div>-->
-<!--                        <p>The project finally complete! Let's go to!</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>Let's go!</p>-->
-<!--                    </li>-->
-<!--                    <li class="sent float-start">-->
-<!--                        <div class="d-flex align-items-center mb15">-->
-<!--                            <img class="img-fluid rounded-circle align-self-start mr10"-->
-<!--                                 src="{% static 'images/inbox/ms2.png' %}"-->
-<!--                                 alt="ms2.png">-->
-<!--                            <div class="title fz15">Albert Flores <small-->
-<!--                                    class="ml10">35 mins</small></div>-->
-<!--                        </div>-->
-<!--                        <p>simply dummy text of the printing and typesetting-->
-<!--                            industry. Lorem Ipsum has been the industry's</p>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--            <div class="mi_text">-->
-<!--                <div class="message_input">-->
-<!--                    <form class="d-flex align-items-center">-->
-<!--                        <input class="form-control" type="search"-->
-<!--                               placeholder="Напиши комментарий"-->
-<!--                               aria-label="Search">-->
-<!--                        <button class="btn ud-btn btn-thm">Отправить<i-->
-<!--                                class="fal fa-arrow-right-long"></i></button>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+            <div class="inbox_chatting_box" style="">
+                <ul class="chatting_content">
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms4.png' %}"
+                                 alt="ms4.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>How likely are you to recommend our company to your
+                            friends and family?</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms5.png' %}"
+                                 alt="ms5.png">
+                        </div>
+                        <p>Hey there, we’re just writing to let you know that
+                            you’ve been subscribed to a repository on
+                            GitHub.</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms5.png"
+                                 alt="ms5.png' %}">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>Ok, Understood!</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms5.png' %}"
+                                 alt="ms5.png">
+                        </div>
+                        <p>The project finally complete! Let's go to!.</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>Let's go!</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>Hello, John!</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
+                        </div>
+                        <p>simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
+                        </div>
+                        <p>Are we meeting today?</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
+                        </div>
+                        <p>The project finally complete! Let's go to!</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>Let's go!</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
+                        </div>
+                        <p>Are we meeting today?</p>
+                    </li>
+                    <li class="reply float-end">
+                        <div class="d-flex align-items-center justify-content-end mb15">
+                            <div class="title fz15"><small class="mr10">35
+                                mins</small> You
+                            </div>
+                            <img class="img-fluid rounded-circle align-self-end ml10"
+                                 src="{% static 'images/inbox/ms3.png' %}"
+                                 alt="ms3.png">
+                        </div>
+                        <p>The project finally complete! Let's go to!</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>Let's go!</p>
+                    </li>
+                    <li class="sent float-start">
+                        <div class="d-flex align-items-center mb15">
+                            <img class="img-fluid rounded-circle align-self-start mr10"
+                                 src="{% static 'images/inbox/ms2.png' %}"
+                                 alt="ms2.png">
+                            <div class="title fz15">Albert Flores <small
+                                    class="ml10">35 mins</small></div>
+                        </div>
+                        <p>simply dummy text of the printing and typesetting
+                            industry. Lorem Ipsum has been the industry's</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="mi_text">
+                <div class="message_input">
+                    <form class="d-flex align-items-center">
+                        <input class="form-control" type="search"
+                               placeholder="Напиши комментарий"
+                               aria-label="Search">
+                        <button class="btn ud-btn btn-thm">Отправить<i
+                                class="fal fa-arrow-right-long"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock dash-content %}
