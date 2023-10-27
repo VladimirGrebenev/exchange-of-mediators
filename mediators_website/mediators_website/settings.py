@@ -11,7 +11,8 @@ load_dotenv(BASE_DIR.parent / '.env')
 
 SECRET_KEY = 'django-insecure-761_!a*22u-1r4c5l&xupo&@kpz)j5bs1xaq5mk#^xvg6_ta44'
 
-DEBUG = os.getenv('DJANGO_DEBUG', True)
+# DEBUG = os.getenv('DJANGO_DEBUG', True)
+DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -202,9 +203,10 @@ LOGGING = {
 ASGI_APPLICATION = 'mediators_website.asgi.application'
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6380)],
-        },
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+        # "BACKEND": "channels_redis.core.RedisChannelLayer",
+        # "CONFIG": {
+        #     "hosts": [("127.0.0.1", 6380)],
+        # },
     },
 }
