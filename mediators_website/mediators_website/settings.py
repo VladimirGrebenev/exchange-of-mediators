@@ -102,7 +102,7 @@ else:
             "ENGINE": os.getenv("DJANGO_DB_ENGINE", "django.db.backends.postgresql"),
             "NAME": os.getenv("DJANGO_DB_NAME", "mediators"),
             "USER": os.getenv("DJANGO_DB_USER", "admin"),
-            "PASSWORD": os.getenv("DJANGO_DB_PASSWORD", "password"),
+            "PASSWORD": os.getenv("DJANGO_DB_PASSWORD", "alexeyr"),
             "HOST": os.getenv("DJANGO_DB_HOST", "localhost"),
             "PORT": int(os.getenv("DJANGO_DB_PORT", 5432)),
         }
@@ -202,10 +202,9 @@ LOGGING = {
 ASGI_APPLICATION = 'mediators_website.asgi.application'
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-        # "BACKEND": "channels_redis.core.RedisChannelLayer",
-        # "CONFIG": {
-        #     "hosts": [("127.0.0.1", 6380)],
-        # },
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6380)],
+        },
     },
 }
