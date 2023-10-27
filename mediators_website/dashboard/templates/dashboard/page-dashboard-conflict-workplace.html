@@ -85,6 +85,7 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% if conflict.status == 'В работе' %}
                         <form method="post" action=""
                               class="comments_form mt20 mb30-md" >
                             {% csrf_token %}
@@ -96,6 +97,7 @@
                                 </button>
                             </div>
                         </form>
+                        {% endif %}
                     </div>
                 </div>
             </div>
