@@ -181,3 +181,11 @@ class ContactUser(models.Model):
                                 related_name='user_contact',
                                 verbose_name=_("От пользователя")
                                 )
+    new_messages = models.BooleanField(default=False, verbose_name=_("Есть новые сообщения"))
+    last_message_time = models.DateTimeField(auto_now_add=True,
+                                             verbose_name=_("Время последнего сообщения"))
+
+    class Meta:
+        ordering = ['-last_message_time']
+        verbose_name = _("Контакт пользлвателя")
+        verbose_name_plural = _("Контакты пользлвателя")

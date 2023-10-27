@@ -134,12 +134,6 @@ class UserConflictWorkplacelView(LoginRequiredMixin, DetailView):
         context['room_name'] = kwargs['object'].pk
         conflict_messages = ConflictMessage.objects.filter(conflict_id=room)
         context['conflict_messages'] = conflict_messages
-        # for obj in conflict_messages:
-        #     print(f'------ conflict = { obj.user.firstname} ')
-        # print(f'------ conflict = {conflict} ')
-        # print(kwargs['object'].pk, dir(kwargs['object']))
-        # print('+++++++++++', kwargs['Conflict'])
-
         context['form'] = RespondentsForm()
         return context
 
@@ -169,9 +163,6 @@ class MediatorConflictWorkplacelView(LoginRequiredMixin, DetailView):
         context['room_name'] = kwargs['object'].pk
         conflict_messages = ConflictMessage.objects.filter(conflict_id=room)
         context['conflict_messages'] = conflict_messages
-
-        # print(kwargs['object'].pk, dir(kwargs['object']))
-        # print('+++++++++++', kwargs['Conflict'])
         return context
 
     def post(self, request, *args, **kwargs):

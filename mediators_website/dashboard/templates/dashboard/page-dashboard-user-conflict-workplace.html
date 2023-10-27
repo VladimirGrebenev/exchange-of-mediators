@@ -71,24 +71,14 @@
         <h5>Стороны конфликта:</h5>
         <div class="message_container">
             <div class="inbox_user_list">
-<!--                <div class="iu_heading pr35">-->
-<!--                    <div class="chat_user_search">-->
-<!--                        <form class="d-flex align-items-center">-->
-<!--                            <button class="btn" type="submit"><span-->
-<!--                                    class="far fa-magnifying-glass"></span>-->
-<!--                            </button>-->
-<!--                            <input class="form-control" type="search"-->
-<!--                                   placeholder=" Искать" aria-label="Search">-->
-<!--                        </form>-->
-<!--                    </div>-->
-<!--                </div>-->
+
                 <div class="iu_heading pr35">
                 <center><form method="POST" action="">
                     {% csrf_token %}
                     {{ form.respondents }}
                     <div class="col-md-12">
                         <div class="text-start">
-                            <center><button class="ud-btn btn-thm" type="submit">Добавить участников
+                            <center><button class="ud-btn btn-thm mt10 mb20" type="submit">Добавить участников
                                 <i class="fal fa-arrow-right-long"></i>
                             </button></center>
                         </div>
@@ -137,26 +127,14 @@
                 <div class="message_input">
 <!--                    <form class="d-flex align-items-center">-->
                         <input id="chat-message-input" class="form-control" type="search"
-                               placeholder="Напиши комментарий"
+                               placeholder="Текст сообщения"
                                aria-label="Search">
-                        <button id="chat-message-submit" class="btn ud-btn btn-thm">Отправить<i
+                        <button id="chat-message-submit" class="btn ud-btn btn-thm mt10 mb20">Отправить<i
                                 class="fal fa-arrow-right-long"></i></button>
 <!--                    </form>-->
                 </div>
         </div>
         <div class="message_container mt30-md">
-            <div class="user_heading px-0 mx30">
-                <div class="wrap">
-                    <img class="img-fluid mr10" src="{% static 'images/inbox/ms3.png' %}"
-                         alt="ms3.png">
-                    <div class="meta d-sm-flex justify-content-sm-between align-items-center">
-                        <div class="authors">
-                            <h6 class="name mb-0">Arlene McCoy</h6>
-                            <p class="preview">на связи</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div  class="inbox_chatting_box" style="">
                 <ul  id="chat-log" class="chatting_content">
@@ -172,181 +150,16 @@
                         <p>{{ message.message }}</p>
                     </li>
                     {% endfor %}
-
-
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
-                        </div>
-                        <p>Hey there, we’re just writing to let you know that
-                            you’ve been subscribed to a repository on
-                            GitHub.</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms5.png" alt="ms5.png' %}">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>Ok, Understood!</p>
-                    </li>
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms5.png' %}" alt="ms5.png">
-                        </div>
-                        <p>The project finally complete! Let's go to!.</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>Let's go!</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>Hello, John!</p>
-                    </li>
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                        </div>
-                        <p>simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's</p>
-                    </li>
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                        </div>
-                        <p>Are we meeting today?</p>
-                    </li>
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                        </div>
-                        <p>The project finally complete! Let's go to!</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>Let's go!</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's</p>
-                    </li>
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                        </div>
-                        <p>Are we meeting today?</p>
-                    </li>
-                    <li class="reply float-end">
-                        <div class="d-flex align-items-center justify-content-end mb15">
-                            <div class="title fz15"><small class="mr10">35
-                                mins</small> You
-                            </div>
-                            <img class="img-fluid rounded-circle align-self-end ml10"
-                                 src="{% static 'images/inbox/ms3.png' %}" alt="ms3.png">
-                        </div>
-                        <p>The project finally complete! Let's go to!</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>Let's go!</p>
-                    </li>
-                    <li class="sent float-start">
-                        <div class="d-flex align-items-center mb15">
-                            <img class="img-fluid rounded-circle align-self-start mr10"
-                                 src="{% static 'images/inbox/ms2.png' %}" alt="ms2.png">
-                            <div class="title fz15">Albert Flores <small
-                                    class="ml10">35 mins</small></div>
-                        </div>
-                        <p>simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's</p>
-                    </li>
                 </ul>
             </div>
-<!--            <div class="mi_text">-->
-<!--                <div class="message_input">-->
-<!--&lt;!&ndash;                    <form class="d-flex align-items-center">&ndash;&gt;-->
-<!--                        <input id="chat-message-input" class="form-control" type="search"-->
-<!--                               placeholder="Напиши комментарий"-->
-<!--                               aria-label="Search">-->
-<!--                        <button id="chat-message-submit" class="btn ud-btn btn-thm">Отправить<i-->
-<!--                                class="fal fa-arrow-right-long"></i></button>-->
-<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </div>
 
-<!--<textarea id="chat-log-old" cols="100" rows="10"></textarea><br>-->
-<!--    <input id="chat-message-input-old" type="text" size="100"><br>-->
-<!--    <input id="chat-message-submit-old" type="button" value="Send">-->
     {{ room_name|json_script:"room-name" }}
     {{ sender_firstname|json_script:"sender-firstname" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        console.log('RoomName is ==', roomName)
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -356,20 +169,13 @@
             + '/'
         );
 
-        console.log('chatSoket is ==', chatSocket)
-
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            console.log('data is ', data)
-            document.querySelector('#chat-log').value += (data.sender_lastname + '  ' + data.sender_firstname + ' ' + data.message + '\n');
 
-             var block = document.createElement('li');
-<!--            var li_text = data.message-->
+            var block = document.createElement('li');
             var html_block = '<div class="d-flex align-items-center mb15">' + '<div class="title fz15">' + data.sender_firstname + ' ' + data.sender_lastname + '<small class="ml10">' + data.message_time + '</small></div></div><p>' + data.message + '</p>'
             block.innerHTML = html_block
-            console.log(block);
             ul_block = document.querySelectorAll('#chat-log')[0];
-            console.log(ul_block);
             ul_block.prepend(block);
         };
 

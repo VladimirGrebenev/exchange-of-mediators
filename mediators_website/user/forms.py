@@ -124,8 +124,6 @@ class ContactForm(ModelForm):
     contact = ModelChoiceField(queryset=User.objects.all())
     class Meta:
         model = User
-        print(dir(ContactUser))
-
         fields = ['contact']
         widgets = {
             'contact': SelectMultiple(
@@ -134,6 +132,6 @@ class ContactForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['contact'].queryset = User.objects.all()
+        self.fields['contact'].queryset = User.objects.all().order_by('lastname')
         # self.fields['user_contact'].queryset = User.objects.exclude(id__in=self.instance.user_contact.all())
 
