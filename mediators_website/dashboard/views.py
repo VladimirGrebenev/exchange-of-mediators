@@ -87,37 +87,11 @@ class UserDashboardListConflictsView(LoginRequiredMixin,
     allowed_groups = ('user',)
     model = Conflict
     template_name = 'dashboard/page-dashboard-manage-jobs.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         user = self.request.user
-#         # Filter conflicts created by the user and not deleted
-#         conflicts = Conflict.objects.filter(
-#             Q(creator=user) | Q(respondents=user), deleted=False)
-#         # context['conflicts'] = conflicts
-#         # return context
-#         # Создаем пагинатор только для conflicts
-#         paginator = Paginator(conflicts, self.paginate_by)
-#         page = self.request.GET.get(
-#             'page')  # Получаем текущий номер страницы из запроса
-#         conflicts_page = paginator.get_page(
-#             page)  # Получаем конфликты для текущей страницы
-#         context['conflicts'] = conflicts_page
-#         return context
-
     context_object_name = 'conflicts'
-    paginate_by = 10 # Количество конфликтов на одной странице
+    paginate_by = 5 # Количество конфликтов на одной странице
 
     def get_queryset(self):
         return Conflict.objects.filter(Q(creator=self.request.user) | Q(respondents=self.request.user)).distinct()
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     user = self.request.user
-    #     # Filter conflicts created by the user and not deleted
-    #     conflicts = Conflict.objects.filter(
-    #         Q(creator=user) | Q(respondents=user), deleted=False)
-    #     context['conflicts'] = conflicts
-    #     return context
 
 
 class MediatorDashboardListConflictsView(LoginRequiredMixin,
@@ -137,7 +111,6 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
         conflicts = list(set(new_conflicts) | set(work_conflicts))
         print(Conflict.objects.filter(mediator=self.request.user).count())
         return conflicts
-
 
 
 class MediatorsDashboardNewConflictsListView(LoginRequiredMixin,
