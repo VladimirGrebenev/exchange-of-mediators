@@ -36,7 +36,8 @@
                     {{ form.contact }}
                     <div class="col-md-12">
                         <div class="text-start">
-                            <center><button class="ud-btn btn-thm mb20 mt10" type="submit">Добавить участников
+                            <center><button class="ud-btn btn-thm mb20 mt10"
+                                            type="submit">Добавь адресатов
                                 <i class="fal fa-arrow-right-long"></i>
                             </button></center>
                         </div>
@@ -70,13 +71,6 @@
                                         {% if contact.new_messages == True %}<div class="m_notif"></div> {% endif %}
                                     </div>
                                     <div class="switch-style1">
-<!--                                        <div-->
-<!--                                                class="form-check form-switch ml20 mb20">-->
-<!--                                            <input class="form-check-input"-->
-<!--                                                   type="checkbox"-->
-<!--                                                   id="flexSwitchCheckDefault1"-->
-<!--                                                   checked="checked">-->
-<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +80,7 @@
                     {% else %}
                     <div class="chat-member-list pr20">
                         <div class="fz15 fw500 dark-color ff-heading mb-0">
-                            Участников пока нет
+                            Список адресатов пуст
                         </div>
                     </div>
                     {% endif %}
@@ -187,7 +181,7 @@
         <div class="message_container mt30-md">
             <div class="user_heading px-0 mx30">
                 <div class="wrap">
-                    <p>Не выбран адрессат</p>
+                    <p>Выбери адресата</p>
                 </div>
             </div>
         </div>

@@ -174,5 +174,6 @@ class RespondentsForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['respondents'].queryset = BasicUser.objects.exclude(id__in=self.instance.respondents.all())
+        self.fields['respondents'].queryset = BasicUser.objects.exclude(
+            id__in=self.instance.respondents.all()).order_by('lastname')
 

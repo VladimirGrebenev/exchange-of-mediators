@@ -60,12 +60,6 @@ urlpatterns = [
             template_name='dashboard/page-dashboard-manage-jobs-mediator.html'),
         name='jobs-mediator'
     ),
-    # path(
-    #     'message/',
-    #     TemplateView.as_view(
-    #         template_name='dashboard/page-dashboard-message.html'),
-    #     name='message'
-    # ),
     path(
         'payouts/',
         TemplateView.as_view(
