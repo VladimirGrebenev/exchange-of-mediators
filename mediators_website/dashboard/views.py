@@ -129,24 +129,15 @@ class MediatorDashboardListConflictsView(LoginRequiredMixin,
     template_name = 'dashboard/page-dashboard-manage-job-mediator.html'
     model = Conflict
     context_object_name = 'conflicts'
-    paginate_by = 3  # Количество конфликтов на одной странице
+    paginate_by = 5
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        # Filter conflicts created by the user and not deleted
-        work_conflicts = Conflict.objects.filter(mediator=user, deleted=False)
-        new_conflicts = Conflict.objects.filter(responses__mediator=user)
+    def get_queryset(self):
+        work_conflicts = Conflict.objects.filter(mediator=self.request.user, deleted=False)
+        new_conflicts = Conflict.objects.filter(responses__mediator=self.request.user)
         conflicts = list(set(new_conflicts) | set(work_conflicts))
+        print(Conflict.objects.filter(mediator=self.request.user).count())
+        return conflicts
 
-        # Создаем пагинатор только для conflicts
-        paginator = Paginator(conflicts, self.paginate_by)
-        page = self.request.GET.get(
-            'page')  # Получаем текущий номер страницы из запроса
-        conflicts_page = paginator.get_page(
-            page)  # Получаем конфликты для текущей страницы
-        context['conflicts'] = conflicts_page
-        return context
 
 
 class MediatorsDashboardNewConflictsListView(LoginRequiredMixin,
