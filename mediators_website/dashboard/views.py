@@ -21,9 +21,6 @@ from user.forms import ContactForm
 
 import logging
 
-# from conflict.forms import ConflictForm
-# from conflict.views import ConflictCreateView
-
 
 class DashboardDispatcherView(LoginRequiredMixin, View):
     """
@@ -53,7 +50,15 @@ class UserDashboardView(LoginRequiredMixin, PermissionByGroupMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['conflicts'] = sample_queryset(Conflict, 3)
+        user = self.request.user
+        conflicts = Conflict.objects.filter(Q(creator=self.request.user) | Q(respondents=self.request.user)).distinct()
+        new_conflicts = conflicts.filter(status='Новый')
+        completed_conflicts = conflicts.filter(status='Завершен')
+        active_conflicts = conflicts.exclude(status='Завершен')
+        context['user'] = user
+        context['completed_conflicts'] = completed_conflicts
+        context['active_conflicts'] = active_conflicts
+        context['new_conflicts'] = new_conflicts
         return context
 
 
@@ -183,24 +188,30 @@ def filter_conflicts(request):
 class UserDashboardListConflictStatusNew(UserDashboardListConflictsView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['conflicts'] = self.request.user.created_conflicts.filter(
-            status='Новый').all()
+        conflicts = Conflict.objects.filter(Q(creator=self.request.user) | Q(
+            respondents=self.request.user)).distinct()
+        new_conflicts = conflicts.filter(status='Новый')
+        context['conflicts'] = new_conflicts
         return context
 
 
 class UserDashboardListConflictStatusInWork(UserDashboardListConflictsView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['conflicts'] = self.request.user.created_conflicts.filter(
-            status='В работе').all()
+        conflicts = Conflict.objects.filter(Q(creator=self.request.user) | Q(
+            respondents=self.request.user)).distinct()
+        active_conflicts = conflicts.exclude(status='Завершен')
+        context['conflicts'] = active_conflicts
         return context
 
 
 class UserDashboardListConflictStatusCompleted(UserDashboardListConflictsView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['conflicts'] = self.request.user.created_conflicts.filter(
-            status='Завершен').all()
+        conflicts = Conflict.objects.filter(Q(creator=self.request.user) | Q(
+            respondents=self.request.user)).distinct()
+        completed_conflicts = conflicts.filter(status='Завершен')
+        context['conflicts'] = completed_conflicts
         return context
 
 
