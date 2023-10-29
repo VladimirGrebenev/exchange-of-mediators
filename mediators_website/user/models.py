@@ -45,7 +45,7 @@ class User(PermissionsMixin, AbstractBaseUser):
     USERNAME_FIELD = 'email'
 
     def __str__(self):
-        return f'{self.lastname}, {self.email}'
+        return f'{self.lastname} {self.firstname}, {self.email}'
 
     def average_rating(self):
         """Вывод среднего рейтинга медиатора"""
